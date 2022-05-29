@@ -14,7 +14,7 @@ if (!v4.primaryAddress && !v6.primaryAddress) {
     'icon-color': '#CB1B45',
   });
 } else {
-  $httpClient.get('https://raw.githubusercontent.com/tasi788/Whosis-Sayings/master/public/saying.txt', function (error, response, data) {
+  $httpClient.get('https://raw.githubusercontent.com/bm131488bm/Surge/main/public/saying_1.txt?token=GHSAT0AAAAAABT3MA2BTCEWWBFXLPM2FVO6YUS2NMA', function (error, response, data) {
     if (error) {
       $done({
         title: '鐧肩敓閷',
