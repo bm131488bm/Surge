@@ -6,4 +6,4 @@
 functionstatus = script-name=functionstatus, title="Surge", content="请刷新", update-interval=60
 
 [Script]
-functionstatus = type=generic, script-path=https://raw.githubusercontent.com/smartmimi/conf/master/surge/functionstatus.js
+functionstatus = type=generic, script-path=https://raw.githubusercontent.com/bm131488bm/Surge/main/functionstatus.js?token=GHSAT0AAAAAABT3MA2BHOTISNDHPD6ZUV66YUSX6PA
