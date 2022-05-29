@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+  <head>
+    <meta charset="utf-8" />
+    <title>┌(┌^o^)┐</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.8.2/css/bulma.min.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Rubik&display=swap" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <script type="text/javascript">
+      // HTTP => HTTPS
+      if (location.protocol !== 'https:' && location.hostname !== 'localhost') {
+        location.protocol = 'https:'
+      }
+    </script>
+    <style>
+      html {
+        background-color: #18232c;
+      }
+
+      [v-cloak] {
+        display: none;
+      }
+
+      .box {
+        margin: 10% 20% auto 20%;
+        font-size: 40px;
+      }
+
+      .content small {
+        color: gray;
+      }
+
+      #icon>img {
+        border-radius: 50%;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div id="app" class="container">
+      <div class="box" v-cloak>
+        <article class="media">
+          <div class="media-left">
+            <figure class="image is-64x64" id="icon">
+              <img :src="avatar" alt="Image">
+              <span class="icon"></span>
+            </figure>
+          </div>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>{{ name }}</strong> <small>@{{ uname }}</small> <small> · 1m</small>
+                <br>
+                <span>{{ message }}</span>
+                <!-- 好ㄉ小ㄉ知道ㄖ -->
+              </p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+    <script src="public/main.js"></script>
+  </body>
+
+</html>
