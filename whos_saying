@@ -1,0 +1,38 @@
+const { v4, v6 } = $network;
+
+const displayName = {
+  'Shawn_N': '$韪綆鍚� 鍏槑 NONO 楹汇剻銊熼夯銊欍劅',
+  'hirakujira': 'Hiraku',
+  'bill85101': '妫柕',
+};
+
+if (!v4.primaryAddress && !v6.primaryAddress) {
+  $done({
+    title: '娌掓湁缍茶矾',
+    content: '灏氭湭閫ｆ帴缍查殯缍茶矾\n璜嬫鏌ョ恫闅涚恫璺媭鎱嬪緦閲嶈│',
+    icon: 'wifi.exclamationmark',
+    'icon-color': '#CB1B45',
+  });
+} else {
+  $httpClient.get('https://raw.githubusercontent.com/tasi788/Whosis-Sayings/master/public/saying.txt', function (error, response, data) {
+    if (error) {
+      $done({
+        title: '鐧肩敓閷',
+        content: '鐒℃硶鎴愬姛鐛插緱璩囨枡\n璜嬫鏌ョ恫闅涚恫璺媭鎱嬪緦閲嶈│',
+        icon: 'wifi.exclamationmark',
+        'icon-color': '#CB1B45',
+      });
+    }
+
+    const saying = data.split(';').slice(0, -1).map(x => x.trim());
+    const idx = Math.floor(Math.random() * saying.length);
+    const selectedSaying = saying[idx].split(',');
+    const title = displayName[selectedSaying[0]] ? displayName[selectedSaying[0]] : selectedSaying[0];
+    $done({
+      title: title + '锛�',
+      content: selectedSaying[1],
+      icon: 'quote.bubble',
+      'icon-color': '#28cd41',
+    });
+  });
+}
