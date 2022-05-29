@@ -8,9 +8,18 @@ functionstatus = script-name=functionstatus, title="Surge", content="请刷新",
 # 节假日查询
 timecard = script-name=timecard,update-interval=3600
 
+#流量统计
+TrafficStatistics = script-name=TrafficStatistics,update-interval=1
+
+net-info-panel=title="网络状态",content="请刷新",style=info,script-name=net-info-panel
+
 [Script]
 functionstatus = type=generic, script-path=https://raw.githubusercontent.com/bm131488bm/Surge/main/functionstatus.js?token=GHSAT0AAAAAABT3MA2BHOTISNDHPD6ZUV66YUSX6PA
 
 # 节假日提醒
 timecard= type=generic,timeout=10,script-path=https://raw.githubusercontent.com/smartmimi/conf/master/surge/timecard.js
+
+#流量统计 点击以切换网络界面
+TrafficStatistics = type=generic,timeout=10,script-path= https://raw.githubusercontent.com/fishingworld/something/main/PanelScripts/trafficstatistics.js ,argument=icon=arrow.up.arrow.down.circle&color=#5d84f8
+
 
