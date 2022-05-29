@@ -3,16 +3,14 @@
 #!system=ios
 
 [Panel]
-NetInfoPanel=title="",content="",style=info,script-name=net-info-panel.js,update-interval=1
+#网络状态
+net-info-panel=title="网络状态",content="请刷新",style=info,script-name=net-info-panel,update-interval=1
 
 #机场信息
 Sub_info = script-name=Sub_info,update-interval = 43200
 
 #策略组面板 可重复配置 注意修改相应字段
 groupPanel= script-name=groupPanel,update-interval=5
-
-#网络状态
-net-info-panel=title="网络状态",content="请刷新",style=info,script-name=net-info-panel
 
 [Script]
 #网络状态
