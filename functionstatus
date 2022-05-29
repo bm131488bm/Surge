@@ -10,8 +10,7 @@ timecard = script-name=timecard,update-interval=3600
 
 #流量统计
 TrafficStatistics = script-name=TrafficStatistics,update-interval=1
-
-net-info-panel=title="网络状态",content="请刷新",style=info,script-name=net-info-panel
+#net-info-panel=title="网络状态",content="请刷新",style=info,script-name=net-info-panel
 
 [Script]
 functionstatus = type=generic, script-path=https://raw.githubusercontent.com/bm131488bm/Surge/main/functionstatus.js?token=GHSAT0AAAAAABT3MA2BHOTISNDHPD6ZUV66YUSX6PA
