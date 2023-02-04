@@ -2,4 +2,4 @@
 #!desc=IQDNS公共DOQ
 
 [General]
-doh-server = %APPEND% quic://cn-east.ovo.glass
+doh-server = %APPEND% https://cn-east.iqiqzz.com/dns-query
