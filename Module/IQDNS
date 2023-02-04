@@ -1,0 +1,5 @@
+#!name=IQDNS
+#!desc=IQDNS公共DOQ
+
+[General]
+doh-server = %APPEND% quic://cn-east.ovo.glass
