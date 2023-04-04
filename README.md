@@ -3,4 +3,4 @@
 
 <div align="center"> <img src="https://github-profile-trophy.vercel.app/?username=sun0225SUN" /> </div>
 <div align="center"> <img src="https://activity-graph.herokuapp.com/graph?username=sun0225SUN&theme=xcode" /> </div>
-<h1 align="center"> <a href="https://sunguoqi.com/"> <img src="https://readme-typing-svg.herokuapp.com/?lines=console.log(%22Hello%2C%20World!%22);反正也是骠剽窃别人的!&center=true&size=27"> </a> </h1>
+<h1 align="center"> <a href="https://sunguoqi.com/"> <img src="https://readme-typing-svg.herokuapp.com/?lines=今天天气不错(%22Hello%2C%20World!%22);反正也是骠剽窃别人的!&center=true&size=27"> </a> </h1>
