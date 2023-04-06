@@ -59,7 +59,7 @@ DOMAIN-SET,https://raw.githubusercontent.com/bm131488bm/Surge/main/surge/Rules/W
 # Speedtest
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Speedtest/Speedtest.list,DIRECT,update-interval=10800 // Speedtest
 
-# 规则修正
+# 规则修正--修复后续规则误拦截行为
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Direct/Direct.list,DIRECT,update-interval=10800 // 规则修正
 
 # 反劫持
@@ -68,14 +68,17 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 # 隐私保护
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy.list,REJECT,update-interval=10800 // 隐私保护
 DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy_Domain.list,REJECT // 隐私保护
+
+# 去广告（anti-ad）
 DOMAIN-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge2.txt,REJECT // 去广告
 
 # Chat-List
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Chat,update-interval=10800 // Reddit
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Chat,update-interval=10800 // Discord
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Chat,update-interval=10800 // Twitter
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Chat,update-interval=10800 // Telegram
+#RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Chat,update-interval=10800 // Telegram
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Chat,update-interval=10800 // Instagram
+RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,Chat,update-interval=10800 // Instagram-asn
 
 # Spotify
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify // Spotify
@@ -92,6 +95,8 @@ RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/apple.list,APPLE /
 # RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/cn.list,DIRECT,update-interval=10800 // China
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax.list,DIRECT,update-interval=10800 // China
 DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax_Domain.list,DIRECT // China
+# China-ASN（替代GEOIP）
+RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,DIRECT
 
 # Other
 DOMAIN-SUFFIX,cn,DIRECT
@@ -100,9 +105,10 @@ DOMAIN-SUFFIX,ls.apple.com,DIRECT // Apple Maps
 DOMAIN-SUFFIX,store.apple.com,DIRECT // Apple Store Online
 RULE-SET,SYSTEM,Proxy
 
-# 以下规则将触发本地 DNS 解析
+# 注：以下规则将触发本地 DNS 解析
 RULE-SET,LAN,DIRECT
-GEOIP,CN,DIRECT
+# 注：开启ASN-China 的情况下、关闭GEOIP的相关分流--二者选其一
+#GEOIP,CN,DIRECT
 FINAL,Final,dns-failed
 
 [MITM]
