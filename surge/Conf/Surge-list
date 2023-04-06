@@ -54,7 +54,7 @@ FC = url-test, policy-path=https://sub.store/download/Flower-test, interval=600,
 
 [Rule]
 # Warp
-DOMAIN-SET,https://raw.githubusercontent.com/bm131488bm/Surge/main/surge/Rules/Warp.list,Warp
+DOMAIN-SET,https://raw.githubusercontent.com/bm131488bm/Surge/main/surge/Rules/Warp.list,Warp,update-interval=10800
 
 # Speedtest
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Speedtest/Speedtest.list,DIRECT,update-interval=10800 // Speedtest
@@ -67,10 +67,11 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 
 # 隐私保护
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy.list,REJECT,update-interval=10800 // 隐私保护
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy_Domain.list,REJECT // 隐私保护
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy_Domain.list,REJECT,update-interval=10800 // 隐私保护
 
 # 去广告（anti-ad）
-DOMAIN-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge2.txt,REJECT // 去广告
+DOMAIN-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge2.txt,REJECT,update-interval=10800 // 去广告
+RULE-SET,https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adblock4limbo_surge.list,REJECT,update-interval=10800 //毒奶去广告
 
 # Chat-List
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Chat,update-interval=10800 // Reddit
@@ -81,22 +82,23 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,Chat,update-interval=10800 // Instagram-asn
 
 # Spotify
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify // Spotify
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify,update-interval=10800 // Spotify
 
 # Global
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy.list,Proxy,update-interval=10800 // Global
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy_Domain.list,DIRECT // Global
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy_Domain.list,Proxy,update-interval=10800 // Global
 # RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/blocked.list,Proxy,update-interval=10800
 
 # Apple
-RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/apple.list,APPLE // Apple
+RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/apple.list,APPLE,update-interval=10800 // Apple
 
 # China
 # RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/cn.list,DIRECT,update-interval=10800 // China
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax.list,DIRECT,update-interval=10800 // China
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax_Domain.list,DIRECT // China
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax_Domain.list,DIRECT,update-interval=10800 // China
+
 # China-ASN（替代GEOIP）
-RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,DIRECT
+RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,DIRECT,update-interval=10800
 
 # Other
 DOMAIN-SUFFIX,cn,DIRECT
