@@ -31,6 +31,7 @@ allow-hotspot-access = true
 udp-policy-not-supported-behaviour = reject
 
 [Proxy]
+# Warp 策略组
 WARP+JP = wireguard, section-name=Cloudflare, underlying-proxy=JP, test-url=http://cp.cloudflare.com/generate_204
 WARP+HK = wireguard, section-name=Cloudflare, underlying-proxy=HK, test-url=http://cp.cloudflare.com/generate_204
 WARP+SG = wireguard, section-name=Cloudflare, underlying-proxy=SG, test-url=http://cp.cloudflare.com/generate_204
@@ -41,18 +42,20 @@ WARP = wireguard, section-name=Cloudflare, test-url=http://cp.cloudflare.com/gen
 Proxy = select, DelrCloud, Texon, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
 DelrCloud = select, HK-V, IEPL, DC-A, JP, SG, TW, US, no-alert=0, hidden=0, include-all-proxies=0
 Final = select, Proxy, Warp, DIRECT
+Streaming = select, Proxy, HK-V, JP, SG, TW, US
 Chat = select, Proxy, Warp, DIRECT
 Warp = url-test, WARP, WARP+JP, WARP+HK, WARP+SG, WARP+US
 Speedtest = select, Proxy, Warp, DIRECT
 APPLE = select, Proxy, DIRECT
 Spotify = select, Proxy, HK-V, JP, SG, TW, US, DIRECT
-HK-V = url-test, policy-regex-filter=IEPL, no-alert=0, hidden=0, include-all-proxies=0, include-other-group=DlerCloud-VMESS, update-interval=86400, interval=600
-DC-A = url-test, policy-path=https://sub.store/download/DlerCloud-ss, interval=600, tolerance=50, policy-regex-filter=(Aliyun), update-interval=86400, hidden=0, no-alert=0, include-all-proxies=0
-IEPL = url-test, policy-regex-filter=IEPL, no-alert=0, hidden=0, include-all-proxies=0, include-other-group=DlerCloud-IEPL, update-interval=86400, interval=600
 
-# 墙洞
-DlerCloud-IEPL = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN, interval=600, tolerance=50, update-interval=86400, hidden=1, no-alert=0, include-all-proxies=0, policy-regex-filter=IEPL, persistent=1
-DlerCloud-VMESS = url-test, policy-path=机场订阅, interval=600, tolerance=50, update-interval=86400, hidden=1, no-alert=0, include-all-proxies=0, policy-regex-filter=IEPL, persistent=1
+# 节点筛选组
+# DlerCloud-IEPL筛选
+HK-V = url-test, include-other-group=DlerCloud-VMESS, policy-regex-filter=IEPL, no-alert=0, hidden=0, interval=600, include-all-proxies=0, tolerance=50, update-interval=86400
+# DlerCloud-Aliyun筛选
+DC-A = url-test, include-other-group=DlerCloud-SS, policy-regex-filter=(Aliyun), no-alert=0, hidden=0, interval=600, include-all-proxies=0, update-interval=86400
+# DlerCloud-IEPL筛选
+IEPL = url-test, include-other-group=DlerCloud-IEPL, policy-regex-filter=IEPL, no-alert=0, hidden=0, interval=600, include-all-proxies=0, tolerance=50, update-interval=86400
 
 # 筛选节点组
 HK = url-test, policy-path=https://sub.store/download/collection/Warp, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1
@@ -61,14 +64,23 @@ JP = url-test, policy-path=https://sub.store/download/collection/Warp, interval=
 SG = url-test, policy-path=https://sub.store/download/collection/Warp, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1
 US = url-test, policy-path=https://sub.store/download/collection/Warp, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1
 
-# 菜市场 
+# 机场节点组
+# 墙洞-Torjan
+DlerCloud-IEPL = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN, interval=600, tolerance=50, update-interval=86400, hidden=1, no-alert=0, include-all-proxies=0, policy-regex-filter=IEPL, persistent=1
+# 墙洞-Vmess
+DlerCloud-VMESS = url-test, policy-path=机场订阅, interval=600, tolerance=50, update-interval=86400, hidden=1, no-alert=0, include-all-proxies=0, policy-regex-filter=IEPL, persistent=1
+# 墙洞-SS
+DlerCloud-SS = url-test, policy-path=https://sub.store/download/DlerCloud-ss, interval=600, tolerance=50, update-interval=86400, hidden=1, no-alert=0, include-all-proxies=0, policy-regex-filter=IEPL, persistent=1
+# Texon-Torjan 
 Texon = url-test, policy-path=https://sub.store/download/Texon-New, interval=600, tolerance=50, update-interval=86400, hidden=0
-# 花云
+# FlowerCloud-Torjan
 FC = url-test, policy-path=https://sub.store/download/Flower-test, interval=600, tolerance=50, update-interval=86400, hidden=0
+# Amy-SS
+FC = url-test, policy-path=https://sub.store/download/Amy, interval=600, tolerance=50, update-interval=86400, hidden=0
 
 [Rule]
 # Warp
-DOMAIN-SET,https://raw.githubusercontent.com/bm131488bm/Surge/main/surge/Rules/Warp.list,Warp,update-interval=10800
+DOMAIN-SET,https://raw.githubusercontent.com/bm131488bm/Surge/main/surge/Rules/Warp.list,Warp,update-interval=10800 // Warp
 
 # Speedtest
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Speedtest/Speedtest.list,DIRECT,update-interval=10800 // Speedtest
@@ -78,7 +90,7 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 
 # 去广告（anti-ad）
 DOMAIN-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge2.txt,REJECT,update-interval=10800 // 去广告
-RULE-SET,https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adblock4limbo_surge.list,REJECT,update-interval=10800 //毒奶去广告
+RULE-SET,https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adblock4limbo_surge.list,REJECT,update-interval=10800 // 奶去广告
 
 # 隐私保护
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy.list,REJECT,update-interval=10800 // 隐私保护
@@ -93,7 +105,13 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Chat,update-interval=10800 // Twitter
 #RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Chat,update-interval=10800 // Telegram
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Chat,update-interval=10800 // Instagram
-RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,Chat,update-interval=10800 // Instagram-asn
+RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,Chat,update-interval=10800 // Telegram-asn
+
+# Global-Media
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list,Streaming,update-interval=10800 // Youtube
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia.list,Streaming,update-interval=10800 // GlobalMedia
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_Domain.list.list,Streaming,update-interval=10800 // GlobalMedia
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Disney/Disney.list,Streaming,update-interval=10800 // Disney
 
 # Spotify
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify,update-interval=10800 // Spotify
@@ -101,7 +119,7 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 # Global
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy.list,Proxy,update-interval=10800 // Global
 DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy_Domain.list,Proxy,update-interval=10800 // Global
-# RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/blocked.list,Proxy,update-interval=10800
+# RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/blocked.list,Proxy,update-interval=10800 // Global
 
 # Apple
 RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/apple.list,APPLE,update-interval=10800 // Apple
@@ -112,7 +130,7 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax_Domain.list,DIRECT,update-interval=10800 // China
 
 # China-ASN（替代GEOIP）
-RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,DIRECT,update-interval=10800
+RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,DIRECT,update-interval=10800 // China-ASN
 
 # Other
 DOMAIN-SUFFIX,cn,DIRECT
