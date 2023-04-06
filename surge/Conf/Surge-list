@@ -1,10 +1,15 @@
-# Surge 最小配置+个人优化
+# Surge 最小配置+DivineEngine+个人优化
 [General]
 skip-proxy = 192.168.0.0/24, 10.0.0.0/8, 172.16.0.0/12, 127.0.0.1, localhost, *.local
 exclude-simple-hostnames = true
-internet-test-url = http://taobao.com/
-proxy-test-url = http://www.apple.com/
-test-timeout = 2
+
+# > Internet 测试 URL
+internet-test-url = http://wifi.vivo.com.cn/generate_204
+# > 代理测速 URL
+proxy-test-url = http://cp.cloudflare.com/generate_204
+# > 测试超时（秒）
+test-timeout = 5
+
 dns-server = 223.5.5.5, 114.114.114.114
 # encrypted-dns-server = https://223.5.5.5/ // 除非当地 ISP 有严重的 DNS 污染问题，否则没必要开启 DoH，传统 DNS 的性能最优，网络异常后恢复速度最快
 wifi-assist = true
@@ -12,9 +17,18 @@ ipv6 = false
 ipv6-vif = disabled
 allow-wifi-access = false
 udp-priority = true
+
+# > 自定义 GeoIP 数据库
 geoip-maxmind-url = https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb
+
+# > 当遇到 REJECT 策略时返回错误页
+show-error-page-for-reject = true
+
 all-hybrid = false
 allow-hotspot-access = true
+
+# 如果没有代理服务器支持 UDP 转发，可修改为「 direct 」或注释下条，但需注意同一目标主机名 TCP 请求与 UDP 请求的源地址不同所造成的隐私及安全风险。
+udp-policy-not-supported-behaviour = reject
 
 [Proxy]
 WARP+JP = wireguard, section-name=Cloudflare, underlying-proxy=JP, test-url=http://cp.cloudflare.com/generate_204
@@ -62,16 +76,16 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 # 规则修正--修复后续规则误拦截行为
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Direct/Direct.list,DIRECT,update-interval=10800 // 规则修正
 
-# 反劫持
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Hijacking/Hijacking.list,REJECT,update-interval=10800 // 反劫持
+# 去广告（anti-ad）
+DOMAIN-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge2.txt,REJECT,update-interval=10800 // 去广告
+RULE-SET,https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adblock4limbo_surge.list,REJECT,update-interval=10800 //毒奶去广告
 
 # 隐私保护
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy.list,REJECT,update-interval=10800 // 隐私保护
 DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy_Domain.list,REJECT,update-interval=10800 // 隐私保护
 
-# 去广告（anti-ad）
-DOMAIN-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge2.txt,REJECT,update-interval=10800 // 去广告
-RULE-SET,https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adblock4limbo_surge.list,REJECT,update-interval=10800 //毒奶去广告
+# 反劫持
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Hijacking/Hijacking.list,REJECT,update-interval=10800 // 反劫持
 
 # Chat-List
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Chat,update-interval=10800 // Reddit
@@ -114,7 +128,7 @@ AND,((PROTOCOL,UDP), (DEST-PORT,443)),REJECT-NO-DROP
 AND,((PROTOCOL,UDP), (DOMAIN-SUFFIX,googlevideo.com)),REJECT-NO-DROP
 
 # Safari 防跳转
-DOMAIN,app-site-association.cdn-apple.com,Reject
+DOMAIN,app-site-association.cdn-apple.com,REJECT
 
 # Boxjs 代理
 DOMAIN-KEYWORD,jsdelivr.net,Proxy
