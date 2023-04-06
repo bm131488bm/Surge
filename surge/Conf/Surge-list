@@ -47,7 +47,7 @@ WARP = wireguard, section-name=Cloudflare, test-url=http://cp.cloudflare.com/gen
 Proxy = select, Airport, DIRECT
 Airport = select, DelrCloud, Texon, Amy, FC
 DelrCloud = select, Vmess, IEPL, Aliyun, JP, SG, TW, US
-Texon = select, HK-T, JP_T, SG_T, TW_T, US_T
+Texon = select, HK_T, JP_T, SG_T, TW_T, US_T
 Amy = select, HK_A, JP_A, SG_A, TW_A, US_A
 Final = select, Proxy, Warp, DIRECT
 Streaming = select, Proxy, Vmess, FC, Texon, DIRECT
