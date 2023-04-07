@@ -1,35 +1,27 @@
-# Surge 最小配置+DivineEngine+个人优化
 [General]
 skip-proxy = 192.168.0.0/24, 10.0.0.0/8, 172.16.0.0/12, 127.0.0.1, localhost, *.local
 exclude-simple-hostnames = true
-
 # > Internet 测试 URL
 internet-test-url = http://wifi.vivo.com.cn/generate_204
 # > 代理测速 URL
 proxy-test-url = http://cp.cloudflare.com/generate_204
 # > 测试超时（秒）
 test-timeout = 5
-
 dns-server = 223.5.5.5, 114.114.114.114
 # encrypted-dns-server = https://223.5.5.5/ // 除非当地 ISP 有严重的 DNS 污染问题，否则没必要开启 DoH，传统 DNS 的性能最优，网络异常后恢复速度最快
 wifi-assist = true
-ipv6 = false
-ipv6-vif = disabled
+ipv6 = true
+ipv6-vif = auto
 allow-wifi-access = false
 udp-priority = true
-
 # > 自定义 GeoIP 数据库
 geoip-maxmind-url = https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb
-
 # > 当遇到 REJECT 策略时返回错误页
 show-error-page-for-reject = true
-
 all-hybrid = false
 allow-hotspot-access = true
-
 # 如果没有代理服务器支持 UDP 转发，可修改为「 direct 」或注释下条，但需注意同一目标主机名 TCP 请求与 UDP 请求的源地址不同所造成的隐私及安全风险。
 udp-policy-not-supported-behaviour = reject
-
 # Http-api-用于Warp连接校验
 http-api = Nocio@0.0.0.0:6171
 http-api-tls = false
@@ -37,59 +29,43 @@ http-api-web-dashboard = true
 
 [Proxy]
 # Warp 策略组
-WARP+JP = wireguard, section-name=Cloudflare, underlying-proxy=JP_T, test-url=http://cp.cloudflare.com/generate_204
-WARP+HK = wireguard, section-name=Cloudflare, underlying-proxy=HK, test-url=http://cp.cloudflare.com/generate_204
-WARP+SG = wireguard, section-name=Cloudflare, underlying-proxy=SG_T, test-url=http://cp.cloudflare.com/generate_204
-WARP+US = wireguard, section-name=Cloudflare, underlying-proxy=US, test-url=http://cp.cloudflare.com/generate_204
-WARP = wireguard, section-name=Cloudflare, test-url=http://cp.cloudflare.com/generate_204
+Warp+JP = wireguard, section-name=Cloudflare, underlying-proxy=JP, test-url=http://cp.cloudflare.com/generate_204
+Warp+HK = wireguard, section-name=Cloudflare, underlying-proxy=HK, test-url=http://cp.cloudflare.com/generate_204
+Warp+SG = wireguard, section-name=Cloudflare, underlying-proxy=SG, test-url=http://cp.cloudflare.com/generate_204
+Warp+US = wireguard, section-name=Cloudflare, underlying-proxy=US, test-url=http://cp.cloudflare.com/generate_204
+Warp = wireguard, section-name=Cloudflare, test-url=http://cp.cloudflare.com/generate_204
 
 [Proxy Group]
-Proxy = select, Airport, DIRECT
+Proxy = select, Airport, WARP, DIRECT
+Global = select, Proxy, WARP
+Final = select, Proxy, WARP, DIRECT
 Airport = select, DelrCloud, Texon, Amy, FC
-DelrCloud = select, Vmess, IEPL, Aliyun, JP, SG, TW, US
+DelrCloud = select, HK, JP, SG, TW, US
 Texon = select, HK_T, JP_T, SG_T, TW_T, US_T
 Amy = select, HK_A, JP_A, SG_A, TW_A, US_A
-Final = select, Proxy, Warp, DIRECT
-Streaming = select, Proxy, Vmess, FC, Texon, DIRECT
-Chat = select, Proxy, Warp, DIRECT
-Warp = url-test, WARP, WARP+JP, WARP+HK, WARP+SG, WARP+US
-Speedtest = select, Proxy, Warp, DIRECT
+Streaming = select, Proxy, WARP, DIRECT
+Chat = select, Proxy, WARP, DIRECT
+WARP = url-test, Warp, Warp+JP, Warp+HK, Warp+SG, Warp+US
+Speedtest = select, Proxy, WARP, DIRECT
 APPLE = select, Proxy, DIRECT
 Spotify = select, Proxy, HK, JP, SG, TW, US, DIRECT
 
-# 节点筛选组
-# DlerCloud-IEPL筛选
-Vmess = url-test, include-other-group=DlerCloud-VMESS, policy-regex-filter=IEPL, no-alert=0, hidden=0, interval=600, tolerance=50, update-interval=86400
-# DlerCloud-Aliyun筛选
-Aliyun = url-test, include-other-group=DlerCloud-SS, policy-regex-filter=Aliyun, no-alert=0, hidden=0, interval=600, tolerance=50 update-interval=86400
-# DlerCloud-IEPL筛选
-IEPL = url-test, include-other-group=DlerCloud-IEPL, policy-regex-filter=IEPL, no-alert=0, hidden=0, interval=600, tolerance=50, update-interval=86400
-
-# 机场节点组
-# 墙洞-Torjan
-DlerCloud-IEPL = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN, interval=600, tolerance=50, update-interval=86400, hidden=1, policy-regex-filter=IEPL, persistent=1
-# 墙洞-Vmess
-DlerCloud-VMESS = url-test, policy-path=?, interval=600, tolerance=50, update-interval=86400, hidden=1, policy-regex-filter=IEPL, persistent=1
-# 墙洞-SS
-DlerCloud-SS = url-test, policy-path=https://sub.store/download/DlerCloud-ss, interval=600, tolerance=50, update-interval=86400, hidden=1, persistent=1
-
-# FlowerCloud-Torjan
+# ------机场订阅组
+# FlowerCliud-Torjan
 FC = url-test, policy-path=https://sub.store/download/Flower-test, interval=600, tolerance=50, update-interval=86400, hidden=0
 
 # 筛选节点组--DlerCloud
-HK = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1
-TW = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1
-JP = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1
-SG = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1
-US = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1
-
+HK = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1
+TW = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1
+JP = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1
+SG = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1
+US = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1
 # 筛选节点组--Amy
 HK_A = url-test, policy-path=https://sub.store/download/Amy, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1
 TW_A = url-test, policy-path=https://sub.store/download/Amy, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1
 JP_A = url-test, policy-path=https://sub.store/download/Amy, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1
 SG_A = url-test, policy-path=https://sub.store/download/Amy, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1
 US_A = url-test, policy-path=https://sub.store/download/Amy, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1
-
 # 筛选节点组--Texon
 HK_T = url-test, policy-path=https://sub.store/download/Texon-New, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1
 TW_T = url-test, policy-path=https://sub.store/download/Texon-New, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1
@@ -97,90 +73,71 @@ JP_T = url-test, policy-path=https://sub.store/download/Texon-New, interval=600,
 SG_T = url-test, policy-path=https://sub.store/download/Texon-New, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1
 US_T = url-test, policy-path=https://sub.store/download/Texon-New, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1
 
-
-
 [Rule]
+DOMAIN-KEYWORD,jmapi,DIRECT
 # Warp
-OR,((IP-CIDR,1.1.1.1/32,no-resolve), (IP-CIDR6,2606:4700:4700::1111/128,no-resolve), (DOMAIN-SUFFIX,cloudflareclient.com)),WARP // Warp-Tool
-#DOMAIN-SET,https://raw.githubusercontent.com/ExaAlice/Alice/main/Rule/WARP.list,Warp,update-interval=10800 // Warp-list
-
+OR,((IP-CIDR,1.1.1.1/32,no-resolve), (IP-CIDR6,2606:4700:4700::1111/128,no-resolve), (DOMAIN-SUFFIX,cloudflareclient.com)),Warp // Warp-Tool
+# DOMAIN-SET,https://raw.githubusercontent.com/ExaAlice/Alice/main/Rule/WARP.list,Warp // Warp-list
 # Speedtest
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Speedtest/Speedtest.list,DIRECT,update-interval=10800 // Speedtest
-
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Speedtest/Speedtest.list,DIRECT // Speedtest
 # 规则修正--修复后续规则误拦截行为
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Direct/Direct.list,DIRECT,update-interval=10800 // 规则修正
-
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Direct/Direct.list,DIRECT // 规则修正
 # 去广告（anti-ad）
-DOMAIN-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge2.txt,REJECT,update-interval=10800 // 去广告
-RULE-SET,https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adblock4limbo_surge.list,REJECT,update-interval=10800 // 奶去广告
-
+# DOMAIN-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge2.txt,REJECT // 去广告
+RULE-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge.txt,REJECT // 去广告
+RULE-SET,https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adblock4limbo_surge.list,REJECT // 奶去广告
 # 隐私保护
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy.list,REJECT,update-interval=10800 // 隐私保护
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy_Domain.list,REJECT,update-interval=10800 // 隐私保护
-
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy.list,REJECT // 隐私保护
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy_Domain.list,REJECT // 隐私保护
 # 反劫持
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Hijacking/Hijacking.list,REJECT,update-interval=10800 // 反劫持
-
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Hijacking/Hijacking.list,REJECT // 反劫持
 # Chat-List
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Chat,update-interval=10800 // Reddit
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Chat,update-interval=10800 // Discord
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Chat,update-interval=10800 // Twitter
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Chat,update-interval=10800 // Instagram
-RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,Chat,update-interval=10800 // Telegram-asn
-#RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Chat,update-interval=10800 // Telegram
-
-
-
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Chat // Reddit
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Chat // Discord
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Chat // Twitter
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Chat // Instagram
+RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,Chat // Telegram-asn
+# RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Chat // Telegram
 # Global-Media
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list,Streaming,update-interval=10800 // Youtube
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia.list,Streaming,update-interval=10800 // GlobalMedia
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_Domain.list,Streaming,update-interval=10800 // GlobalMedia
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Disney/Disney.list,Streaming,update-interval=10800 // Disney
-
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list,Streaming // Youtube
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia.list,Streaming // GlobalMedia
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_Domain.list,Streaming // GlobalMedia
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Disney/Disney.list,Streaming // Disney
 # Spotify
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify,update-interval=10800 // Spotify
-
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify // Spotify
 # Global
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy.list,Proxy,update-interval=10800 // Global
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy_Domain.list,Proxy,update-interval=10800 // Global
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy.list,Global // Global
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy_Domain.list,Global // Global
 # RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/blocked.list,Proxy,update-interval=10800 // Global
-
 # Apple
-RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/apple.list,APPLE,update-interval=10800 // Apple
-
+RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/apple.list,APPLE // Apple
 # China
 # RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/cn.list,DIRECT,update-interval=10800 // China
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax.list,DIRECT,update-interval=10800 // China
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax_Domain.list,DIRECT,update-interval=10800 // China
-
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax.list,DIRECT // China
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax_Domain.list,DIRECT // China
 # China-ASN（替代GEOIP）
-RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,DIRECT,update-interval=10800 // China-ASN
-
+# RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,DIRECT // China-ASN
 # Other
 DOMAIN-SUFFIX,cn,DIRECT
 DOMAIN,apps.apple.com,Proxy
 DOMAIN-SUFFIX,ls.apple.com,DIRECT // Apple Maps
 DOMAIN-SUFFIX,store.apple.com,DIRECT // Apple Store Online
 RULE-SET,SYSTEM,Proxy
-
 # 屏蔽HTTP3/QUIC协议
 # 阻止所有UDP流量进入443端口，使HTTP3请求回落到TCP流量。
 AND,((PROTOCOL,UDP), (DEST-PORT,443)),REJECT-NO-DROP
 # 屏蔽YouTube的UDP
 AND,((PROTOCOL,UDP), (DOMAIN-SUFFIX,googlevideo.com)),REJECT-NO-DROP
-
 # Safari 防跳转
 DOMAIN,app-site-association.cdn-apple.com,REJECT
-
 # Boxjs 代理
 DOMAIN-KEYWORD,jsdelivr.net,Proxy
 # Sub-Store 的 Web 页面
 DOMAIN-SUFFIX,vercel.app,Proxy
-
 # 注：以下规则将触发本地 DNS 解析
 RULE-SET,LAN,DIRECT
 # 注：开启ASN-China 的情况下、关闭GEOIP的相关分流--二者选其一
-#GEOIP,CN,DIRECT
+GEOIP,CN,DIRECT
 FINAL,Final,dns-failed
 
 [MITM]
@@ -194,6 +151,8 @@ ca-p12 = MIIKPAIBAzCCCgYGCSqGSIb3DQEHAaCCCfcEggnzMIIJ7zCCBF8GCSqGSIb3DQEHBqCCBFA
 private-key = AJi0JRmP7suttX/x2x8IRRL4yimf710vhdH88+AU/34=
 self-ip = 172.16.0.2
 self-ip-v6 = 2606:4700:110:8566:1285:f0fb:b8b5:296f
+prefer-ipv6 = true
 dns-server = 162.159.36.1, 2606:4700:4700::1111
 mtu = 1380
 peer = (public-key = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=, allowed-ips = "0.0.0.0/0, ::0/0", endpoint = 162.159.193.4:2408, keepalive = 45, client-id = 55/211/92)
+
