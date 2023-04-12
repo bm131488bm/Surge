@@ -1,41 +1,101 @@
 [General]
 skip-proxy = 192.168.0.0/24, 10.0.0.0/8, 172.16.0.0/12, 127.0.0.1, localhost, *.local
 exclude-simple-hostnames = true
+
 # > Internet 测试 URL
 internet-test-url = http://wifi.vivo.com.cn/generate_204
+
 # > 代理测速 URL
 proxy-test-url = http://cp.cloudflare.com/generate_204
+
 # > 测试超时（秒）
 test-timeout = 5
+
+# > DNS 服务器 (如无必要不建议使用 DNS over HTTPS)
 dns-server = 223.5.5.5, 114.114.114.114
 # encrypted-dns-server = https://223.5.5.5/ // 除非当地 ISP 有严重的 DNS 污染问题，否则没必要开启 DoH，传统 DNS 的性能最优，网络异常后恢复速度最快
+
+# > 增强版 Wi-Fi 助理
+# (在 Wi-Fi 网络不佳时尝试使用数据网络建立连接，请仅当使用不限量的数据流量时开启)
 wifi-assist = true
+
+# > IPv6 支持
 ipv6 = true
 ipv6-vif = auto
+
+# > 允许 Wi-Fi 访问 (仅 iOS，若允许远程访问将「false」改为「true」)
 allow-wifi-access = false
 udp-priority = true
+
 # > 自定义 GeoIP 数据库
 geoip-maxmind-url = https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb
+
 # > 当遇到 REJECT 策略时返回错误页
 show-error-page-for-reject = true
+
+# > Always Real IP Hosts
+always-real-ip = *.msftconnecttest.com, *.msftncsi.com, *.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com, *.logon.battlenet.com.cn, *.logon.battle.net, stun.l.google.com
+
+# > VIF Excluded Routes
+tun-excluded-routes = 239.255.255.250/32
+
+# > 排除简单主机名
+exclude-simple-hostnames = true
 all-hybrid = false
-allow-hotspot-access = true
-# 如果没有代理服务器支持 UDP 转发，可修改为「 direct 」或注释下条，但需注意同一目标主机名 TCP 请求与 UDP 请求的源地址不同所造成的隐私及安全风险。
+allow-hotspot-access = false
+
+# > 如果没有代理服务器支持 UDP 转发，可修改为「 direct 」或注释下条，但需注意同一目标主机名 TCP 请求与 UDP 请求的源地址不同所造成的隐私及安全风险。
 udp-policy-not-supported-behaviour = reject
-# Http-api-用于Warp连接校验
-http-api = Nocio@0.0.0.0:6171
+
+# > 从 /etc/hosts 读取 DNS 记录
+read-etc-hosts = true
+
+# > 日志级别
+loglevel = notify
+
+# > Http-api-用于Warp连接校验
+http-api = Nocio@0.0.0.0:6166
 http-api-tls = false
 http-api-web-dashboard = true
 
+
+[Replica]
+# 0 为关闭，1 为开启
+
+# > 隐藏 Apple 请求
+hide-apple-request = 0
+
+# > 隐藏崩溃追踪器请求
+hide-crash-reporter-request = 1
+
+# > 隐藏 UDP 会话
+hide-udp = 0
+
+# > 关键词过滤器
+# none（关闭关键词过滤器） / whitelist（blacklist（仅记录包含关键字的请求）） / blacklist（仅记录不包含关键字的请求） / pattern（匹配通配符的请求）
+# keyword-filter-type = none
+
+# > 关键词
+# keyword-filter = (null)
+
+
 [Proxy]
-# Warp 策略组
+# 策略组
+# > Warp+JP
 Warp+JP = wireguard, section-name=Cloudflare, underlying-proxy=JP, test-url=http://cp.cloudflare.com/generate_204
+# > Warp+HK
 Warp+HK = wireguard, section-name=Cloudflare, underlying-proxy=HK, test-url=http://cp.cloudflare.com/generate_204
+# > Warp+SG
 Warp+SG = wireguard, section-name=Cloudflare, underlying-proxy=SG, test-url=http://cp.cloudflare.com/generate_204
+# > Warp+US
 Warp+US = wireguard, section-name=Cloudflare, underlying-proxy=US, test-url=http://cp.cloudflare.com/generate_204
+# > Warp+FallBack
+Warp+FB = wireguard, section-name=Cloudflare, underlying-proxy=DC, test-url=http://cp.cloudflare.com/generate_204
+# > Warp+Direct
 Warp = wireguard, section-name=Cloudflare, test-url=http://cp.cloudflare.com/generate_204
 
 [Proxy Group]
+# 代理策略组
 Proxy = select, Airport, WARP, DIRECT
 Global = select, Proxy, WARP
 Final = select, Proxy, WARP, DIRECT
@@ -44,101 +104,153 @@ DelrCloud = select, HK, JP, SG, TW, US
 Texon = select, HK_T, JP_T, SG_T, TW_T, US_T
 Amy = select, HK_A, JP_A, SG_A, TW_A, US_A
 Streaming = select, Proxy, WARP, DIRECT
-Chat = select, Proxy, WARP, DIRECT
-WARP = url-test, Warp, Warp+JP, Warp+HK, Warp+SG, Warp+US
+Social = select, Proxy, WARP, DIRECT
+WARP = select, Warp, Warp+FB
 Speedtest = select, Proxy, WARP, DIRECT
 APPLE = select, Proxy, DIRECT
 Spotify = select, Proxy, HK, JP, SG, TW, US, DIRECT
 
-# ------机场订阅组
+# > 机场订阅组
 # FlowerCliud-Torjan
 FC = url-test, policy-path=https://sub.store/download/Flower-test, interval=600, tolerance=50, update-interval=86400, hidden=0
-
-# 筛选节点组--DlerCloud
+DC = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, interval=600, tolerance=50, update-interval=86400, hidden=0
+# > 筛选节点组--DlerCloud
 HK = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1
 TW = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1
 JP = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1
 SG = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1
 US = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1
-# 筛选节点组--Amy
+# > 筛选节点组--Amy
 HK_A = url-test, policy-path=https://sub.store/download/Amy, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1
 TW_A = url-test, policy-path=https://sub.store/download/Amy, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1
 JP_A = url-test, policy-path=https://sub.store/download/Amy, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1
 SG_A = url-test, policy-path=https://sub.store/download/Amy, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1
 US_A = url-test, policy-path=https://sub.store/download/Amy, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1
-# 筛选节点组--Texon
+# > 筛选节点组--Texon
 HK_T = url-test, policy-path=https://sub.store/download/Texon-New, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1
 TW_T = url-test, policy-path=https://sub.store/download/Texon-New, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1
 JP_T = url-test, policy-path=https://sub.store/download/Texon-New, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1
 SG_T = url-test, policy-path=https://sub.store/download/Texon-New, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1
 US_T = url-test, policy-path=https://sub.store/download/Texon-New, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1
+FallBack = load-balance, persistent=1, policy-regex-filter=IEPL, no-alert=1, hidden=0, include-all-proxies=0, include-other-group=DC
 
 [Rule]
+# 规则组
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Emby/Emby.list,Texon
 DOMAIN-KEYWORD,jmapi,DIRECT
-# Warp
+
+# > Warp
 OR,((IP-CIDR,1.1.1.1/32,no-resolve), (IP-CIDR6,2606:4700:4700::1111/128,no-resolve), (DOMAIN-SUFFIX,cloudflareclient.com)),Warp // Warp-Tool
 # DOMAIN-SET,https://raw.githubusercontent.com/ExaAlice/Alice/main/Rule/WARP.list,Warp // Warp-list
-# Speedtest
+
+# > Speedtest
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Speedtest/Speedtest.list,DIRECT // Speedtest
-# 规则修正--修复后续规则误拦截行为
+
+# > 规则修正--修复后续规则误拦截行为
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Direct/Direct.list,DIRECT // 规则修正
-# 去广告（anti-ad）
-# DOMAIN-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge2.txt,REJECT // 去广告
+
+# > 去广告（anti-ad）
+# > DOMAIN-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge2.txt,REJECT // 去广告
 RULE-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge.txt,REJECT // 去广告
 RULE-SET,https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adblock4limbo_surge.list,REJECT // 奶去广告
-# 隐私保护
+
+# > 隐私保护
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy.list,REJECT // 隐私保护
 DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy_Domain.list,REJECT // 隐私保护
-# 反劫持
+
+# > 反劫持
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Hijacking/Hijacking.list,REJECT // 反劫持
-# Chat-List
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Chat // Reddit
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Chat // Discord
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Chat // Twitter
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Chat // Instagram
-RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,Chat // Telegram-asn
+
+# > Chat-List
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Social // Reddit
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Social // Discord
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Social // Twitter
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Social // Instagram
+RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,Social // Telegram-asn
 # RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Chat // Telegram
-# Global-Media
+
+# > Spotify
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify // Spotify
+
+# > Global-Media
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list,Streaming // Youtube
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia.list,Streaming // GlobalMedia
 DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_Domain.list,Streaming // GlobalMedia
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Disney/Disney.list,Streaming // Disney
-# Spotify
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify // Spotify
-# Global
+
+# > Global
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy.list,Global // Global
 DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy_Domain.list,Global // Global
 # RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/blocked.list,Proxy,update-interval=10800 // Global
-# Apple
+
+# > Apple
 RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/apple.list,APPLE // Apple
-# China
+
+# > China
 # RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/cn.list,DIRECT,update-interval=10800 // China
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax.list,DIRECT // China
 DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax_Domain.list,DIRECT // China
-# China-ASN（替代GEOIP）
+
+# > China-ASN（替代GEOIP）
 # RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,DIRECT // China-ASN
-# Other
+
+# > Other
 DOMAIN-SUFFIX,cn,DIRECT
 DOMAIN,apps.apple.com,Proxy
 DOMAIN-SUFFIX,ls.apple.com,DIRECT // Apple Maps
 DOMAIN-SUFFIX,store.apple.com,DIRECT // Apple Store Online
 RULE-SET,SYSTEM,Proxy
-# 屏蔽HTTP3/QUIC协议
-# 阻止所有UDP流量进入443端口，使HTTP3请求回落到TCP流量。
+# > 屏蔽HTTP3/QUIC协议、阻止所有UDP流量进入443端口，使HTTP3请求回落到TCP流量。
 AND,((PROTOCOL,UDP), (DEST-PORT,443)),REJECT-NO-DROP
-# 屏蔽YouTube的UDP
+# > 屏蔽YouTube的UDP
 AND,((PROTOCOL,UDP), (DOMAIN-SUFFIX,googlevideo.com)),REJECT-NO-DROP
-# Safari 防跳转
+# > Safari 防跳转
 DOMAIN,app-site-association.cdn-apple.com,REJECT
-# Boxjs 代理
+# > Boxjs 代理
 DOMAIN-KEYWORD,jsdelivr.net,Proxy
-# Sub-Store 的 Web 页面
+# > Sub-Store 的 Web 页面
 DOMAIN-SUFFIX,vercel.app,Proxy
-# 注：以下规则将触发本地 DNS 解析
+# > 注：以下规则将触发本地 DNS 解析
 RULE-SET,LAN,DIRECT
-# 注：开启ASN-China 的情况下、关闭GEOIP的相关分流--二者选其一
+# > 注：开启ASN-China 的情况下、关闭GEOIP的相关分流--二者选其一
 GEOIP,CN,DIRECT
 FINAL,Final,dns-failed
+
+[SSID Setting]
+# SSID规则
+SSID:HUAWEI_3 suspend=true
+
+
+[Host]
+# > Firebase Cloud Messaging
+mtalk.google.com = 108.177.125.188
+
+# > Google Dl
+dl.google.com = server:119.29.29.29
+dl.l.google.com = server:119.29.29.29
+update.googleapis.com = server:119.29.29.29
+
+# > PlayStation
+*.dl.playstation.net = server:119.29.29.29
+
+# > Router Admin Panel
+amplifi.lan = server:syslib // Ubiquiti Amplifi Router
+router.synology.com = server:syslib // Synology Router
+sila.razer.com = server:syslib // Razer Sila Router
+router.asus.com = server:syslib // Asus Router
+routerlogin.net = server:syslib // Netgear Router
+orbilogin.com = server:syslib // Netgear Obri Router
+www.LinksysSmartWiFi.com = server:syslib // Linksys Router
+LinksysSmartWiFi.com = server:syslib // Linksys Router
+myrouter.local = server:syslib // Linksys Router
+www.miwifi.com = server:syslib // Xiaomi Mi WiFi Router
+miwifi.com = server:syslib // Xiaomi Mi WiFi Router
+mediarouter.home = server:syslib // Huawei Router
+tplogin.cn = server:syslib // TP-Link Router
+tplinklogin.net = server:syslib // TP-Link Router
+melogin.cn = server:syslib // MERCURY Router
+falogin.cn = server:syslib // FAST Router
+
 
 [MITM]
 skip-server-cert-verify = true
@@ -154,5 +266,5 @@ self-ip-v6 = 2606:4700:110:8566:1285:f0fb:b8b5:296f
 prefer-ipv6 = true
 dns-server = 162.159.36.1, 2606:4700:4700::1111
 mtu = 1380
-peer = (public-key = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=, allowed-ips = "0.0.0.0/0, ::0/0", endpoint = 162.159.193.4:2408, keepalive = 45, client-id = 55/211/92)
+peer = (public-key = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=, allowed-ips = "0.0.0.0/0, ::0/0", endpoint = 162.159.195.145:890, keepalive = 45, client-id = 55/211/92)
 
