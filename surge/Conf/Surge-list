@@ -89,16 +89,14 @@ Warp = wireguard, section-name=Cloudflare, test-url=http://cp.cloudflare.com/gen
 [Proxy Group]
 # 代理策略组
 Proxy = select, Airport, WARP, DIRECT
-Final = select, Proxy, WARP, DIRECT
 Social = select, Proxy, WARP, DIRECT
-Chat = select, Proxy, WARP, DIRECT
 WARP = select, Warp+FB, Warp
 APPLE = select, Proxy, DIRECT
 Spotify = select, Proxy, HK, JP, SG, TW, US, DIRECT
 Airport = select, DelrCloud, AmyTelecom, FlowerCloud
-Speedtest = select, Proxy, WARP, DIRECT
+Speedtest = select, HK, JP, SG, TW, US, WARP, DIRECT
 
-FallBack = load-balance, persistent=1, policy-regex-filter=IEPL, no-alert=1, hidden=0, include-all-proxies=0, include-other-group=DC
+FallBack = load-balance, persistent=1, no-alert=1, hidden=0, include-other-group="HK, JP, SG, US"
 DelrCloud = select, HK, JP, SG, TW, US
 AmyTelecom = select, HK_A, JP_A, SG_A, TW_A, US_A
 
@@ -150,12 +148,12 @@ DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Hijacking/Hijacking.list,REJECT // 反劫持
 
 # > Chat-List
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Chat // Reddit
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Chat // Discord
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Chat // Twitter
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Chat // Instagram
-RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,Chat // Telegram-asn
-# RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Chat // Telegram
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Social // Reddit
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Social // Discord
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Social // Twitter
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Social // Instagram
+RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,Social // Telegram-asn
+# RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Social // Telegram
 
 # > Spotify
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify // Spotify
@@ -202,7 +200,7 @@ DOMAIN-SUFFIX,vercel.app,Proxy
 RULE-SET,LAN,DIRECT
 # > 注：开启ASN-China 的情况下、关闭GEOIP的相关分流--二者选其一
 GEOIP,CN,DIRECT
-FINAL,Final,dns-failed
+FINAL,Social,dns-failed
 
 
 [SSID Setting]
