@@ -81,14 +81,6 @@ hide-udp = 0
 
 [Proxy]
 # 策略组
-# > Warp+JP
-Warp+JP = wireguard, section-name=Cloudflare, underlying-proxy=JP, test-url=http://cp.cloudflare.com/generate_204
-# > Warp+HK
-Warp+HK = wireguard, section-name=Cloudflare, underlying-proxy=HK, test-url=http://cp.cloudflare.com/generate_204
-# > Warp+SG
-Warp+SG = wireguard, section-name=Cloudflare, underlying-proxy=SG, test-url=http://cp.cloudflare.com/generate_204
-# > Warp+US
-Warp+US = wireguard, section-name=Cloudflare, underlying-proxy=US, test-url=http://cp.cloudflare.com/generate_204
 # > Warp+FallBack
 Warp+FB = wireguard, section-name=Cloudflare, underlying-proxy=DC, test-url=http://cp.cloudflare.com/generate_204
 # > Warp+Direct
@@ -97,42 +89,48 @@ Warp = wireguard, section-name=Cloudflare, test-url=http://cp.cloudflare.com/gen
 [Proxy Group]
 # 代理策略组
 Proxy = select, Airport, WARP, DIRECT
-Global = select, Proxy, WARP
 Final = select, Proxy, WARP, DIRECT
-Airport = select, DelrCloud, Texon, Amy, FC
-DelrCloud = select, HK, JP, SG, TW, US
-Texon = select, HK_T, JP_T, SG_T, TW_T, US_T
-Amy = select, HK_A, JP_A, SG_A, TW_A, US_A
-Streaming = select, Proxy, WARP, DIRECT
 Social = select, Proxy, WARP, DIRECT
-WARP = select, Warp, Warp+FB
-Speedtest = select, Proxy, WARP, DIRECT
+Chat = select, Proxy, WARP, DIRECT
+WARP = select, Warp+FB, Warp
 APPLE = select, Proxy, DIRECT
 Spotify = select, Proxy, HK, JP, SG, TW, US, DIRECT
+Airport = select, DelrCloud, Texon, Amy, FC
+Speedtest = select, Proxy, WARP, DIRECT
+
+FallBack = load-balance, persistent=1, policy-regex-filter=IEPL, no-alert=1, hidden=0, include-all-proxies=0, include-other-group=DC
+DelrCloud = select, HK, JP, SG, TW, US
+Texon = select, HK_T, JP_T, SG_T, TW_T, US_T
+AmyTelecom = select, HK_A, JP_A, SG_A, TW_A, US_A
 
 # > 机场订阅组
 # FlowerCliud-Torjan
 FC = url-test, policy-path=https://sub.store/download/Flower-test, interval=600, tolerance=50, update-interval=86400, hidden=0
-DC = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, interval=600, tolerance=50, update-interval=86400, hidden=0
+
 # > 筛选节点组--DlerCloud
-HK = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1
-TW = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1
-JP = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1
-SG = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1
-US = url-test, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1
+DC = select, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, update-interval=0, no-alert=0, hidden=0, update-interval=86400
+HK = fallback, interval=600, tolerance=50, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, include-other-group=DC
+TW = fallback, interval=600, tolerance=50, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, include-other-group=DC
+JP = fallback, interval=600, tolerance=50, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, include-other-group=DC
+SG = fallback, interval=600, tolerance=50, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, include-other-group=DC
+US = fallback, interval=600, tolerance=50, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, include-other-group=DC
+
 # > 筛选节点组--Amy
-HK_A = url-test, policy-path=https://sub.store/download/Amy, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1
-TW_A = url-test, policy-path=https://sub.store/download/Amy, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1
-JP_A = url-test, policy-path=https://sub.store/download/Amy, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1
-SG_A = url-test, policy-path=https://sub.store/download/Amy, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1
-US_A = url-test, policy-path=https://sub.store/download/Amy, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1
+AT = select, policy-path=https://sub.store/download/Amy, update-interval=0, no-alert=0, hidden=0, update-interval=86400
+HK_A = fallback, interval=600, tolerance=50, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, include-other-group=AT
+TW_A = fallback, interval=600, tolerance=50, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, include-other-group=AT
+JP_A = fallback, interval=600, tolerance=50, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, include-other-group=AT
+SG_A = fallback, interval=600, tolerance=50, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, include-other-group=AT
+US_A = fallback, interval=600, tolerance=50, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, include-other-group=AT
+
 # > 筛选节点组--Texon
-HK_T = url-test, policy-path=https://sub.store/download/Texon-New, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1
-TW_T = url-test, policy-path=https://sub.store/download/Texon-New, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1
-JP_T = url-test, policy-path=https://sub.store/download/Texon-New, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1
-SG_T = url-test, policy-path=https://sub.store/download/Texon-New, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1
-US_T = url-test, policy-path=https://sub.store/download/Texon-New, interval=600, tolerance=50, update-interval=86400, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1
-FallBack = load-balance, persistent=1, policy-regex-filter=IEPL, no-alert=1, hidden=0, include-all-proxies=0, include-other-group=DC
+TX = select, policy-path=https://sub.store/download/Texon-New, update-interval=0, no-alert=0, hidden=0, update-interval=86400
+HK_T = fallback, interval=600, tolerance=50, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, include-other-group=TX
+TW_T = fallback, interval=600, tolerance=50, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, include-other-group=TX
+JP_T = fallback, interval=600, tolerance=50, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, include-other-group=TX
+SG_T = fallback, interval=600, tolerance=50, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, include-other-group=TX
+US_T = fallback, interval=600, tolerance=50, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, include-other-group=TX
+
 
 [Rule]
 # 规则组
@@ -162,26 +160,26 @@ DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Hijacking/Hijacking.list,REJECT // 反劫持
 
 # > Chat-List
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Social // Reddit
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Social // Discord
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Social // Twitter
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Social // Instagram
-RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,Social // Telegram-asn
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Chat // Reddit
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Chat // Discord
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Chat // Twitter
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Chat // Instagram
+RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,Chat // Telegram-asn
 # RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Chat // Telegram
 
 # > Spotify
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify // Spotify
 
 # > Global-Media
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list,Streaming // Youtube
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia.list,Streaming // GlobalMedia
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_Domain.list,Streaming // GlobalMedia
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Disney/Disney.list,Streaming // Disney
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list,Social // Youtube
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia.list,Social // GlobalMedia
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_Domain.list,Social // GlobalMedia
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Disney/Disney.list,Social // Disney
 
 # > Global
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy.list,Global // Global
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy_Domain.list,Global // Global
-# RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/blocked.list,Proxy,update-interval=10800 // Global
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy.list,Social // Global
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy_Domain.list,Social // Global
+# RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/blocked.list,Social // Global
 
 # > Apple
 RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/apple.list,APPLE // Apple
