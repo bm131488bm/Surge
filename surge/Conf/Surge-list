@@ -125,7 +125,6 @@ US_A = fallback, interval=600, tolerance=50, policy-regex-filter=(🇺🇸)|(美
 
 [Rule]
 # 规则组
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Emby/Emby.list,Texon
 DOMAIN-KEYWORD,jmapi,DIRECT
 
 # > Warp
