@@ -54,10 +54,10 @@ http-api-web-dashboard = true
 # 策略组
 
 # > Warp+FallBack
-Warp+FB = wireguard, section-name=Cloudflare, underlying-proxy=DC, test-url=http://cp.cloudflare.com/generate_204
+Warp+ = wireguard, section-name=Cloudflare, underlying-proxy=FallBack, test-url=http://cp.cloudflare.com/generate_204
 
 # > Warp+Direct
-Warp = wireguard, section-name=Cloudflare, test-url=http://cp.cloudflare.com/generate_204
+Warp- = wireguard, section-name=Cloudflare, test-url=http://cp.cloudflare.com/generate_204
 
 
 [Proxy Group]
@@ -65,7 +65,7 @@ Warp = wireguard, section-name=Cloudflare, test-url=http://cp.cloudflare.com/gen
 # 代理策略组
 Proxy = select, Airport, WARP, DIRECT
 Social = select, Proxy, WARP, DIRECT
-WARP = select, Warp+FB, Warp
+WARP = select, Warp+, Warp-
 APPLE = select, Proxy, DIRECT
 Spotify = select, Proxy, HK, JP, SG, TW, US, DIRECT
 Airport = select, DelrCloud, AmyTelecom, FlowerCloud
@@ -140,10 +140,13 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify
 
 # > Global-Media
+# Youtube
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list,Social
+# Global_Media
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia.list,Social
 DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_Domain.list,Social
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Disney/Disney.list,Social
+# TikTok
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list,Social
 
 # > Global
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy.list,Social
