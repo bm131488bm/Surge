@@ -77,10 +77,10 @@ AmyTelecom = select, HK_A, JP_A, SG_A, TW_A, US_A
 
 # > 机场订阅组
 # FlowerCliud-Torjan
-FlowerCloud = url-test, policy-path=https://sub.store/download/Flower-test, interval=600, tolerance=50, update-interval=86400, hidden=0
+FlowerCloud = select, policy-path=https://sub.store/download/Flower-test, interval=600, tolerance=50, update-interval=86400, hidden=1
 
 # > 筛选节点组--DlerCloud
-DC = select, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, update-interval=0, no-alert=0, hidden=0, update-interval=86400
+DC = select, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, update-interval=0, no-alert=0, hidden=1, update-interval=86400
 HK = fallback, interval=600, tolerance=50, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, include-other-group=DC
 TW = fallback, interval=600, tolerance=50, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, include-other-group=DC
 JP = fallback, interval=600, tolerance=50, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, include-other-group=DC
@@ -88,7 +88,7 @@ SG = fallback, interval=600, tolerance=50, policy-regex-filter=(🇸🇬)|(新)|
 US = fallback, interval=600, tolerance=50, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, include-other-group=DC
 
 # > 筛选节点组--Amy
-AT = select, policy-path=https://sub.store/download/Amy, update-interval=0, no-alert=0, hidden=0, update-interval=86400
+AT = select, policy-path=https://sub.store/download/Amy, update-interval=0, no-alert=0, hidden=1, update-interval=86400
 HK_A = fallback, interval=600, tolerance=50, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, include-other-group=AT
 TW_A = fallback, interval=600, tolerance=50, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, include-other-group=AT
 JP_A = fallback, interval=600, tolerance=50, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, include-other-group=AT
@@ -101,56 +101,62 @@ US_A = fallback, interval=600, tolerance=50, policy-regex-filter=(🇺🇸)|(美
 DOMAIN-KEYWORD,jmapi,DIRECT
 
 # > Warp
-# OR,((IP-CIDR,1.1.1.1/32,no-resolve), (IP-CIDR6,2606:4700:4700::1111/128,no-resolve), (DOMAIN-SUFFIX,cloudflareclient.com)),WARP // Warp-Tool
-DOMAIN-SET,https://raw.githubusercontent.com/ExaAlice/Alice/main/Rule/WARP.list,WARP // Warp-list
+# OR,((IP-CIDR,1.1.1.1/32,no-resolve), (IP-CIDR6,2606:4700:4700::1111/128,no-resolve), (DOMAIN-SUFFIX,cloudflareclient.com)),WARP
+DOMAIN-SET,https://raw.githubusercontent.com/ExaAlice/Alice/main/Rule/WARP.list,WARP
 
 # > Speedtest
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Speedtest/Speedtest.list,DIRECT // Speedtest
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Speedtest/Speedtest.list,DIRECT
 
 # > 规则修正--修复后续规则误拦截行为
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Direct/Direct.list,DIRECT // 规则修正
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Direct/Direct.list,DIRECT
 
 # > 去广告（anti-ad）
-# > DOMAIN-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge2.txt,REJECT // 去广告
-RULE-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge.txt,REJECT // 去广告
-RULE-SET,https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adblock4limbo_surge.list,REJECT // 奶去广告
+# DOMAIN-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge2.txt,REJECT
+RULE-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge.txt,REJECT
+# 毒奶去广告
+RULE-SET,https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adblock4limbo_surge.list,REJECT
 
 # > 隐私保护
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy.list,REJECT // 隐私保护
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy_Domain.list,REJECT // 隐私保护
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy.list,REJECT
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy_Domain.list,REJECT
 
 # > 反劫持
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Hijacking/Hijacking.list,REJECT // 反劫持
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Hijacking/Hijacking.list,REJECT
 
 # > Chat-List
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Social // Reddit
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Social // Twitter
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Social // Instagram
-RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,Social // Telegram-asn
-# RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Social // Telegram
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Proxy // Discord
+# Reddit
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Social
+# Twitter
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Social
+# Instagram
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Social
+# Telegram
+RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,Social
+# RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Social
+# Discord
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Proxy
 
 # > Spotify
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify // Spotify
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify
 
 # > Global-Media
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list,Social // Youtube
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia.list,Social // GlobalMedia
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_Domain.list,Social // GlobalMedia
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Disney/Disney.list,Social // Disney
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list,Social
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia.list,Social
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_Domain.list,Social
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Disney/Disney.list,Social
 
 # > Global
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy.list,Social // Global
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy_Domain.list,Social // Global
-# RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/blocked.list,Social // Global
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy.list,Social
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy_Domain.list,Social
+# RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/blocked.list,Social
 
 # > Apple
-RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/apple.list,APPLE // Apple
+RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/apple.list,APPLE
 
 # > China
-# RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/cn.list,DIRECT,update-interval=10800 // China
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax.list,DIRECT // China
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax_Domain.list,DIRECT // China
+# RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/cn.list,DIRECT
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax.list,DIRECT
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax_Domain.list,DIRECT
 
 # > China-ASN（替代GEOIP）
 # RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,DIRECT // China-ASN
@@ -161,9 +167,6 @@ DOMAIN,apps.apple.com,Proxy
 DOMAIN-SUFFIX,ls.apple.com,DIRECT // Apple Maps
 DOMAIN-SUFFIX,store.apple.com,DIRECT // Apple Store Online
 RULE-SET,SYSTEM,Proxy
-
-# > 屏蔽HTTP3/QUIC协议、阻止所有UDP流量进入443端口，使HTTP3请求回落到TCP流量。
-AND,((PROTOCOL,UDP), (DEST-PORT,443)),REJECT-NO-DROP
 
 # > 屏蔽YouTube的UDP
 AND,((PROTOCOL,UDP), (DOMAIN-SUFFIX,googlevideo.com)),REJECT-NO-DROP
@@ -188,37 +191,6 @@ FINAL,Social,dns-failed
 [SSID Setting]
 # SSID规则
 SSID:HUAWEI_3 suspend=true
-
-
-[Host]
-# > Firebase Cloud Messaging
-mtalk.google.com = 108.177.125.188
-
-# > Google Dl
-dl.google.com = server:119.29.29.29
-dl.l.google.com = server:119.29.29.29
-update.googleapis.com = server:119.29.29.29
-
-# > PlayStation
-*.dl.playstation.net = server:119.29.29.29
-
-# > Router Admin Panel
-amplifi.lan = server:syslib // Ubiquiti Amplifi Router
-router.synology.com = server:syslib // Synology Router
-sila.razer.com = server:syslib // Razer Sila Router
-router.asus.com = server:syslib // Asus Router
-routerlogin.net = server:syslib // Netgear Router
-orbilogin.com = server:syslib // Netgear Obri Router
-www.LinksysSmartWiFi.com = server:syslib // Linksys Router
-LinksysSmartWiFi.com = server:syslib // Linksys Router
-myrouter.local = server:syslib // Linksys Router
-www.miwifi.com = server:syslib // Xiaomi Mi WiFi Router
-miwifi.com = server:syslib // Xiaomi Mi WiFi Router
-mediarouter.home = server:syslib // Huawei Router
-tplogin.cn = server:syslib // TP-Link Router
-tplinklogin.net = server:syslib // TP-Link Router
-melogin.cn = server:syslib // MERCURY Router
-falogin.cn = server:syslib // FAST Router
 
 
 [MITM]
