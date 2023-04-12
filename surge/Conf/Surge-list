@@ -100,7 +100,6 @@ Speedtest = select, Proxy, WARP, DIRECT
 
 FallBack = load-balance, persistent=1, policy-regex-filter=IEPL, no-alert=1, hidden=0, include-all-proxies=0, include-other-group=DC
 DelrCloud = select, HK, JP, SG, TW, US
-Texon = select, HK_T, JP_T, SG_T, TW_T, US_T
 AmyTelecom = select, HK_A, JP_A, SG_A, TW_A, US_A
 
 # > 机场订阅组
