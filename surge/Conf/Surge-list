@@ -9,19 +9,22 @@ internet-test-url = http://wifi.vivo.com.cn/generate_204
 proxy-test-url = http://cp.cloudflare.com/generate_204
 
 # > 测试超时（秒）
-test-timeout = 5
+test-timeout = 2
 
 # > DNS 服务器 (如无必要不建议使用 DNS over HTTPS)
 dns-server = 223.5.5.5, 114.114.114.114
+hijack-dns = 8.8.8.8:53, 8.8.4.4:53
 # encrypted-dns-server = https://223.5.5.5/ // 除非当地 ISP 有严重的 DNS 污染问题，否则没必要开启 DoH，传统 DNS 的性能最优，网络异常后恢复速度最快
 
 # > 增强版 Wi-Fi 助理
 # (在 Wi-Fi 网络不佳时尝试使用数据网络建立连接，请仅当使用不限量的数据流量时开启)
 wifi-assist = true
 
+# > 排除简单主机名
+exclude-simple-hostnames = true
+
 # > IPv6 支持
-ipv6 = true
-ipv6-vif = auto
+ipv6 = false
 
 # > 允许 Wi-Fi 访问 (仅 iOS，若允许远程访问将「false」改为「true」)
 allow-wifi-access = false
@@ -36,11 +39,6 @@ show-error-page-for-reject = true
 # > Always Real IP Hosts
 always-real-ip = *.msftconnecttest.com, *.msftncsi.com, *.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com, *.logon.battlenet.com.cn, *.logon.battle.net, stun.l.google.com
 
-# > 排除简单主机名
-exclude-simple-hostnames = true
-all-hybrid = false
-allow-hotspot-access = false
-
 # > 如果没有代理服务器支持 UDP 转发，可修改为「 direct 」或注释下条，但需注意同一目标主机名 TCP 请求与 UDP 请求的源地址不同所造成的隐私及安全风险。
 udp-policy-not-supported-behaviour = reject
 
@@ -49,6 +47,18 @@ http-api = Nocio@0.0.0.0:6166
 http-api-tls = false
 http-api-web-dashboard = true
 
+[Replica]
+# > 隐藏 Apple 请求
+hide-apple-request = false
+
+# > 隐藏崩溃追踪器请求
+hide-crash-reporter-request = true
+
+# > 隐藏 UDP 会话
+hide-udp = false
+
+# > 关键词过滤器
+keyword-filter-type = false
 
 [Proxy]
 # 策略组
@@ -80,7 +90,7 @@ AmyTelecom = select, HK_A, JP_A, SG_A, TW_A, US_A
 FlowerCloud = select, policy-path=https://sub.store/download/Flower-test, interval=600, tolerance=50, update-interval=86400, hidden=1
 
 # > 筛选节点组--DlerCloud
-DC = select, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, update-interval=0, no-alert=0, hidden=1, update-interval=86400
+DC = select, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, no-alert=0, hidden=1, update-interval=86400
 HK = fallback, interval=600, tolerance=50, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, include-other-group=DC
 TW = fallback, interval=600, tolerance=50, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, include-other-group=DC
 JP = fallback, interval=600, tolerance=50, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, include-other-group=DC
@@ -88,7 +98,7 @@ SG = fallback, interval=600, tolerance=50, policy-regex-filter=(🇸🇬)|(新)|
 US = fallback, interval=600, tolerance=50, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, include-other-group=DC
 
 # > 筛选节点组--Amy
-AT = select, policy-path=https://sub.store/download/Amy, update-interval=0, no-alert=0, hidden=1, update-interval=86400
+AT = select, policy-path=https://sub.store/download/Amy, no-alert=0, hidden=1, update-interval=86400
 HK_A = fallback, interval=600, tolerance=50, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, include-other-group=AT
 TW_A = fallback, interval=600, tolerance=50, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, include-other-group=AT
 JP_A = fallback, interval=600, tolerance=50, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, include-other-group=AT
@@ -131,8 +141,8 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 # Instagram
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Social
 # Telegram
-RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,Social
-# RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Social
+# RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,Social
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Social
 # Discord
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Proxy
 
@@ -157,12 +167,13 @@ DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master
 RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/apple.list,APPLE
 
 # > China
-# RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/cn.list,DIRECT
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax.list,DIRECT
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax_Domain.list,DIRECT
+RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/cn.list,DIRECT
+# China-ASN（替代GEOIP）
+RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,DIRECT
+# RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax.list,DIRECT
+# DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax_Domain.list,DIRECT
 
-# > China-ASN（替代GEOIP）
-# RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,DIRECT // China-ASN
+
 
 # > Other
 DOMAIN-SUFFIX,cn,DIRECT
@@ -187,7 +198,7 @@ DOMAIN-SUFFIX,vercel.app,Proxy
 RULE-SET,LAN,DIRECT
 
 # > 注：开启ASN-China 的情况下、关闭GEOIP的相关分流--二者选其一
-GEOIP,CN,DIRECT
+# GEOIP,CN,DIRECT
 FINAL,Social,dns-failed
 
 
