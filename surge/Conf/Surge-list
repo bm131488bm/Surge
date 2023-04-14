@@ -83,27 +83,27 @@ Speedtest = select, HK, JP, SG, TW, US, WARP, DIRECT
 
 FallBack = load-balance, persistent=1, no-alert=1, hidden=0, include-other-group="HK, JP, SG, US"
 DelrCloud = select, HK, JP, SG, TW, US
-AmyTelecom = select, HK_A, JP_A, SG_A, TW_A, US_A
+AmyTelecom = select, hk, jp, sg, tw, us
 
 # > 机场订阅组
 # FlowerCliud-Torjan
 FlowerCloud = select, policy-path=https://sub.store/download/Flower-test, interval=600, tolerance=50, update-interval=86400, hidden=1
 
 # > 筛选节点组--DlerCloud
-DC = select, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, no-alert=0, hidden=1, update-interval=86400
-HK = fallback, interval=600, tolerance=50, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, include-other-group=DC
-TW = fallback, interval=600, tolerance=50, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, include-other-group=DC
-JP = fallback, interval=600, tolerance=50, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, include-other-group=DC
-SG = fallback, interval=600, tolerance=50, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, include-other-group=DC
-US = fallback, interval=600, tolerance=50, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, include-other-group=DC
+DC = select, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, hidden=1, update-interval=86400
+HK = fallback, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, include-other-group=DC
+TW = fallback, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, include-other-group=DC
+JP = fallback, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, include-other-group=DC
+SG = fallback, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, include-other-group=DC
+US = fallback, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, include-other-group=DC
 
 # > 筛选节点组--Amy
-AT = select, policy-path=https://sub.store/download/Amy, no-alert=0, hidden=1, update-interval=86400
-HK_A = fallback, interval=600, tolerance=50, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, include-other-group=AT
-TW_A = fallback, interval=600, tolerance=50, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, include-other-group=AT
-JP_A = fallback, interval=600, tolerance=50, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, include-other-group=AT
-SG_A = fallback, interval=600, tolerance=50, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, include-other-group=AT
-US_A = fallback, interval=600, tolerance=50, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, include-other-group=AT
+AT = select, policy-path=https://sub.store/download/Amy, hidden=1, update-interval=86400
+hk = fallback, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, include-other-group=AT
+tw = fallback, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, include-other-group=AT
+jp = fallback, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, include-other-group=AT
+sg = fallback, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, include-other-group=AT
+us = fallback, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, include-other-group=AT
 
 
 [Rule]
@@ -149,7 +149,7 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 # > Spotify
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify
 
-# > Global-Media
+# > Media
 # Youtube
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list,Social
 # Global_Media
@@ -157,6 +157,8 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_Domain.list,Social
 # TikTok
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list,Social
+# China-Media
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMedia/ChinaMedia.list，DIRECT
 
 # > Global
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy.list,Social
@@ -172,8 +174,6 @@ RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/cn.list,DIRECT
 RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,DIRECT
 # RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax.list,DIRECT
 # DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax_Domain.list,DIRECT
-
-
 
 # > Other
 DOMAIN-SUFFIX,cn,DIRECT
@@ -196,6 +196,9 @@ DOMAIN-SUFFIX,vercel.app,Proxy
 
 # > 注：以下规则将触发本地 DNS 解析
 RULE-SET,LAN,DIRECT
+
+# > 防止应用循环请求
+IP-CIDR,0.0.0.0/32,REJECT,no-resolve
 
 # > 注：开启ASN-China 的情况下、关闭GEOIP的相关分流--二者选其一
 # GEOIP,CN,DIRECT
