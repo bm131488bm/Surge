@@ -120,7 +120,7 @@ us = fallback, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|
 DOMAIN-KEYWORD,jmapi,DIRECT
 
 # > 腾讯ASN
-ip-asn,132203,direct
+ip-asn,132203,DIRECT
 
 # > Warp
 # OR,((IP-CIDR,1.1.1.1/32,no-resolve), (IP-CIDR6,2606:4700:4700::1111/128,no-resolve), (DOMAIN-SUFFIX,cloudflareclient.com)),WARP
