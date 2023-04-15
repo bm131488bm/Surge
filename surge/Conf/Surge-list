@@ -14,7 +14,7 @@ wifi-assist = true
 
 # > DNS 服务器 (如无必要不建议使用 DNS over HTTPS)
 dns-server = 223.5.5.5, 119.29.29.29, system
-hijack-dns = 8.8.8.8:53, 8.8.4.4:53
+# hijack-dns = 8.8.8.8:53, 8.8.4.4:53
 # encrypted-dns-server = https://223.5.5.5/ // 除非当地 ISP 有严重的 DNS 污染问题，否则没必要开启 DoH，传统 DNS 的性能最优，网络异常后恢复速度最快
 
 # > 从 /etc/hosts 读取 DNS 记录
@@ -48,6 +48,13 @@ http-api = Nocio@0.0.0.0:6166
 http-api-tls = false
 http-api-web-dashboard = true
 
+# > 切换网络后不再重新进行 VPN 配置
+fast-switch = 1
+
+# > 代理请求本地DNS映射
+use-local-host-item-for-proxy = false
+
+
 [Replica]
 # > 隐藏 Apple 请求
 hide-apple-request = false
@@ -69,6 +76,10 @@ Warp+ = wireguard, section-name=Cloudflare, underlying-proxy=FallBack, test-url=
 
 # > Warp+Direct
 Warp- = wireguard, section-name=Cloudflare, test-url=http://cp.cloudflare.com/generate_204
+
+# > 别名
+𝗗𝗜𝗥𝗘𝗖𝗧 = direct
+𝗣𝗥𝗢𝗫𝗬 = Proxy
 
 
 [Proxy Group]
@@ -221,26 +232,46 @@ dl.google.com = server:119.29.29.29
 dl.l.google.com = server:119.29.29.29
 update.googleapis.com = server:119.29.29.29
 
-# > PlayStation
-*.dl.playstation.net = server:119.29.29.29
-
-# > Router Admin Panel
-amplifi.lan = server:syslib // Ubiquiti Amplifi Router
-router.synology.com = server:syslib // Synology Router
-sila.razer.com = server:syslib // Razer Sila Router
-router.asus.com = server:syslib // Asus Router
-routerlogin.net = server:syslib // Netgear Router
-orbilogin.com = server:syslib // Netgear Obri Router
-www.LinksysSmartWiFi.com = server:syslib // Linksys Router
-LinksysSmartWiFi.com = server:syslib // Linksys Router
-myrouter.local = server:syslib // Linksys Router
-www.miwifi.com = server:syslib // Xiaomi Mi WiFi Router
-miwifi.com = server:syslib // Xiaomi Mi WiFi Router
-mediarouter.home = server:syslib // Huawei Router
-tplogin.cn = server:syslib // TP-Link Router
-tplinklogin.net = server:syslib // TP-Link Router
-melogin.cn = server:syslib // MERCURY Router
-falogin.cn = server:syslib // FAST Router
+# > DNS 映射
+# IPv6
+ip6-localhost = ::1
+ip6-loopback = ::1
+# DNS 服务器
+*.openai.com = 8.219.102.212
+taobao.com = server:223.6.6.6
+*.taobao.com = server:223.6.6.6
+tmall.com = server:223.6.6.6
+*.tmall.com = server:223.6.6.6
+jd.com = server:119.29.29.29
+*.jd.com = server:119.28.28.28
+*.qq.com = server:119.28.28.28
+*.bilibili.com = server:119.29.29.29
+*.tencent.com = server:119.28.28.28
+*.alicdn.com = server:223.5.5.5
+aliyun.com = server:223.5.5.5
+*.aliyun.com = server:223.5.5.5
+weixin.com = server:119.28.28.28
+*.weixin.com = server:119.28.28.28
+hdslb.com = server:119.29.29.29
+163.com = server:119.29.29.29
+*.163.com = server:119.29.29.29
+126.com = server:119.29.29.29
+*.126.com = server:119.29.29.29
+*.126.net = server:119.29.29.29
+*.127.net = server:119.29.29.29
+*.netease.com = server:119.29.29.29
+mi.com = server:119.29.29.29
+*.mi.com = server:119.29.29.29
+xiaomi.com = server:119.29.29.29
+*.xiaomi.com = server:119.29.29.29
+dler.cloud = server:180.76.76.76
+dleris.best = server:180.76.76.76
+routerlogin.net = server:syslib
+_hotspot_.m2m = server:syslib
+router.asus.com = server:syslib
+hotspot.cslwifi.com = server:syslib
+amplifi.lan = server:syslib
+*.lan = server:syslib
 
 
 [SSID Setting]
