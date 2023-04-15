@@ -8,19 +8,23 @@ proxy-test-url = http://cp.cloudflare.com/generate_204
 # > 测试超时（秒）
 test-timeout = 2
 
-# > DNS 服务器 (如无必要不建议使用 DNS over HTTPS)
-dns-server = 223.5.5.5, 119.29.29.29, system
-hijack-dns = 8.8.8.8:53, 8.8.4.4:53
-# encrypted-dns-server = https://223.5.5.5/ // 除非当地 ISP 有严重的 DNS 污染问题，否则没必要开启 DoH，传统 DNS 的性能最优，网络异常后恢复速度最快
-# > 从 /etc/hosts 读取 DNS 记录
-read-etc-hosts = true
-
 # > 增强版 Wi-Fi 助理
 # (在 Wi-Fi 网络不佳时尝试使用数据网络建立连接，请仅当使用不限量的数据流量时开启)
 wifi-assist = true
 
+# > DNS 服务器 (如无必要不建议使用 DNS over HTTPS)
+dns-server = 223.5.5.5, 119.29.29.29, system
+hijack-dns = 8.8.8.8:53, 8.8.4.4:53
+# encrypted-dns-server = https://223.5.5.5/ // 除非当地 ISP 有严重的 DNS 污染问题，否则没必要开启 DoH，传统 DNS 的性能最优，网络异常后恢复速度最快
+
+# > 从 /etc/hosts 读取 DNS 记录
+read-etc-hosts = true
+
 # > 排除简单主机名
 exclude-simple-hostnames = true
+
+# > Always Real IP Hosts
+always-real-ip = *.msftconnecttest.com, *.msftncsi.com, *.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com, *.logon.battlenet.com.cn, *.logon.battle.net, stun.l.google.com
 
 # > IPv6 支持
 ipv6 = false
@@ -35,9 +39,6 @@ geoip-maxmind-url = https://raw.githubusercontent.com/Loyalsoldier/geoip/release
 
 # > 当遇到 REJECT 策略时返回错误页
 show-error-page-for-reject = true
-
-# > Always Real IP Hosts
-always-real-ip = *.msftconnecttest.com, *.msftncsi.com, *.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com, *.logon.battlenet.com.cn, *.logon.battle.net, stun.l.google.com
 
 # > 如果没有代理服务器支持 UDP 转发，可修改为「 direct 」或注释下条，但需注意同一目标主机名 TCP 请求与 UDP 请求的源地址不同所造成的隐私及安全风险。
 udp-policy-not-supported-behaviour = reject
@@ -78,9 +79,9 @@ Proxy = select, Airport, WARP, DIRECT
 WARP = select, Warp+, Warp-
 Guard = select, DIRECT, REJECT
 APPLE = select, Proxy, DIRECT
-Spotify = select, Proxy, HK, JP, SG, TW, US, DIRECT
+Useful = select, HK, JP, SG, TW, US, DIRECT
 Airport = select, DelrCloud, AmyTelecom, FlowerCloud
-Speedtest = select, HK, JP, SG, TW, US, DIRECT
+
 
 FallBack = load-balance, persistent=1, no-alert=1, hidden=0, include-other-group="HK, JP, SG"
 DelrCloud = select, HK, JP, SG, TW, US
@@ -122,7 +123,7 @@ IP-ASN,132203,DIRECT,no-resolve
 DOMAIN-SET,https://raw.githubusercontent.com/ExaAlice/Alice/main/Rule/WARP.list,WARP
 
 # > Speedtest
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Speedtest/Speedtest.list,DIRECT
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Speedtest/Speedtest.list,Useful
 
 # > 规则修正--修复后续规则误拦截行为
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Direct/Direct.list,DIRECT
@@ -156,7 +157,7 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/WeChat/WeChat.list,DIRECT
 
 # > Spotify
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Useful
 
 # > Media
 # Youtube
@@ -186,6 +187,12 @@ RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/
 
 # > Other
 DOMAIN-SUFFIX,cn,DIRECT
+# Safari 防跳转
+DOMAIN,app-site-association.cdn-apple.com,REJECT
+# Boxjs 代理
+DOMAIN-KEYWORD,jsdelivr.net,Proxy
+# Sub-Store 的 Web 页面
+DOMAIN-SUFFIX,vercel.app,Proxy
 DOMAIN,apps.apple.com,Proxy
 DOMAIN-SUFFIX,ls.apple.com,DIRECT // Apple Maps
 DOMAIN-SUFFIX,store.apple.com,DIRECT // Apple Store Online
@@ -193,15 +200,6 @@ RULE-SET,SYSTEM,Proxy
 
 # > 屏蔽YouTube的UDP
 AND,((PROTOCOL,UDP), (DOMAIN-SUFFIX,googlevideo.com)),REJECT-NO-DROP
-
-# > Safari 防跳转
-DOMAIN,app-site-association.cdn-apple.com,REJECT
-
-# > Boxjs 代理
-DOMAIN-KEYWORD,jsdelivr.net,Proxy
-
-# > Sub-Store 的 Web 页面
-DOMAIN-SUFFIX,vercel.app,Proxy
 
 # > 注：以下规则将触发本地 DNS 解析
 RULE-SET,LAN,DIRECT
