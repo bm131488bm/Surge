@@ -30,8 +30,9 @@ ipv6 = false
 allow-wifi-access = false
 udp-priority = true
 
-# > 自定义 GeoIP 数据库
+# > 自定义 GeoIP 数据库（二选一）
 geoip-maxmind-url = https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb
+#geoip-maxmind-url = https://raw.githubusercontent.com/Hackl0us/GeoIP2-CN/release/Country.mmdb
 
 # > 当遇到 REJECT 策略时返回错误页
 show-error-page-for-reject = true
@@ -73,21 +74,24 @@ Warp- = wireguard, section-name=Cloudflare, test-url=http://cp.cloudflare.com/ge
 [Proxy Group]
 
 # 代理策略组
+Final  = select, Proxy, WARP, DIRECT
 Proxy = select, Airport, WARP, DIRECT
-Social = select, Proxy, WARP, DIRECT
 WARP = select, Warp+, Warp-
 APPLE = select, Proxy, DIRECT
 Spotify = select, Proxy, HK, JP, SG, TW, US, DIRECT
 Airport = select, DelrCloud, AmyTelecom, FlowerCloud
-Speedtest = select, HK, JP, SG, TW, US, WARP, DIRECT
+Speedtest = select, HK, JP, SG, TW, US, DIRECT
 
-FallBack = load-balance, persistent=1, no-alert=1, hidden=0, include-other-group="HK, JP, SG, US"
+FallBack = load-balance, persistent=1, no-alert=1, hidden=0, include-other-group="HK, JP, SG"
 DelrCloud = select, HK, JP, SG, TW, US
 AmyTelecom = select, hk, jp, sg, tw, us
 
 # > 机场订阅组
 # FlowerCliud-Torjan
 FlowerCloud = select, policy-path=https://sub.store/download/Flower-test, interval=600, tolerance=50, update-interval=86400, hidden=1
+# DlerCloud-SS
+Dler = select, policy-path=https://sub.store/download/Dlercloud-TORJAN, interval=600, tolerance=50, update-interval=86400, hidden=1
+
 
 # > 筛选节点组--DlerCloud
 DC = select, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, hidden=1, update-interval=86400
@@ -135,14 +139,14 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 
 # > Chat-List
 # Reddit
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Social
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Final
 # Twitter
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Social
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Final
 # Instagram
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Social
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Final
 # Telegram
-# RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,Social
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Social
+# RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,Final
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Final
 # Discord
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Proxy
 
@@ -151,19 +155,19 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 
 # > Media
 # Youtube
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list,Social
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list,Final
 # Global_Media
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia.list,Social
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_Domain.list,Social
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia.list,Final
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_Domain.list,Final
 # TikTok
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list,Social
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list,Final
 # China-Media
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMedia/ChinaMedia.list，DIRECT
 
 # > Global
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy.list,Social
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy_Domain.list,Social
-# RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/blocked.list,Social
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy.list,Proxy
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy_Domain.list,Proxy
+# RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/blocked.list,Proxy
 
 # > Apple
 RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/apple.list,APPLE
@@ -202,7 +206,7 @@ IP-CIDR,0.0.0.0/32,REJECT,no-resolve
 
 # > 注：开启ASN-China 的情况下、关闭GEOIP的相关分流--二者选其一
 # GEOIP,CN,DIRECT
-FINAL,Social,dns-failed
+FINAL,Final,dns-failed
 
 
 [SSID Setting]
