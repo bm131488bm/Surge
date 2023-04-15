@@ -2,7 +2,8 @@
 #!desc=最后更新时间 2023-04-13 10:37
 #!system=ios
 
-# 分割线——————————————————————————
+
+# 分割线—————————————————————————— 从 https://github.com/githubdulong 复制 修改PROXY名称 供自己使用
 
 [Header Rewrite]
 # > Revenuecat
