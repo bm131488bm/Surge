@@ -77,10 +77,6 @@ Warp+ = wireguard, section-name=Cloudflare, underlying-proxy=FallBack, test-url=
 # > Warp+Direct
 Warp- = wireguard, section-name=Cloudflare, test-url=http://cp.cloudflare.com/generate_204
 
-# > 别名
-𝗗𝗜𝗥𝗘𝗖𝗧 = direct
-𝗣𝗥𝗢𝗫𝗬 = Proxy
-
 
 [Proxy Group]
 
