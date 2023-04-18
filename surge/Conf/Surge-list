@@ -119,6 +119,9 @@ us = fallback, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|
 
 
 [Rule]
+# > 在连接 SSID 为 Apple 的 Wi-Fi 时直连
+SUBNET,SSID:HUAWEI_3,DIRECT,notification-text=":airplane_small: :airplane_small: :airplane_small: :airplane_small: "
+
 # 规则组
 DOMAIN-KEYWORD,jmapi,DIRECT
 
@@ -137,16 +140,16 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 
 # > 去广告（anti-ad）
 # DOMAIN-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge2.txt,Guard
-RULE-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge.txt,Guard
+RULE-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge.txt,Guard,notification-text="又一个广告杀手诞生"
 # 毒奶去广告
-RULE-SET,https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adblock4limbo_surge.list,Guard
+RULE-SET,https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adblock4limbo_surge.list,Guard,notification-text="又一个广告杀手诞生"
 
 # > 隐私保护
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy.list,Guard
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy_Domain.list,Guard
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy.list,Guard,notification-text="想偷隐私？"
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy_Domain.list,Guard,notification-text="想偷隐私？"
 
 # > 反劫持
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Hijacking/Hijacking.list,Guard
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Hijacking/Hijacking.list,Guard,notification-text="想偷隐私？"
 
 # > Chat-List
 # Reddit
@@ -195,11 +198,11 @@ RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/
 # > Other
 DOMAIN-SUFFIX,cn,DIRECT
 # Safari 防跳转
-DOMAIN,app-site-association.cdn-apple.com,REJECT
+DOMAIN,app-site-association.cdn-apple.com,REJECT,notification-text="Stop！！！"
 # Boxjs 代理
 DOMAIN-KEYWORD,jsdelivr.net,Proxy
 # Sub-Store 的 Web 页面
-DOMAIN-SUFFIX,vercel.app,Proxy
+DOMAIN-SUFFIX,vercel.app,Proxy,notification-text="SUB-Store订阅该更新了"
 DOMAIN,apps.apple.com,Proxy
 DOMAIN-SUFFIX,ls.apple.com,DIRECT // Apple Maps
 DOMAIN-SUFFIX,store.apple.com,DIRECT // Apple Store Online
@@ -272,7 +275,7 @@ amplifi.lan = server:syslib
 
 [SSID Setting]
 # SSID规则
-SSID:HUAWEI_3 suspend=true
+# SSID:HUAWEI_3 suspend=true
 
 
 [MITM]
