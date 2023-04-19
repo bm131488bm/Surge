@@ -116,8 +116,6 @@ US = fallback, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|
 
 
 [Rule]
-# > 在连接 SSID 为 Apple 的 Wi-Fi 时直连
-SUBNET,SSID:HUAWEI_3,DIRECT,notification-text=":airplane_small: :airplane_small: :airplane_small: :airplane_small: "
 
 # 规则组
 DOMAIN-KEYWORD,jmapi,DIRECT
@@ -137,9 +135,9 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 
 # > 去广告（anti-ad）
 # DOMAIN-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge2.txt,Guard
-RULE-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge.txt,Guard,notification-text="�又一个广告杀手诞生�"
+RULE-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge.txt,Guard,notification-text="又一个广告杀手诞生"
 # 毒奶去广告
-RULE-SET,https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adblock4limbo_surge.list,Guard,notification-text="�又一个广告杀手诞生�"
+RULE-SET,https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adblock4limbo_surge.list,Guard,notification-text="又一个广告杀手诞生"
 
 # > 隐私保护
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy.list,Guard,notification-text="想偷隐私？"
@@ -149,7 +147,7 @@ DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Hijacking/Hijacking.list,Guard,notification-text="想偷隐私？"
 
 # > 在连接SSID为HUAWEI_3的WiFi时直连
-SUBNET,SSID:HUAWEI_3,DIRECT
+SUBNET,SSID:HUAWEI_3,DIRECT,Guard,notification-text="Welcome Back"
 
 # > Chat-List
 # Reddit
@@ -191,9 +189,9 @@ RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/apple.list,APPLE
 # > China
 RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/cn.list,DIRECT
 # China-ASN（替代GEOIP）
-RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,DIRECT
-# RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax.list,DIRECT
-# DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax_Domain.list,DIRECT
+# RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,DIRECT
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax.list,DIRECT
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax_Domain.list,DIRECT
 
 # > Other
 DOMAIN-SUFFIX,cn,DIRECT
@@ -218,7 +216,7 @@ RULE-SET,LAN,DIRECT
 IP-CIDR,0.0.0.0/32,REJECT,no-resolve
 
 # > 注：开启ASN-China 的情况下、关闭GEOIP的相关分流--二者选其一
-# GEOIP,CN,DIRECT
+GEOIP,CN,DIRECT
 FINAL,Final,dns-failed
 
 
