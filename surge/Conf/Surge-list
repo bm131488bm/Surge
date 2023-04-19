@@ -96,15 +96,11 @@ WARP = select, Warp+, Warp-
 Guard = select, DIRECT, REJECT
 APPLE = select, Proxy, DIRECT
 Social = select, HK, JP, SG, TW, US, DIRECT
-Airport = select, AT, TX, FC
+Airport = select, AT, TX
 FallBack = load-balance, persistent=1, no-alert=1, hidden=0, include-other-group="HK, JP, SG, TW"
 
-# > 机场订阅组
-# FC-Torjan
-FC = select, policy-path=https://sub.store/download/Flower-test, interval=600, tolerance=50, update-interval=86400, hidden=1
-
 # > 筛选节点组--Amy
-AT = select, policy-path=https://sub.store/download/Amy, hidden=0, update-interval=86400
+AT = select, policy-path=https://sub.store/download/Amytelecom, hidden=0, update-interval=86400
 hk = fallback, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, include-other-group=AT
 tw = fallback, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, include-other-group=AT
 jp = fallback, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, include-other-group=AT
@@ -112,7 +108,7 @@ sg = fallback, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapor
 us = fallback, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, include-other-group=AT
 
 # > 筛选节点组--Texon
-TX = select, policy-path=https://sub.store/download/Texon-New, hidden=0, update-interval=86400
+TX = select, policy-path=https://sub.store/download/Texon, hidden=0, update-interval=86400
 HK = fallback, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, include-other-group=TX
 TW = fallback, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, include-other-group=TX
 JP = fallback, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, include-other-group=TX
