@@ -86,7 +86,7 @@ Proxy = select, Airport, WARP, DIRECT
 WARP = select, Warp+, Warp-
 Guard = select, DIRECT, REJECT
 APPLE = select, Proxy, DIRECT
-Useful = select, hk, jp, sg, tw, us, DIRECT
+Social = select, HK, JP, SG, TW, US, DIRECT
 Airport = select, AmyTelecom, Texon, FlowerCloud
 
 
@@ -130,16 +130,16 @@ IP-ASN,132203,DIRECT,no-resolve
 DOMAIN-SET,https://raw.githubusercontent.com/ExaAlice/Alice/main/Rule/WARP.list,WARP
 
 # > Speedtest
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Speedtest/Speedtest.list,Useful
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Speedtest/Speedtest.list,Social
 
 # > 规则修正--修复后续规则误拦截行为
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Direct/Direct.list,DIRECT
 
 # > 去广告（anti-ad）
 # DOMAIN-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge2.txt,Guard
-RULE-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge.txt,Guard,notification-text="又一个广告杀手诞生"
+RULE-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge.txt,Guard,notification-text="�又一个广告杀手诞生�"
 # 毒奶去广告
-RULE-SET,https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adblock4limbo_surge.list,Guard,notification-text="又一个广告杀手诞生"
+RULE-SET,https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adblock4limbo_surge.list,Guard,notification-text="�又一个广告杀手诞生�"
 
 # > 隐私保护
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy.list,Guard,notification-text="想偷隐私？"
@@ -167,7 +167,7 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/WeChat/WeChat.list,DIRECT
 
 # > Spotify
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Useful
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Social
 
 # > Media
 # Youtube
