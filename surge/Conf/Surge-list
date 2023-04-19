@@ -202,11 +202,11 @@ DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master
 # > Other
 DOMAIN-SUFFIX,cn,DIRECT
 # Safari 防跳转
-DOMAIN,app-site-association.cdn-apple.com,REJECT,notification-text="Stop！！！"
+DOMAIN,app-site-association.cdn-apple.com,REJECT
 # Boxjs 代理
 DOMAIN-KEYWORD,jsdelivr.net,Proxy
 # Sub-Store 的 Web 页面
-DOMAIN-SUFFIX,vercel.app,Proxy,notification-text="SUB-Store订阅该更新了"
+DOMAIN-SUFFIX,vercel.app,Proxy
 DOMAIN,apps.apple.com,Proxy
 DOMAIN-SUFFIX,ls.apple.com,DIRECT // Apple Maps
 DOMAIN-SUFFIX,store.apple.com,DIRECT // Apple Store Online
