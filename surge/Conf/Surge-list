@@ -86,28 +86,16 @@ Proxy = select, Airport, WARP, DIRECT
 WARP = select, Warp+, Warp-
 Guard = select, DIRECT, REJECT
 APPLE = select, Proxy, DIRECT
-Useful = select, HK, JP, SG, TW, US, DIRECT
-Airport = select, DelrCloud, AmyTelecom, FlowerCloud
+Useful = select, hk, jp, sg, tw, us, DIRECT
+Airport = select, AmyTelecom, FlowerCloud
 
 
-FallBack = load-balance, persistent=1, no-alert=1, hidden=0, include-other-group="HK, JP, SG"
-DelrCloud = select, HK, JP, SG, TW, US
+FallBack = load-balance, persistent=1, no-alert=1, hidden=0, include-other-group="hk, jp, sg, tw"
 AmyTelecom = select, hk, jp, sg, tw, us
 
 # > 机场订阅组
 # FlowerCliud-Torjan
 FlowerCloud = select, policy-path=https://sub.store/download/Flower-test, interval=600, tolerance=50, update-interval=86400, hidden=1
-# DlerCloud-SS
-Dler = select, policy-path=https://sub.store/download/Dlercloud-TORJAN, interval=600, tolerance=50, update-interval=86400, hidden=1
-
-
-# > 筛选节点组--DlerCloud
-DC = select, policy-path=https://sub.store/download/Dlercloud-TORJAN-copy7748, hidden=1, update-interval=86400
-HK = fallback, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, include-other-group=DC
-TW = fallback, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, include-other-group=DC
-JP = fallback, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, include-other-group=DC
-SG = fallback, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, include-other-group=DC
-US = fallback, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, include-other-group=DC
 
 # > 筛选节点组--Amy
 AT = select, policy-path=https://sub.store/download/Amy, hidden=1, update-interval=86400
@@ -150,6 +138,9 @@ DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master
 
 # > 反劫持
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Hijacking/Hijacking.list,Guard,notification-text="想偷隐私？"
+
+# > 在连接SSID为HUAWEI_3的WiFi时直连
+SUBNET,SSID:HUAWEI_3,DIRECT
 
 # > Chat-List
 # Reddit
