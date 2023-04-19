@@ -87,12 +87,12 @@ WARP = select, Warp+, Warp-
 Guard = select, DIRECT, REJECT
 APPLE = select, Proxy, DIRECT
 Useful = select, hk, jp, sg, tw, us, DIRECT
-Airport = select, AmyTelecom, FlowerCloud
+Airport = select, AmyTelecom, Texon, FlowerCloud
 
 
-FallBack = load-balance, persistent=1, no-alert=1, hidden=0, include-other-group="hk, jp, sg, tw"
+FallBack = load-balance, persistent=1, no-alert=1, hidden=0, include-other-group="HK, JP, SG, TW"
 AmyTelecom = select, hk, jp, sg, tw, us
-
+Texon = select, HK, JP, SG, TW, US
 # > 机场订阅组
 # FlowerCliud-Torjan
 FlowerCloud = select, policy-path=https://sub.store/download/Flower-test, interval=600, tolerance=50, update-interval=86400, hidden=1
@@ -104,6 +104,15 @@ tw = fallback, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW
 jp = fallback, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, include-other-group=AT
 sg = fallback, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, include-other-group=AT
 us = fallback, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, include-other-group=AT
+
+# > 筛选节点组--Texon
+TX = select, policy-path=https://sub.store/download/Texon-New, hidden=1, update-interval=86400
+HK = fallback, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, include-other-group=TX
+TW = fallback, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, include-other-group=TX
+JP = fallback, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, include-other-group=TX
+SG = fallback, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, include-other-group=TX
+US = fallback, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, include-other-group=TX
+
 
 
 [Rule]
