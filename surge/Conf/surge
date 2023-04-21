@@ -123,7 +123,7 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/proxy.txt,Proxy
 # RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/blocked.list,Proxy
 # > Apple
-RULE-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/apple.txt,APPLE
+DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/apple.txt,APPLE
 # China-ASN（替代GEOIP）
 # RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,DIRECT
 # RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax.list,DIRECT
