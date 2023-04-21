@@ -1,21 +1,48 @@
 [General]
+# > 跳过代理
 skip-proxy = 192.168.0.0/24, 10.0.0.0/8, 172.16.0.0/12, 127.0.0.1, localhost, *.local
-exclude-simple-hostnames = true
-internet-test-url = http://taobao.com/
-proxy-test-url = http://www.apple.com/
+
+# > Internet 测试 URL
+internet-test-url = http://wifi.vivo.com.cn/generate_204
+
+# > 代理测速 URL
+proxy-test-url = http://cp.cloudflare.com/generate_204
+
+# > UDP测试 URL
 proxy-test-udp = apple.com@1.1.1.1
-test-timeout = 2
-dns-server = 223.5.5.5, 114.114.114.114, 119.29.29.29
-# encrypted-dns-server = https://223.5.5.5/ // 除非当地 ISP 有严重的 DNS 污染问题，否则没必要开启 DoH，传统 DNS 的性能最优，网络异常后恢复速度最快
+
+# > 排除简单主机名
+exclude-simple-hostnames = true
+
+# > 测试超时（秒）
+test-timeout = 5
+
+# > 增强版 Wi-Fi 助理
+# (在 Wi-Fi 网络不佳时尝试使用数据网络建立连接，请仅当使用不限量的数据流量时开启)
 wifi-assist = true
+
+# > DNS 服务器 (如无必要不建议使用 DNS over HTTPS)
+dns-server = 223.5.5.5, 121.4.4.49, 121.4.4.34, 2402:4e00:0::6612:1476, 2402:4e00:1::6612:1476
+# encrypted-dns-server = https://223.5.5.5/ // 除非当地 ISP 有严重的 DNS 污染问题，否则没必要开启 DoH，传统 DNS 的性能最优，网络异常后恢复速度最快
+
+# > IPv6 支持
 ipv6 = true
+ipv6-vif = auto
+
+# > 允许 Wi-Fi 访问 (仅 iOS，若允许远程访问将「false」改为「true」)
 allow-wifi-access = false
+udp-priority = true
+
+# > Http-api-用于Warp连接校验
 http-api = Novio@0.0.0.0:6166
 http-api-tls = false
 http-api-web-dashboard = true
-ipv6-vif = auto
-udp-priority = true
-geoip-maxmind-url = https://github.com/Hackl0us/GeoIP2-CN/raw/release/Country.mmdb
+
+# > 自定义 GeoIP 数据库（二选一）
+geoip-maxmind-url = https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb
+#geoip-maxmind-url = https://raw.githubusercontent.com/Hackl0us/GeoIP2-CN/release/Country.mmdb
+
+# > 当遇到 REJECT 策略时返回错误页
 show-error-page-for-reject = true
 
 [Proxy]
@@ -136,8 +163,6 @@ h2 = true
 ca-passphrase = 21641934
 ca-p12 = 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
 
-[Script]
-今日黄历播报 = type=cron,timeout=30,cronexp=0 7 * * *,wake-system=1,script-path=https://raw.githubusercontent.com/TributePaulWalker/Profiles/main/JavaScript/Surge/wnCalendar.js
 
 [WireGuard Cloudflare]
 private-key = +FxhIlZdhJ8g6b714lJeRuwk9M+FEULVO9vtptxvC1Y=
