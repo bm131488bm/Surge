@@ -46,14 +46,14 @@ geoip-maxmind-url = https://raw.githubusercontent.com/Loyalsoldier/geoip/release
 show-error-page-for-reject = true
 
 [Proxy]
-WARP+ = wireguard, section-name=Cloudflare, underlying-proxy=FallBack, test-url=http://cp.cloudflare.com/generate_204
+WARP+ = wireguard, section-name=Cloudflare, test-url=http://cp.cloudflare.com/generate_204, underlying-proxy=FallBack
 WARP- = wireguard, section-name=Cloudflare, test-url=http://cp.cloudflare.com/generate_204
 
 [Proxy Group]
 # 代理策略组
-Final = select, WARP, Proxy, DIRECT
 Proxy = select, Airport, WARP, DIRECT
 WARP = select, WARP+, WARP-
+Final = select, WARP, Proxy, DIRECT
 Guard = select, DIRECT, REJECT
 APPLE = select, Proxy, DIRECT
 Social = select, HK, JP, SG, TW, US, DIRECT
@@ -76,8 +76,6 @@ SG = fallback, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapor
 US = fallback, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, include-other-group=TX
 
 [Rule]
-# SSID 策略
-SUBNET,SSID:HUAWEI_3,DIRECT
 # > Warp
 # OR,((IP-CIDR,1.1.1.1/32,no-resolve), (IP-CIDR6,2606:4700:4700::1111/128,no-resolve), (DOMAIN-SUFFIX,cloudflareclient.com)),WARP
 DOMAIN-SET,https://raw.githubusercontent.com/ExaAlice/Alice/main/Rule/WARP.list,WARP+
@@ -88,7 +86,8 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Advertising/Advertising_Domain.list,Guard,notification-text="🥲又杀了个广告🥲"
 # 毒奶去广告
 RULE-SET,https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adblock4limbo_surge.list,Guard,notification-text="🥲又杀了个广告🥲"
-
+# SSID 策略
+SUBNET,SSID:HUAWEI_3,DIRECT
 # > Spotify
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Social
 # > Media
@@ -118,16 +117,12 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 # > Spotify
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Social
 # > Global
-# RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Global/Global.list,Proxy
-# DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Global/Global_Domain.list,Proxy
 DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/proxy.txt,Proxy
 # RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/blocked.list,Proxy
 # > Apple
 DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/apple.txt,APPLE
 # China-ASN（替代GEOIP）
 # RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,DIRECT
-# RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax.list,DIRECT
-# DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax_Domain.list,DIRECT
 DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/cncidr.txt,DIRECT
 # > Other
 DOMAIN-SUFFIX,cn,DIRECT
