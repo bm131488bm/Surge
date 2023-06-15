@@ -1,123 +1,167 @@
+# Update 2023-06-15
+
 [General]
 # > 跳过代理
 skip-proxy = 192.168.0.0/24, 10.0.0.0/8, 172.16.0.0/12, 127.0.0.1, localhost, *.local
 # > Internet 测试 URL
 internet-test-url = http://file.myqcloud.com/
+
 # > 代理测速 URL
 proxy-test-url = http://www.bing.com
+
 # > UDP测试 URL
 # proxy-test-udp = apple.com@1.1.1.1
 # proxy-test-udp = http://cp.cloudflare.com/generate_204
+
 # > 排除简单主机名
 exclude-simple-hostnames = true
+
 # > 测试超时（秒）
 test-timeout = 5
+
 # > 增强版 Wi-Fi 助理
 # (在 Wi-Fi 网络不佳时尝试使用数据网络建立连接，请仅当使用不限量的数据流量时开启)
 wifi-assist = true
+
 # > Wi-Fi 不是主接口则使用SSID组的默认策略
 use-default-policy-if-wifi-not-primary = false
+
 # > DNS 服务器 (如无必要不建议使用 DNS over HTTPS)
 dns-server = 223.5.5.5, 119.29.29.29, 114.114.114.114, system
 # encrypted-dns-server = https://223.5.5.5/ // 除非当地 ISP 有严重的 DNS 污染问题，否则没必要开启 DoH，传统 DNS 的性能最优，网络异常后恢复速度最快
 hijack-dns = *:53
+
 # > IPv6 支持
 ipv6 = true
 ipv6-vif = auto
+
 # > 允许 Wi-Fi 访问 (仅 iOS，若允许远程访问将「false」改为「true」)
 allow-wifi-access = false
 udp-priority = true
+
 # > Http-api-用于Warp连接校验
 http-api = Novio@0.0.0.0:6166
 http-api-tls = false
 http-api-web-dashboard = true
+
 # > 从 /etc/hosts 读取 DNS 记录
 read-etc-hosts = true
 # Surge VIF
 # tun-excluded-routes = 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12
 # tun-included-routes = 192.168.1.12/32
+
 # > 自定义 GeoIP 数据库（二选一）
-# geoip-maxmind-url = https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb
-geoip-maxmind-url = https://raw.githubusercontent.com/Hackl0us/GeoIP2-CN/release/Country.mmdb
+geoip-maxmind-url = https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb
+# geoip-maxmind-url = https://raw.githubusercontent.com/Hackl0us/GeoIP2-CN/release/Country.mmdb
+
 # > 当遇到 REJECT 策略时返回错误页
 show-error-page-for-reject = true
 
+# > 如果没有代理服务器支持 UDP 转发，可修改为「 direct 」或注释下条，但需注意同一目标主机名 TCP 请求与 UDP 请求的源地址不同所造成的隐私及安全风险。
+udp-policy-not-supported-behaviour = reject
+
+
 [Replica]
+# 0 为关闭，1 为开启
 # > 隐藏 Apple 请求
-hide-apple-request = false
+hide-apple-request = 0
 # > 隐藏崩溃追踪器请求
-hide-crash-reporter-request = true
+hide-crash-reporter-request = 1
 # > 隐藏 UDP 会话
-hide-udp = false
+hide-udp = 0
 # > 关键词过滤器
-keyword-filter-type = false
+# none（关闭关键词过滤器） / whitelist（blacklist（仅记录包含关键字的请求）） / blacklist（仅记录不包含关键字的请求） / pattern（匹配通配符的请求）
+# keyword-filter-type = none
+# > 关键词
+# keyword-filter = (null)
 
 [Proxy]
-WARP+HK = wireguard, section-name=Cloudflare1, underlying-proxy=HK, test-url=http://cp.cloudflare.com/generate_204
-WARP+US = wireguard, section-name=Cloudflare1, underlying-proxy=US, test-url=http://cp.cloudflare.com/generate_204
-WARP+TW = wireguard, section-name=Cloudflare1, underlying-proxy=TW, test-url=http://cp.cloudflare.com/generate_204
-WARP+SG = wireguard, section-name=Cloudflare1, underlying-proxy=SG, test-url=http://cp.cloudflare.com/generate_204
+WARP+HK = wireguard, section-name=Cloudflare, underlying-proxy=HK, test-url=http://cp.cloudflare.com/generate_204
+WARP+US = wireguard, section-name=Cloudflare, underlying-proxy=US, test-url=http://cp.cloudflare.com/generate_204
+WARP+TW = wireguard, section-name=Cloudflare, underlying-proxy=TW, test-url=http://cp.cloudflare.com/generate_204
+WARP+SG = wireguard, section-name=Cloudflare, underlying-proxy=SG, test-url=http://cp.cloudflare.com/generate_204
 WARP+JP = wireguard, section-name=Cloudflare, underlying-proxy=JP, test-url=http://cp.cloudflare.com/generate_204
 WARP- = wireguard, section-name=Cloudflare1, test-url=http://cp.cloudflare.com/generate_204
-Flower 🅳江苏→🇭🇰香港 01 = trojan, preshdata1.anihpvhiv2333.xyz, 10102, password=D2F18CC0-0E9A-13AA-7BA9-CBE8B4A8CA7E, skip-cert-verify=true, sni=douyincdn.com
+
 
 [Proxy Group]
 # 代理策略组
 Proxy = select, Airport, WARP, DIRECT
-WARP = select, WARP+HK, WARP+US, WARP+TW, WARP+SG, WARP+JP, WARP-, no-alert=0, hidden=0, include-all-proxies=0
-Final = select, WARP, Proxy, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
+WARP = select, WARP+HK, WARP+US, WARP+TW, WARP+SG, WARP+JP, WARP-
 Guard = select, DIRECT, REJECT
 APPLE = select, Proxy, DIRECT
+OTHER = select, Proxy, DIRECT
 Social = select, HK, JP, SG, TW, US, DIRECT
-Airport = select, AmyTelecom, TX-filter, FC, no-alert=0, hidden=0, include-all-proxies=0
+Airport = select, AMY-ALL, TX-ALL, FC
+TX-ALL = select, HK, JP, SG, TW, US
+AMY-ALL = select, hk, jp, sg, tw, us
 # > 机场订阅组
-# FlowerCloud
 TX = url-test, policy-path=https://sub.store/download/Texon, hidden=1, update-interval=86400, no-alert=1, include-all-proxies=0, persistent=1
-FC = url-test, policy-path=https://sub.store/download/FlowCloud, hidden=0, update-interval=86400, no-alert=1, include-all-proxies=0, persistent=0
-AmyTelecom = url-test, policy-path=https://sub.store/download/Amytelecom, hidden=0, update-interval=86400, no-alert=1, include-all-proxies=0, persistent=0
-TX-filter = url-test, policy-path=https://sub.store/download/Texon, hidden=0, update-interval=86400, no-alert=1, include-all-proxies=0, persistent=1
+FC = url-test, policy-path=https://sub.store/download/FlowCloud, hidden=1, update-interval=86400, no-alert=1, include-all-proxies=0, persistent=0
+AmyTelecom = url-test, policy-path=https://sub.store/download/Amytelecom, hidden=1, update-interval=86400, no-alert=1, include-all-proxies=0, persistent=0
 # > 筛选节点组--Texon
 HK = fallback, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, include-other-group=TX, no-alert=1, include-all-proxies=0, persistent=0
 TW = fallback, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, include-other-group=TX, no-alert=1, include-all-proxies=0, persistent=0
 JP = fallback, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, include-other-group=TX, no-alert=1, include-all-proxies=0, persistent=0
 SG = fallback, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, include-other-group=TX, no-alert=1, include-all-proxies=0, persistent=0
 US = fallback, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, include-other-group=TX, persistent=0, no-alert=1, include-all-proxies=0
+# > 筛选节点组--Amytelecom
+hk = fallback, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, include-other-group=AmyTelecom, no-alert=1, include-all-proxies=0, persistent=0
+tw = fallback, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, include-other-group=AmyTelecom, no-alert=1, include-all-proxies=0, persistent=0
+jp = fallback, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, include-other-group=AmyTelecom, no-alert=1, include-all-proxies=0, persistent=0
+sg = fallback, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, include-other-group=AmyTelecom, no-alert=1, include-all-proxies=0, persistent=0
+us = fallback, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, include-other-group=AmyTelecom, persistent=0, no-alert=1, include-all-proxies=0
+
 
 [Rule]
+# > 自定义分流
 DOMAIN-KEYWORD,ipip.net,Proxy
+
 # > Warp
 # OR,((IP-CIDR,1.1.1.1/32,no-resolve), (IP-CIDR6,2606:4700:4700::1111/128,no-resolve), (DOMAIN-SUFFIX,cloudflareclient.com)),WARP
 DOMAIN-SET,https://raw.githubusercontent.com/ExaAlice/Alice/main/Rule/WARP.list,WARP
+
 # > 去广告（anti-ad）
 # DOMAIN-SET,https://raw.githubusercontent.com/privacy- protection-tools/anti-AD/master/anti-ad-surge2.txt,Guard
-# SSID 策略
-SUBNET,SSID:HUAWEI_3,DIRECT
+
 # Unbreak 后续规则修正
 RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Unbreak.list,DIRECT
+
 # Advertising 广告
 RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Guard/Advertising.list,Guard
 DOMAIN-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Guard/AdvertisingPlus.list,Guard
+
 # Privacy 隐私
 RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Guard/Privacy.list,Guard
+
 # Hijacking 运营商劫持或恶意网站
 RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Guard/Hijacking.list,Guard
+
 # 毒奶去广告
 RULE-SET,https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adblock4limbo_surge.list,Guard
-# > Spotify
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Social
+
+
+
+# > 知乎、微博分流
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Zhihu/Zhihu.list,OTHER
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Weibo/Weibo.list,OTHER
+
 # > Apple
 DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/apple.txt,APPLE
+
 # > Media
 # Youtube
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list,Proxy
-# Global_Media
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia.list,Proxy
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_Domain.list,Proxy
 # TikTok
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list,Proxy
+# > Spotify
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Social
+
 # China-Media
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMedia/ChinaMedia.list,DIRECT
+
 # > Chat-List
+
 # Reddit
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Proxy
 # Twitter
@@ -129,40 +173,81 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Proxy
 # Discord
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Proxy
+
 # > Wechat
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/WeChat/WeChat.list,DIRECT
-# > Spotify
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Social
+
 # > Global
 DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/proxy.txt,Proxy
 # RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/blocked.list,Proxy
-# > 防止应用循环请求
-IP-CIDR,0.0.0.0/32,REJECT,no-resolve
+
+# > 注：开启ASN-China 的情况下、关闭GEOIP的相关分流--二者选其一
 # China-ASN（替代GEOIP）
 # RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,DIRECT
 DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/cncidr.txt,DIRECT
-# > 注：开启ASN-China 的情况下、关闭GEOIP的相关分流--二者选其一
+
+# > 防止应用循环请求
+IP-CIDR,0.0.0.0/32,REJECT,no-resolve
+
 # > Other
 DOMAIN-SUFFIX,cn,DIRECT
+
 # Safari 防跳转
 DOMAIN,app-site-association.cdn-apple.com,REJECT
+
 # Boxjs 代理
 DOMAIN-KEYWORD,jsdelivr.net,Proxy
+
 # Sub-Store 的 Web 页面
 DOMAIN-SUFFIX,vercel.app,Proxy
 DOMAIN,apps.apple.com,Proxy
 DOMAIN-SUFFIX,ls.apple.com,DIRECT // Apple Maps
 DOMAIN-SUFFIX,store.apple.com,DIRECT // Apple Store Online
 RULE-SET,SYSTEM,Proxy
+
 # > 屏蔽YouTube的UDP
 AND,((PROTOCOL,UDP), (DOMAIN-SUFFIX,googlevideo.com)),REJECT-NO-DROP
+
 # > 注：以下规则将触发本地 DNS 解析
 RULE-SET,LAN,DIRECT
-GEOIP,CN,DIRECT
-FINAL,Final,dns-failed
 
-[SSID Setting]
-SSID:HUAWEI_3 cellular-fallback=off, dns-server=192.168.3.254
+# > GEOIP
+GEOIP,CN,DIRECT
+
+#> Final兜底策略
+FINAL,Proxy,dns-failed
+
+
+[Host]
+# > Firebase Cloud Messaging
+mtalk.google.com = 108.177.125.188
+
+# > Google Dl
+dl.google.com = server:119.29.29.29
+dl.l.google.com = server:119.29.29.29
+update.googleapis.com = server:119.29.29.29
+
+# > PlayStation
+*.dl.playstation.net = server:119.29.29.29
+
+# > Router Admin Panel
+amplifi.lan = server:syslib // Ubiquiti Amplifi Router
+router.synology.com = server:syslib // Synology Router
+sila.razer.com = server:syslib // Razer Sila Router
+router.asus.com = server:syslib // Asus Router
+routerlogin.net = server:syslib // Netgear Router
+orbilogin.com = server:syslib // Netgear Obri Router
+www.LinksysSmartWiFi.com = server:syslib // Linksys Router
+LinksysSmartWiFi.com = server:syslib // Linksys Router
+myrouter.local = server:syslib // Linksys Router
+www.miwifi.com = server:syslib // Xiaomi Mi WiFi Router
+miwifi.com = server:syslib // Xiaomi Mi WiFi Router
+mediarouter.home = server:syslib // Huawei Router
+tplogin.cn = server:syslib // TP-Link Router
+tplinklogin.net = server:syslib // TP-Link Router
+melogin.cn = server:syslib // MERCURY Router
+falogin.cn = server:syslib // FAST Router
+
 
 [MITM]
 skip-server-cert-verify = true
@@ -179,19 +264,13 @@ dns-server = 162.159.36.1, 2606:4700:4700::1111
 mtu = 1420
 peer = (public-key = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=, allowed-ips = "0.0.0.0/0, ::0/0", endpoint = 162.159.195.214:1843, keepalive = 45, client-id = 162/224/165)
 
-[WireGuard Cloudflare2]
-private-key = +FxhIlZdhJ8g6b714lJeRuwk9M+FEULVO9vtptxvC1Y=
-self-ip = 172.16.0.2
-self-ip-v6 = 2606:4700:110:84f1:41ce:30c7:537a:97c3
-dns-server = 162.159.36.1, 2606:4700:4700::1111
-mtu = 1420
-peer = (public-key = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=, allowed-ips = "0.0.0.0/0, ::0/0", endpoint = [2606:4700:d1::d53c:a0ab:7ac3:bb67]:968, keepalive = 45, client-id = 162/224/165)
+
 
 [WireGuard Cloudflare]
 private-key = +FxhIlZdhJ8g6b714lJeRuwk9M+FEULVO9vtptxvC1Y=
 self-ip = 172.16.0.2
 self-ip-v6 = 2606:4700:110:84f1:41ce:30c7:537a:97c3
 dns-server = 162.159.36.1, 2606:4700:4700::1111
-mtu = 1400
+mtu = 1420
 peer = (public-key = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=, allowed-ips = "0.0.0.0/0, ::0/0", endpoint = engage.cloudflareclient.com:2408, keepalive = 45, client-id = 162/224/165)
 
