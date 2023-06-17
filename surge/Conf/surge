@@ -108,7 +108,7 @@ us = load-balance, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(Stat
 # > 自定义分流
 DOMAIN-KEYWORD,ipip.net,Final
 
-> 去广告（anti-ad）
+# > 去广告（anti-ad）
 # DOMAIN-SET,https://raw.githubusercontent.com/privacy- protection-tools/anti-AD/master/anti-ad-surge2.txt,Guard
 
 # Unbreak 后续规则修正
