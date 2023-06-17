@@ -1,17 +1,19 @@
 # Update 2023-06-15
+# change some rules
 
 [General]
 # > 跳过代理
 skip-proxy = 192.168.0.0/24, 10.0.0.0/8, 172.16.0.0/12, 127.0.0.1, localhost, *.local
+
 # > Internet 测试 URL
 internet-test-url = http://file.myqcloud.com/
 
 # > 代理测速 URL
-proxy-test-url = http://www.bing.com
+proxy-test-url = http://cp.cloudflare.com/generate_204
 
 # > UDP测试 URL
 # proxy-test-udp = apple.com@1.1.1.1
-# proxy-test-udp = http://cp.cloudflare.com/generate_204
+proxy-test-udp = http://cp.cloudflare.com/generate_204
 
 # > 排除简单主机名
 exclude-simple-hostnames = true
@@ -95,6 +97,7 @@ Social = select, HK, JP, SG, TW, US, DIRECT
 Airport = select, AMY-ALL, TX-ALL, FC
 TX-ALL = select, HK, JP, SG, TW, US
 AMY-ALL = select, hk, jp, sg, tw, us
+
 # > 机场订阅组
 TX = url-test, policy-path=https://sub.store/download/Texon, hidden=1, update-interval=86400, no-alert=1, include-all-proxies=0, persistent=1
 FC = url-test, policy-path=https://sub.store/download/FlowCloud, hidden=1, update-interval=86400, no-alert=1, include-all-proxies=0, persistent=0
@@ -140,8 +143,6 @@ RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ru
 # 毒奶去广告
 RULE-SET,https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adblock4limbo_surge.list,Guard
 
-
-
 # > 知乎、微博分流
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Zhihu/Zhihu.list,OTHER
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Weibo/Weibo.list,OTHER
@@ -154,14 +155,13 @@ DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ap
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list,Proxy
 # TikTok
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list,Proxy
-# > Spotify
+# Spotify
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Social
 
 # China-Media
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMedia/ChinaMedia.list,DIRECT
 
 # > Chat-List
-
 # Reddit
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Proxy
 # Twitter
