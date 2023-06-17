@@ -1,4 +1,4 @@
-# Update 2023-06-15
+# Update 2023-06-17
 # change some rules
 
 [General]
@@ -88,11 +88,11 @@ WARP- = wireguard, section-name=Cloudflare1, test-url=http://cp.cloudflare.com/g
 
 [Proxy Group]
 # 代理策略组
-Proxy = select, Airport, WARP, DIRECT
+Final = select, Airport, WARP, DIRECT
 WARP = select, WARP+HK, WARP+US, WARP+TW, WARP+SG, WARP+JP, WARP-
 Guard = select, DIRECT, REJECT
-APPLE = select, Proxy, DIRECT
-OTHER = select, Proxy, DIRECT
+APPLE = select, Final, DIRECT
+OTHER = select, Final, DIRECT
 Social = select, HK, JP, SG, TW, US, DIRECT
 Airport = select, AMY-ALL, TX-ALL, FC
 TX-ALL = select, HK, JP, SG, TW, US
@@ -103,22 +103,22 @@ TX = url-test, policy-path=https://sub.store/download/Texon, hidden=1, update-in
 FC = url-test, policy-path=https://sub.store/download/FlowCloud, hidden=1, update-interval=86400, no-alert=1, include-all-proxies=0, persistent=0
 AmyTelecom = url-test, policy-path=https://sub.store/download/Amytelecom, hidden=1, update-interval=86400, no-alert=1, include-all-proxies=0, persistent=0
 # > 筛选节点组--Texon
-HK = fallback, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, include-other-group=TX, no-alert=1, include-all-proxies=0, persistent=0
-TW = fallback, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, include-other-group=TX, no-alert=1, include-all-proxies=0, persistent=0
-JP = fallback, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, include-other-group=TX, no-alert=1, include-all-proxies=0, persistent=0
-SG = fallback, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, include-other-group=TX, no-alert=1, include-all-proxies=0, persistent=0
-US = fallback, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, include-other-group=TX, persistent=0, no-alert=1, include-all-proxies=0
+HK = load-balance, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, include-other-group=TX, no-alert=1, include-all-proxies=0, persistent=0
+TW = load-balance, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, include-other-group=TX, no-alert=1, include-all-proxies=0, persistent=0
+JP = load-balance, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, include-other-group=TX, no-alert=1, include-all-proxies=0, persistent=0
+SG = load-balance, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, include-other-group=TX, no-alert=1, include-all-proxies=0, persistent=0
+US = load-balance, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, include-other-group=TX, persistent=0, no-alert=1, include-all-proxies=0
 # > 筛选节点组--Amytelecom
-hk = fallback, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, include-other-group=AmyTelecom, no-alert=1, include-all-proxies=0, persistent=0
-tw = fallback, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, include-other-group=AmyTelecom, no-alert=1, include-all-proxies=0, persistent=0
-jp = fallback, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, include-other-group=AmyTelecom, no-alert=1, include-all-proxies=0, persistent=0
-sg = fallback, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, include-other-group=AmyTelecom, no-alert=1, include-all-proxies=0, persistent=0
-us = fallback, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, include-other-group=AmyTelecom, persistent=0, no-alert=1, include-all-proxies=0
+hk = load-balance, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, include-other-group=AmyTelecom, no-alert=1, include-all-proxies=0, persistent=0
+tw = load-balance, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, include-other-group=AmyTelecom, no-alert=1, include-all-proxies=0, persistent=0
+jp = load-balance, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, include-other-group=AmyTelecom, no-alert=1, include-all-proxies=0, persistent=0
+sg = load-balance, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, include-other-group=AmyTelecom, no-alert=1, include-all-proxies=0, persistent=0
+us = load-balance, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, include-other-group=AmyTelecom, persistent=0, no-alert=1, include-all-proxies=0
 
 
 [Rule]
 # > 自定义分流
-DOMAIN-KEYWORD,ipip.net,Proxy
+DOMAIN-KEYWORD,ipip.net,Final
 
 # > Warp
 # OR,((IP-CIDR,1.1.1.1/32,no-resolve), (IP-CIDR6,2606:4700:4700::1111/128,no-resolve), (DOMAIN-SUFFIX,cloudflareclient.com)),WARP
@@ -152,9 +152,9 @@ DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ap
 
 # > Media
 # Youtube
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list,Proxy
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list,Final
 # TikTok
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list,Proxy
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list,Final
 # Spotify
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Social
 
@@ -163,23 +163,23 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 
 # > Chat-List
 # Reddit
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Proxy
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Final
 # Twitter
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Proxy
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Final
 # Instagram
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Proxy
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Final
 # Telegram
-# RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,Proxy
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Proxy
+# RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,Final
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Final
 # Discord
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Proxy
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Final
 
 # > Wechat
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/WeChat/WeChat.list,DIRECT
 
 # > Global
-DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/proxy.txt,Proxy
-# RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/blocked.list,Proxy
+DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/proxy.txt,Final
+# RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/blocked.list,Final
 
 # > 注：开启ASN-China 的情况下、关闭GEOIP的相关分流--二者选其一
 # China-ASN（替代GEOIP）
@@ -196,14 +196,14 @@ DOMAIN-SUFFIX,cn,DIRECT
 DOMAIN,app-site-association.cdn-apple.com,REJECT
 
 # Boxjs 代理
-DOMAIN-KEYWORD,jsdelivr.net,Proxy
+DOMAIN-KEYWORD,jsdelivr.net,Final
 
 # Sub-Store 的 Web 页面
-DOMAIN-SUFFIX,vercel.app,Proxy
-DOMAIN,apps.apple.com,Proxy
+DOMAIN-SUFFIX,vercel.app,Final
+DOMAIN,apps.apple.com,Final
 DOMAIN-SUFFIX,ls.apple.com,DIRECT // Apple Maps
 DOMAIN-SUFFIX,store.apple.com,DIRECT // Apple Store Online
-RULE-SET,SYSTEM,Proxy
+RULE-SET,SYSTEM,Final
 
 # > 屏蔽YouTube的UDP
 AND,((PROTOCOL,UDP), (DOMAIN-SUFFIX,googlevideo.com)),REJECT-NO-DROP
@@ -215,7 +215,7 @@ RULE-SET,LAN,DIRECT
 GEOIP,CN,DIRECT
 
 #> Final兜底策略
-FINAL,Proxy,dns-failed
+FINAL,Final,dns-failed
 
 
 [Host]
