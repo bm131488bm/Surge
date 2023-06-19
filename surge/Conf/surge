@@ -110,17 +110,17 @@ Texon = select, HK, JP, SG, TW, US
 Amytelecom = select, hk, jp, sg, tw, us
 
 # > 筛选节点组--Texon
-HK = load-balance, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, no-alert=1, include-all-proxies=0, persistent=0, policy-path=https://sub.store/download/Texon
-TW = load-balance, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, no-alert=1, include-all-proxies=0, persistent=0, policy-path=https://sub.store/download/Texon
-JP = load-balance, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, no-alert=1, include-all-proxies=0, persistent=0, policy-path=https://sub.store/download/Texon
-SG = load-balance, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, no-alert=1, include-all-proxies=0, persistent=0, policy-path=https://sub.store/download/Texon
-US = load-balance, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, persistent=0, no-alert=1, include-all-proxies=0, policy-path=https://sub.store/download/Texon
+HK = load-balance, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, no-alert=1, include-all-proxies=0, persistent=1, policy-path=https://sub.store/download/Texon
+TW = load-balance, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, no-alert=1, include-all-proxies=0, persistent=1, policy-path=https://sub.store/download/Texon
+JP = load-balance, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, no-alert=1, include-all-proxies=0, persistent=1, policy-path=https://sub.store/download/Texon
+SG = load-balance, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, no-alert=1, include-all-proxies=0, persistent=1, policy-path=https://sub.store/download/Texon
+US = load-balance, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, persistent=0, no-alert=1, include-all-proxies=1, policy-path=https://sub.store/download/Texon
 # > 筛选节点组--Amytelecom
-hk = load-balance, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, no-alert=1, include-all-proxies=0, persistent=0, policy-path=https://sub.store/download/Amytelecom
-tw = load-balance, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, no-alert=1, include-all-proxies=0, persistent=0, policy-path=https://sub.store/download/Amytelecom
-jp = load-balance, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, no-alert=1, include-all-proxies=0, persistent=0, policy-path=https://sub.store/download/Amytelecom
-sg = load-balance, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, no-alert=1, include-all-proxies=0, persistent=0, policy-path=https://sub.store/download/Amytelecom
-us = load-balance, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, persistent=0, no-alert=1, include-all-proxies=0, policy-path=https://sub.store/download/Amytelecom
+hk = load-balance, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, no-alert=1, include-all-proxies=0, persistent=1, policy-path=https://sub.store/download/Amytelecom
+tw = load-balance, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, no-alert=1, include-all-proxies=0, persistent=1, policy-path=https://sub.store/download/Amytelecom
+jp = load-balance, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, no-alert=1, include-all-proxies=0, persistent=1, policy-path=https://sub.store/download/Amytelecom
+sg = load-balance, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, no-alert=1, include-all-proxies=0, persistent=1, policy-path=https://sub.store/download/Amytelecom
+us = load-balance, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, persistent=0, no-alert=1, include-all-proxies=1, policy-path=https://sub.store/download/Amytelecom
 
 
 [Rule]
