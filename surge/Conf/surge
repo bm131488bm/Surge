@@ -131,6 +131,9 @@ us = load-balance, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(Stat
 # 阻止所有 UDP 流量进入443端口，使 HTTP3 请求回落到 TCP 流量。
 AND,((PROTOCOL,UDP),(DEST-PORT,443)),REJECT-NO-DROP
 
+# 阻止电报频繁请求
+AND,((PROCESS-NAME,Telegram), (OR,((IP-CIDR,0.0.0.0/8), (IP-CIDR,224.0.0.0/4)))),REJECT
+
 # 屏蔽 YouTube 的 UDP
 AND,((PROTOCOL,UDP),(DOMAIN-SUFFIX,googlevideo.com)),REJECT-NO-DROP
 
@@ -232,6 +235,43 @@ FINAL,Final,dns-failed
 
 
 [Host]
+
+# 该段定义本地 DNS 记录
+# 该功能等同于 /etc/hosts，加上了泛解析和别名支持。
+# DNS 全部交给系统处理
+# * = server:syslib
+# 本地值
+# 特定 DNS 服务器
+*.tw = server:1.1.1.1
+testflight.apple.com = server:8.8.8.8
+router.asus.com = server:syslib
+*.tmall.com = server:223.5.5.5
+*.taobao.com = server:223.5.5.5
+*.alicdn.com = server:223.5.5.5
+*.aliyun.com = server:223.5.5.5
+*.alipay*.com = server:223.5.5.5
+*.alibaba*.com = server:223.5.5.5
+*.alimama*.com = server:223.5.5.5
+*.qq.com = server:119.29.29.29
+*.tencent.com = server:119.29.29.29
+*.weixin.com = server:119.29.29.29
+*.qpic.cn = server:119.29.29.29
+*.jd.com = server:119.29.29.29
+*.bilibili.com = server:119.29.29.29
+hdslb.com = server:119.29.29.29
+*.163.com = server:119.29.29.29
+*.126.com = server:119.29.29.29
+*.126.net = server:119.29.29.29
+*.127.net = server:119.29.29.29
+*.netease.com = server:119.29.29.29
+*.10010.com = server:119.29.29.29
+*.unicompayment.com = server:119.29.29.29
+*.vercel.app = server:119.29.29.29
+*.vercel.com = server:119.29.29.29
+*.ximalaya.com = server:119.29.29.29
+*.baidu.com = server:119.29.29.29
+*.bdstatic.com = server:119.29.29.29
+
 # > Firebase Cloud Messaging
 mtalk.google.com = 108.177.125.188
 
@@ -244,28 +284,19 @@ update.googleapis.com = server:119.29.29.29
 *.dl.playstation.net = server:119.29.29.29
 
 # > Router Admin Panel
-amplifi.lan = server:syslib // Ubiquiti Amplifi Router
-router.synology.com = server:syslib // Synology Router
-sila.razer.com = server:syslib // Razer Sila Router
-router.asus.com = server:syslib // Asus Router
-routerlogin.net = server:syslib // Netgear Router
-orbilogin.com = server:syslib // Netgear Obri Router
-www.LinksysSmartWiFi.com = server:syslib // Linksys Router
-LinksysSmartWiFi.com = server:syslib // Linksys Router
-myrouter.local = server:syslib // Linksys Router
 www.miwifi.com = server:syslib // Xiaomi Mi WiFi Router
 miwifi.com = server:syslib // Xiaomi Mi WiFi Router
 mediarouter.home = server:syslib // Huawei Router
 tplogin.cn = server:syslib // TP-Link Router
 tplinklogin.net = server:syslib // TP-Link Router
-melogin.cn = server:syslib // MERCURY Router
-falogin.cn = server:syslib // FAST Router
+
 
 # Apple
 apple.com = server:223.5.5.5
 *icloud.com = server:223.5.5.5
 *icloud.com.cn = server:223.5.5.5
 *testflight.apple.com = server:8.8.4.4
+
 
 [Script]
 
