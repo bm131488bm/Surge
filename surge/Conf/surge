@@ -1,8 +1,8 @@
 // 以"#" ";" 和 "//" 开头的行为注释行
 // 本配置主要参考https://github.com/BlueGrave 以及 https://divineengine.net/more/special/surge/ 特别感谢！
-// Update 2023-06-17
-// change some rules
-// 去除Warp相关
+// Update 2023-06-19
+
+
 
 [General]
 # > 跳过代理
@@ -101,14 +101,13 @@ hide-udp = 0
 
 [Proxy Group]
 # 代理策略组
-Final = select, Airport, DIRECT
+Final = select, Texon, Amytelecom, DIRECT
 Guard = select, DIRECT, REJECT
 APPLE = select, Final, DIRECT
 OTHER = select, Final, DIRECT
 Social = select, HK, JP, SG, TW, US, DIRECT
-Airport = select, AMY-ALL, TX-ALL
-TX-ALL = select, HK, JP, SG, TW, US
-AMY-ALL = select, hk, jp, sg, tw, us
+Texon = select, HK, JP, SG, TW, US
+Amytelecom = select, hk, jp, sg, tw, us
 
 # > 筛选节点组--Texon
 HK = load-balance, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, no-alert=1, include-all-proxies=0, persistent=0, policy-path=https://sub.store/download/Texon
