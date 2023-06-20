@@ -130,17 +130,17 @@ Amytelecom = select, HK, JP, SG, TW, US
 TEXON = url-test, hidden=1, policy-path=https://sub.store/download/Texon
 AMTTELECOM = url-test, hidden=1, policy-path=https://sub.store/download/Amytelecom
 # > 筛选节点组--Texon
-HK-T = load-balance, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Texon
-TW-T = load-balance, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Texon
-JP-T = load-balance, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Texon
-SG-T = load-balance, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Texon
-US-T = load-balance, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Texon
+HK-T = url-test, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Texon
+TW-T = url-test, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Texon
+JP-T = url-test, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Texon
+SG-T = url-test, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Texon
+US-T = url-test, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Texon
 # > 筛选节点组--Amytelecom
-HK = load-balance, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Amytelecom
-TW = load-balance, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Amytelecom
-JP = load-balance, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Amytelecom
-SG = load-balance, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Amytelecom
-US = load-balance, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Amytelecom
+HK = url-test, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Amytelecom
+TW = url-test, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Amytelecom
+JP = url-test, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Amytelecom
+SG = url-test, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Amytelecom
+US = url-test, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Amytelecom
 
 
 [Rule]
