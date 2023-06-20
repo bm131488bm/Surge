@@ -108,7 +108,7 @@ hide-udp = 0
 
 [Proxy Group]
 # 代理策略组
-Proxy = select, Agent, Pick, DIRECT
+Proxy = select, Preferred, Agent, DIRECT
 # 广告拦截
 Guard = select, DIRECT, REJECT
 # Apple
@@ -116,13 +116,13 @@ APPLE = select, Proxy, DIRECT
 # 微博、知乎等可以选IP
 OTHER = select, Proxy, DIRECT
 # 测速组
-Pick = select, TEXON, AMTTELECOM
+Preferred = select, TEXON, AMTTELECOM
 # 地区组
 Agent = select, Texon, Amytelecom 
 # 中国媒体服务
-Stream = select, HK, JP, SG, TW, US, DIRECT
+Stream = select, hk, jp, sg, tw, us, DIRECT
 # 海外媒体服务
-StreamCN = select, HK, JP, SG, TW, US, DIRECT
+StreamCN = select, hk, jp, sg, tw, us, DIRECT
 # 手选节点组
 Texon = select, HK, JP, SG, TW, US
 Amytelecom = select, hk, jp, sg, tw, us
