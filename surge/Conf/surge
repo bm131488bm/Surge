@@ -107,40 +107,40 @@ hide-udp = 0
 [Proxy]
 
 [Proxy Group]
+# 白名单模式 PROXY，黑名单模式 DIRECT
+Final = select, Proxy, DIRECT
 # 代理策略组
-Proxy = select, Preferred, Agent, DIRECT
+Proxy = select, AutoTest, Fallback
 # 广告拦截
-Guard = select, DIRECT, REJECT
-# Apple
-APPLE = select, Proxy, DIRECT
+Guard = select, REJECT, DIRECT
 # 微博、知乎等可以选IP
 OTHER = select, Proxy, DIRECT
 # 测速组
-Preferred = select, TEXON, AMTTELECOM
+AutoTest = select, TEXON, AMTTELECOM
 # 地区组
-Agent = select, Texon, Amytelecom 
+Fallback = fallback, Texon, Amytelecom 
 # 中国媒体服务
-Stream = select, hk, jp, sg, tw, us, DIRECT
+Stream = select, HK, JP, SG, TW, US, DIRECT
 # 海外媒体服务
-StreamCN = select, hk, jp, sg, tw, us, DIRECT
+StreamCN = select, HK, JP, SG, TW, US, DIRECT
 # 手选节点组
-Texon = select, HK, JP, SG, TW, US
-Amytelecom = select, hk, jp, sg, tw, us
+Texon = select, HK-T, JP-T, SG-T, TW-T, US-T
+Amytelecom = select, HK, JP, SG, TW, US
 # > 订阅节点组
-TEXON = url-test, update-interval=0, hidden=1, no-alert=1, include-all-proxies=0, persistent=1, policy-path=https://sub.store/download/Texon
-AMTTELECOM = url-test, update-interval=0, hidden=1, no-alert=1, include-all-proxies=0, persistent=1, policy-path=https://sub.store/download/Amytelecom
+TEXON = url-test, hidden=1, policy-path=https://sub.store/download/Texon
+AMTTELECOM = url-test, hidden=1, policy-path=https://sub.store/download/Amytelecom
 # > 筛选节点组--Texon
-HK = load-balance, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, no-alert=1, include-all-proxies=0, persistent=1, policy-path=https://sub.store/download/Texon
-TW = load-balance, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, no-alert=1, include-all-proxies=0, persistent=1, policy-path=https://sub.store/download/Texon
-JP = load-balance, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, no-alert=1, include-all-proxies=0, persistent=1, policy-path=https://sub.store/download/Texon
-SG = load-balance, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, no-alert=1, include-all-proxies=0, persistent=1, policy-path=https://sub.store/download/Texon
-US = load-balance, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, persistent=0, no-alert=1, include-all-proxies=1, policy-path=https://sub.store/download/Texon
+HK-T = load-balance, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Texon
+TW-T = load-balance, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Texon
+JP-T = load-balance, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Texon
+SG-T = load-balance, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Texon
+US-T = load-balance, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Texon
 # > 筛选节点组--Amytelecom
-hk = load-balance, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, no-alert=1, include-all-proxies=0, persistent=1, policy-path=https://sub.store/download/Amytelecom
-tw = load-balance, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, no-alert=1, include-all-proxies=0, persistent=1, policy-path=https://sub.store/download/Amytelecom
-jp = load-balance, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, no-alert=1, include-all-proxies=0, persistent=1, policy-path=https://sub.store/download/Amytelecom
-sg = load-balance, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, no-alert=1, include-all-proxies=0, persistent=1, policy-path=https://sub.store/download/Amytelecom
-us = load-balance, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, persistent=0, no-alert=1, include-all-proxies=1, policy-path=https://sub.store/download/Amytelecom
+HK = load-balance, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Amytelecom
+TW = load-balance, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Amytelecom
+JP = load-balance, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Amytelecom
+SG = load-balance, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Amytelecom
+US = load-balance, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Amytelecom
 
 
 [Rule]
@@ -195,7 +195,7 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/WeChat/WeChat.list,DIRECT
 
 # > Apple
-DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/apple.txt,APPLE
+DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/apple.txt,DIRECT
 
 # > game
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Game/TencentLoLMobile/TencentLoLMobile.list,DIRECT
@@ -252,7 +252,7 @@ RULE-SET,LAN,DIRECT
 GEOIP,CN,DIRECT
 
 #> Final兜底策略
-FINAL,Proxy,dns-failed
+FINAL,Final,dns-failed
 
 
 [Host]
