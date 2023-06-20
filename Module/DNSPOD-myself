@@ -1,0 +1,5 @@
+#!name=DNSPOD-myself
+#!desc=腾讯私用基础doh
+
+[General]
+doh-server = %APPEND% https://doh-66121476.doh.pub/dns-query
