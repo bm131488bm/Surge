@@ -57,7 +57,7 @@ network-framework = false
 # > DNS 服务器 (如无必要不建议使用 DNS over HTTPS)
 dns-server = 223.5.5.5, 119.29.29.29, 114.114.114.114
 # > Hijack DNS
-# hijack-dns = 8.8.8.8:53, 8.8.4.4:53
+hijack-dns = 8.8.8.8:53, 8.8.4.4:53
 # > 从 /etc/hosts 读取 DNS 记录
 read-etc-hosts = true
 # > 关闭 DOH 的服务端证书验证
@@ -108,24 +108,28 @@ hide-udp = 0
 
 [Proxy Group]
 # 白名单模式 PROXY，黑名单模式 DIRECT
-Final = select, Proxy, DIRECT
+Final = select, Select, Proxy, DIRECT
 # 代理策略组
 Proxy = select, AutoTest, Fallback
 # 广告拦截
 Guard = select, REJECT, DIRECT
 # 微博、知乎等可以选IP
 OTHER = select, Proxy, DIRECT
-# 测速组
-AutoTest = select, TEXON, AMTTELECOM
-# 地区组
-Fallback = fallback, Texon, Amytelecom 
 # 中国媒体服务
 Stream = select, HK, JP, SG, TW, US, DIRECT
 # 海外媒体服务
 StreamCN = select, HK, JP, SG, TW, US, DIRECT
+# Spotify
+Music = select, HK, JP, SG, TW, US, DIRECT
+# 测速组
+AutoTest = select, TEXON, AMTTELECOM
+# 地区组
+Fallback = fallback, Texon, Amytelecom 
 # 手选节点组
 Texon = select, HK-T, JP-T, SG-T, TW-T, US-T
 Amytelecom = select, HK, JP, SG, TW, US
+# > 手动节点组
+Select = select, policy-path=https://sub.store/download/Texon, update-interval=0, no-alert=0, hidden=1, include-all-proxies=0
 # > 订阅节点组
 TEXON = url-test, hidden=1, policy-path=https://sub.store/download/Texon
 AMTTELECOM = url-test, hidden=1, policy-path=https://sub.store/download/Amytelecom
@@ -212,8 +216,10 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Stream
 # Discord
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Stream
+
+# > muisc
 # Spotify
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Stream
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Music
 
 # > GlobalMedia
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia.list,Stream
@@ -247,8 +253,8 @@ DOMAIN,apps.apple.com,Proxy
 DOMAIN-SUFFIX,ls.apple.com,DIRECT // Apple Maps
 DOMAIN-SUFFIX,store.apple.com,DIRECT // Apple Store Online
 
-# > 注：以下规则将触发本地 DNS 解析
-RULE-SET,LAN,DIRECT
+# > 局域网地址
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Lan/Lan.list,DIRECT
 
 # > GEOIP
 GEOIP,CN,DIRECT
