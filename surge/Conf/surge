@@ -130,13 +130,13 @@ Fallback = fallback, hidden=0, policy-path=https://sub.store/download/1, update-
 # 手选节点组
 Texon = select, hk, tw, jp, sg, us
 Amytelecom = select, HK, JP, SG, TW, US
-//////////分割线//////////
+
 # > 手动节点组
 Select = select, policy-path=https://sub.store/download/Texon, update-interval=0, no-alert=0, hidden=0, include-all-proxies=0
 # > 订阅节点组
 TEXON = url-test, hidden=1, policy-path=https://sub.store/download/Texon
 AMTTELECOM = url-test, hidden=1, policy-path=https://sub.store/download/Amytelecom
-//////////分割线//////////
+
 # > 筛选节点组--Texon
 hk = url-test, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Texon
 tw = url-test, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Texon
