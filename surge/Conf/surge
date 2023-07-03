@@ -1,6 +1,6 @@
 // 以"#" ";" 和 "//" 开头的行为注释行
 // 本配置主要参考https://github.com/BlueGrave 以及 https://divineengine.net/more/special/surge/ 特别感谢！
-// Update 2023-06-19
+// Update 2023-07-03 change some  tactics
 // RAW---https://raw.githubusercontent.com/bm131488bm/Surge/main/surge/Conf/surge
 
 
@@ -108,34 +108,30 @@ hide-udp = 0
 
 [Proxy Group]
 # 白名单模式 PROXY，黑名单模式 DIRECT
-Final = select, Fallback, Proxy, DIRECT
+Final = select, Proxy, DIRECT
 # 代理策略组
-Proxy = select, AutoTest, Fallback
+Proxy = select, AutoTest, Fallback, Punch
 # 广告拦截
 Guard = select, REJECT, DIRECT
-# 中国媒体服务
-Stream = select, DIRECT, Manual, Fallback
-# 海外媒体服务
-StreamCN = select, Manual, Fallback, AutoTest, DIRECT
+# 国外媒体服务
+Stream = select, DIRECT, Punch, Fallback
 # 聊天分组(大流量消耗)
-Chat = select, Fallback, Manual, AutoTest
+Chat = select, Fallback, Punch, AutoTest
 # Spotify
-Music = select, DIRECT, Manual, Fallback
+Music = select, DIRECT, Punch, Fallback
 # 测速组
 AutoTest = select, TEXON, AMTTELECOM
 # 手动选择组
-Manual = select, Texon, Amytelecom
-# 地区组
-Fallback = fallback, hidden=0, policy-path=https://sub.store/download/1, update-interval=0, no-alert=0, hidden=0, include-all-proxies=0
+Punch = select, Texon, Amytelecom
+
 # 手选节点组
 Texon = select, hk, tw, jp, sg, us
 Amytelecom = select, HK, JP, SG, TW, US
 
-# > 手动节点组
-Select = select, policy-path=https://sub.store/download/Texon, update-interval=0, no-alert=0, hidden=0, include-all-proxies=0
 # > 订阅节点组
-TEXON = url-test, hidden=1, policy-path=https://sub.store/download/Texon
-AMTTELECOM = url-test, hidden=1, policy-path=https://sub.store/download/Amytelecom
+TEXON = url-test, hidden=0, policy-path=https://sub.store/download/Texon
+AMTTELECOM = url-test, hidden=0, policy-path=https://sub.store/download/Amytelecom
+Fallback = url-test, hidden=0, policy-path=https://sub.store/download/1
 
 # > 筛选节点组--Texon
 hk = url-test, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Texon
@@ -238,7 +234,7 @@ DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master
 # RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list,Stream
 
 # China-Media
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMedia/ChinaMedia.list,StreamCN
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMedia/ChinaMedia.list,DIRECT
 
 # > Global
 DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/proxy.txt,Proxy
