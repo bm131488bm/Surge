@@ -99,7 +99,7 @@ hide-udp = 0
 
 [Proxy Group]
 # 白名单模式 PROXY，黑名单模式 DIRECT
-Final = select, Punch， Proxy, DIRECT
+Final = select, Punch, Proxy, DIRECT
 # 代理策略组
 Proxy = select, AutoTest, Fallback, Punch, DIRECT
 # 广告拦截
