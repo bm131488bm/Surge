@@ -1,16 +1,8 @@
-// 以"#" ";" 和 "//" 开头的行为注释行
-// 本配置主要参考https://github.com/BlueGrave 以及 https://divineengine.net/more/special/surge/ 特别感谢！
-// Update 2023-07-03 change some  tactics
-// RAW---https://raw.githubusercontent.com/bm131488bm/Surge/main/surge/Conf/surge
-
-
 [General]
 # 通用设置
-
 # > 增强版 Wi-Fi 助理
 # (在 Wi-Fi 网络不佳时尝试使用数据网络建立连接，请仅当使用不限量的数据流量时开启)
 wifi-assist = true
-
 # > Internet 测试 URL
 internet-test-url = http://captive.apple.com/generate_204
 # > 代理测速 URL
@@ -21,11 +13,9 @@ test-timeout = 5
 # UDP 代理转发测试指定：默认向 8.8.8.8 查询 apple.com，可使用 proxy-test-udp 参数修改，如 proxy-test-udp = google.com@1.1.1.1
 proxy-test-udp = apple.com@1.1.1.1
 # proxy-test-udp = http://cp.cloudflare.com/generate_204
-
 # > 自定义 GeoIP 数据库（二选一）
 geoip-maxmind-url = https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb
 # geoip-maxmind-url = https://raw.githubusercontent.com/Hackl0us/GeoIP2-CN/release/Country.mmdb
-
 # 是否启动完整的 IPv6 支持 (默认值: false)参数：true：开启，false：关闭
 ipv6 = true
 # Surge VIF IPv6 Stack
@@ -36,34 +26,30 @@ ipv6-vif = auto
 # Surge VIF
 # tun-excluded-routes = 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12
 # tun-included-routes = 192.168.1.12/32
-
 # > 允许 Wi-Fi 访问 (仅 iOS，若允许远程访问将「false」改为「true」)
 allow-wifi-access = false
-# > 提高处理 UDP 流量优先级   
+# > 提高处理 UDP 流量优先级
 udp-priority = true
 # > 切换网络后不再重新进行 VPN 配置
 fast-switch = true
-
 # > 兼容模式 (仅 iOS)
 # compatibility-mode = 0
 # > 跳过代理
 skip-proxy = 192.168.0.0/24, 10.0.0.0/8, 172.16.0.0/12, 127.0.0.1, localhost, *.local
 # > 排除简单主机名
 exclude-simple-hostnames = true
-
 # > Network framwork
 network-framework = false
-
 # > DNS 服务器 (如无必要不建议使用 DNS over HTTPS)
-dns-server = 223.5.5.5, 119.29.29.29, 114.114.114.114
+dns-server = 223.5.5.5, 119.29.29.29, 114.114.114.114, 2400:3200::1, 2402:4e00::, 240c::6666, system
 # > Hijack DNS
 hijack-dns = 8.8.8.8:53, 8.8.4.4:53
 # > 从 /etc/hosts 读取 DNS 记录
 read-etc-hosts = true
 # > 关闭 DOH 的服务端证书验证
-doh-skip-cert-verification=true
-# 加密 DNS 服务器设置 
-// 除非当地 ISP 有严重的 DNS 污染问题，否则没必要开启 DoH，传统 DNS 的性能最优，网络异常后恢复速度最快
+doh-skip-cert-verification = true
+# 加密 DNS 服务器设置
+# 除非当地 ISP 有严重的 DNS 污染问题，否则没必要开启 DoH，传统 DNS 的性能最优，网络异常后恢复速度最快
 # encrypted-dns-server = https://doh.pub/dns-query
 # encrypted-dns-server = https://dns.alidns.com/dns-query
 # 实验性 DNS ove QUIC 支持
@@ -71,24 +57,19 @@ doh-skip-cert-verification=true
 # encrypted-dns-server = h3://223.5.5.5/dns-query
 # 使加密 DNS 请求通过代理策略执行
 encrypted-dns-follow-outbound-mode = false
-
 # > 日志级别
 loglevel = notify
-
 # > 当遇到 REJECT 策略时返回错误页
 show-error-page-for-reject = true
-
 # > Always Real IP Hosts
 always-real-ip = *.msftconnecttest.com, *.msftncsi.com, *.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com, *.logon.battlenet.com.cn, *.logon.battle.net, stun.l.google.com
-
 # > Http-api-用于Warp连接校验
 http-api = Novio@0.0.0.0:6166
 http-api-tls = false
 http-api-web-dashboard = true
-
 # > 如果没有代理服务器支持 UDP 转发，可修改为「 direct 」或注释下条，但需注意同一目标主机名 TCP 请求与 UDP 请求的源地址不同所造成的隐私及安全风险。
 udp-policy-not-supported-behaviour = reject
-
+include-all-networks = false
 
 [Replica]
 # 0 为关闭，1 为开启
@@ -104,47 +85,32 @@ hide-udp = 0
 # > 关键词
 # keyword-filter = (null)
 
-[Proxy]
-
 [Proxy Group]
 # 白名单模式 PROXY，黑名单模式 DIRECT
 Final = select, Proxy, DIRECT
 # 代理策略组
-Proxy = select, AutoTest, Fallback, Punch
+Proxy = select, AutoTest, Fallback, Punch, DIRECT
 # 广告拦截
 Guard = select, REJECT, DIRECT
 # 国外媒体服务
-Stream = select, DIRECT, Punch, Fallback
+Stream = select, Punch, Fallback, DIRECT
 # 聊天分组(大流量消耗)
-Chat = select, Fallback, Punch, AutoTest
+Chat = select, Fallback, Punch, AutoTest, DIRECT
 # Spotify
 Music = select, DIRECT, Punch, Fallback
 # 测速组
-AutoTest = select, TEXON, AMTTELECOM
+AutoTest = select, 𝐓𝐞𝐱𝐨𝐧, 𝐀𝐦𝐲𝐭𝐞𝐥𝐞𝐜𝐨𝐦
 # 手动选择组
-Punch = select, Texon, Amytelecom
+Punch = select, 𝓣𝓮𝔁𝓸𝓷, 𝓐𝓶𝔂𝓽𝓮𝓵𝓮𝓬𝓸𝓶
 
-# 手选节点组
-Texon = select, hk, tw, jp, sg, us
-Amytelecom = select, HK, JP, SG, TW, US
+# > 订阅节点组-Select
+𝓣𝓮𝔁𝓸𝓷 = select, hidden=0, policy-path=https://sub.store/download/Texon
+𝓐𝓶𝔂𝓽𝓮𝓵𝓮𝓬𝓸𝓶 = select, hidden=0, policy-path=https://sub.store/download/Amytelecom
 
-# > 订阅节点组
-TEXON = url-test, hidden=0, policy-path=https://sub.store/download/Texon
-AMTTELECOM = url-test, hidden=0, policy-path=https://sub.store/download/Amytelecom
+# > 订阅节点组-Autotest
+𝐓𝐞𝐱𝐨𝐧 = url-test, hidden=0, policy-path=https://sub.store/download/Texon
+𝐀𝐦𝐲𝐭𝐞𝐥𝐞𝐜𝐨𝐦 = url-test, hidden=0, policy-path=https://sub.store/download/Amytelecom
 Fallback = url-test, hidden=0, policy-path=https://sub.store/download/1
-
-# > 筛选节点组--Texon
-hk = url-test, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Texon
-tw = url-test, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Texon
-jp = url-test, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Texon
-sg = url-test, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Texon
-us = url-test, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Texon
-# > 筛选节点组--Amytelecom
-HK = url-test, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Amytelecom
-TW = url-test, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Amytelecom
-JP = url-test, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Amytelecom
-SG = url-test, update-interval=0, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Amytelecom
-US = url-test, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), hidden=1, no-alert=1, persistent=1, policy-path=https://sub.store/download/Amytelecom
 
 
 [Rule]
@@ -152,15 +118,11 @@ US = url-test, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|
 DOMAIN-SUFFIX,uttjhu.xyz,DIRECT
 DOMAIN-SUFFIX,texon.io,DIRECT
 
-# 屏蔽 HTTP3/QUIC 协议
-# 阻止所有 UDP 流量进入443端口，使 HTTP3 请求回落到 TCP 流量。
-AND,((PROTOCOL,UDP),(DEST-PORT,443)),REJECT-NO-DROP
-
 # 阻止电报频繁请求
 AND,((PROCESS-NAME,Telegram), (OR,((IP-CIDR,0.0.0.0/8), (IP-CIDR,224.0.0.0/4)))),REJECT
 
 # 屏蔽 YouTube 的 UDP
-AND,((PROTOCOL,UDP),(DOMAIN-SUFFIX,googlevideo.com)),REJECT-NO-DROP
+AND,((PROTOCOL,UDP), (DOMAIN-SUFFIX,googlevideo.com)),REJECT-NO-DROP
 
 # Safari 防跳转
 DOMAIN,app-site-association.cdn-apple.com,REJECT
@@ -199,9 +161,13 @@ RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ru
 # > 知乎、微博分流
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Zhihu/Zhihu.list,DIRECT
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Weibo/Weibo.list,DIRECT
+
 # > Wechat
 # RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/WeChat/WeChat.list,DIRECT
-RULE-SET,https://raw.githubusercontent.com/NobyDa/Script/master/Surge/WeChat.list,DIRECT
+# RULE-SET,https://raw.githubusercontent.com/NobyDa/Script/master/Surge/WeChat.list,DIRECT
+
+# > 局域网地址
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Lan/Lan.list,DIRECT
 
 # > Apple
 DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/apple.txt,DIRECT
@@ -230,6 +196,7 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 # > GlobalMedia
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia.list,Stream
 DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_Domain.list,Stream
+
 # TikTok
 # RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list,Stream
 
@@ -238,8 +205,9 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 
 # > Global
 DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/proxy.txt,Proxy
+
 # 以下备选list方案
-# DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/proxy.txt,Proxy 
+# DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/proxy.txt,Proxy
 # DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/gfw.txt,Proxy
 # RULE-SET,https://github.com/Blankwonder/surge-list/raw/master/blocked.list,Proxy
 
@@ -253,24 +221,18 @@ IP-CIDR,0.0.0.0/32,REJECT,no-resolve
 
 # > Other
 DOMAIN-SUFFIX,cn,DIRECT
-
 # >Apple Others
 DOMAIN,apps.apple.com,Proxy
 DOMAIN-SUFFIX,ls.apple.com,DIRECT // Apple Maps
 DOMAIN-SUFFIX,store.apple.com,DIRECT // Apple Store Online
 
-# > 局域网地址
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Lan/Lan.list,DIRECT
 
 # > GEOIP
 GEOIP,CN,DIRECT
-
-#> Final兜底策略
+# > Final兜底策略
 FINAL,Final,dns-failed
 
-
 [Host]
-
 # 该段定义本地 DNS 记录
 # 该功能等同于 /etc/hosts，加上了泛解析和别名支持。
 # DNS 全部交给系统处理
@@ -306,44 +268,36 @@ hdslb.com = server:119.29.29.29
 *.ximalaya.com = server:119.29.29.29
 *.baidu.com = server:119.29.29.29
 *.bdstatic.com = server:119.29.29.29
-
 # > Firebase Cloud Messaging
 mtalk.google.com = 108.177.125.188
-
 # > Google Dl
 dl.google.com = server:119.29.29.29
 dl.l.google.com = server:119.29.29.29
 update.googleapis.com = server:119.29.29.29
-
 # > PlayStation
 *.dl.playstation.net = server:119.29.29.29
-
 # > Router Admin Panel
 www.miwifi.com = server:syslib // Xiaomi Mi WiFi Router
 miwifi.com = server:syslib // Xiaomi Mi WiFi Router
 mediarouter.home = server:syslib // Huawei Router
 tplogin.cn = server:syslib // TP-Link Router
 tplinklogin.net = server:syslib // TP-Link Router
-
-
 # Apple
 apple.com = server:223.5.5.5
 *icloud.com = server:223.5.5.5
 *icloud.com.cn = server:223.5.5.5
 *testflight.apple.com = server:8.8.4.4
 
-
-[Script]
+[SSID Setting]
+SSID:OFFICE_5G cellular-fallback=hybrid
 
 [MITM]
 # > 跳过服务端证书验证
 skip-server-cert-verify = true
-
 # > 用于 TCP 连接
 tcp-connection = true
-
 # > MITM over HTTP/2
 h2 = true
-
 ca-passphrase = 21641934
 ca-p12 = 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
+
