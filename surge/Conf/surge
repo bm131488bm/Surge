@@ -3,12 +3,14 @@
 # > 增强版 Wi-Fi 助理
 # (在 Wi-Fi 网络不佳时尝试使用数据网络建立连接，请仅当使用不限量的数据流量时开启)
 wifi-assist = true
+
 # > Internet 测试 URL
 internet-test-url = http://captive.apple.com/generate_204
 # > 代理测速 URL
 proxy-test-url = http://cp.cloudflare.com/generate_204
 # > 测试超时（秒）
 test-timeout = 5
+
 # > UDP测试 URL
 # UDP 代理转发测试指定：默认向 8.8.8.8 查询 apple.com，可使用 proxy-test-udp 参数修改，如 proxy-test-udp = google.com@1.1.1.1
 proxy-test-udp = apple.com@1.1.1.1
@@ -16,30 +18,36 @@ proxy-test-udp = apple.com@1.1.1.1
 # > 自定义 GeoIP 数据库（二选一）
 geoip-maxmind-url = https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb
 # geoip-maxmind-url = https://raw.githubusercontent.com/Hackl0us/GeoIP2-CN/release/Country.mmdb
+
 # 是否启动完整的 IPv6 支持 (默认值: false)参数：true：开启，false：关闭
 ipv6 = true
 # Surge VIF IPv6 Stack
 # 允许 IPv6 通过 Surge VIF。当希望 Surge 处理连接到 IPv6 地址的原始 TCP 连接时非常有用。可选项：true，false，auto，always
 ipv6-vif = auto
+
 # ⚠️ 隐藏状态栏上的VPN图标，启动该选项可能导致「Cannot allocate memory」系统错误，请谨慎使用，本配置在开启IP v6选项时失效
 # hide-vpn-icon = true
 # Surge VIF
 # tun-excluded-routes = 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12
 # tun-included-routes = 192.168.1.12/32
+
 # > 允许 Wi-Fi 访问 (仅 iOS，若允许远程访问将「false」改为「true」)
 allow-wifi-access = false
 # > 提高处理 UDP 流量优先级
 udp-priority = true
 # > 切换网络后不再重新进行 VPN 配置
 fast-switch = true
+
 # > 兼容模式 (仅 iOS)
 # compatibility-mode = 0
+
 # > 跳过代理
 skip-proxy = 192.168.0.0/24, 10.0.0.0/8, 172.16.0.0/12, 127.0.0.1, localhost, *.local
 # > 排除简单主机名
 exclude-simple-hostnames = true
 # > Network framwork
 network-framework = false
+
 # > DNS 服务器 (如无必要不建议使用 DNS over HTTPS)
 dns-server = 223.5.5.5, 119.29.29.29, 114.114.114.114, 2400:3200::1, 2402:4e00::, 240c::6666, system
 # > Hijack DNS
@@ -57,16 +65,20 @@ doh-skip-cert-verification = true
 # encrypted-dns-server = h3://223.5.5.5/dns-query
 # 使加密 DNS 请求通过代理策略执行
 encrypted-dns-follow-outbound-mode = false
+
 # > 日志级别
 loglevel = notify
 # > 当遇到 REJECT 策略时返回错误页
 show-error-page-for-reject = true
+
 # > Always Real IP Hosts
 always-real-ip = *.msftconnecttest.com, *.msftncsi.com, *.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com, *.logon.battlenet.com.cn, *.logon.battle.net, stun.l.google.com
+
 # > Http-api-用于Warp连接校验
 http-api = Novio@0.0.0.0:6166
 http-api-tls = false
 http-api-web-dashboard = true
+
 # > 如果没有代理服务器支持 UDP 转发，可修改为「 direct 」或注释下条，但需注意同一目标主机名 TCP 请求与 UDP 请求的源地址不同所造成的隐私及安全风险。
 udp-policy-not-supported-behaviour = reject
 include-all-networks = false
@@ -87,7 +99,7 @@ hide-udp = 0
 
 [Proxy Group]
 # 白名单模式 PROXY，黑名单模式 DIRECT
-Final = select, Proxy, DIRECT
+Final = select, Punch， Proxy, DIRECT
 # 代理策略组
 Proxy = select, AutoTest, Fallback, Punch, DIRECT
 # 广告拦截
@@ -101,11 +113,11 @@ Music = select, DIRECT, Punch, Fallback
 # 测速组
 AutoTest = select, 𝐓𝐞𝐱𝐨𝐧, 𝐀𝐦𝐲𝐭𝐞𝐥𝐞𝐜𝐨𝐦
 # 手动选择组
-Punch = select, 𝓣𝓮𝔁𝓸𝓷, 𝓐𝓶𝔂𝓽𝓮𝓵𝓮𝓬𝓸𝓶
+Punch = select, 𝑻𝒆𝒙𝒐𝒏, 𝑨𝒎𝒚𝒕𝒆𝒍𝒆𝒄𝒐𝒎
 
 # > 订阅节点组-Select
-𝓣𝓮𝔁𝓸𝓷 = select, hidden=0, policy-path=https://sub.store/download/Texon
-𝓐𝓶𝔂𝓽𝓮𝓵𝓮𝓬𝓸𝓶 = select, hidden=0, policy-path=https://sub.store/download/Amytelecom
+𝑻𝒆𝒙𝒐𝒏 = select, hidden=0, policy-path=https://sub.store/download/Texon
+𝑨𝒎𝒚𝒕𝒆𝒍𝒆𝒄𝒐𝒎 = select, hidden=0, policy-path=https://sub.store/download/Amytelecom
 
 # > 订阅节点组-Autotest
 𝐓𝐞𝐱𝐨𝐧 = url-test, hidden=0, policy-path=https://sub.store/download/Texon
@@ -140,6 +152,9 @@ DOMAIN,testflight.apple.com,Proxy
 # > 自定义分流
 DOMAIN-KEYWORD,ipip.net,Proxy
 
+# > 局域网地址
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Lan/Lan.list,DIRECT
+
 # Unbreak 后续规则修正
 RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Unbreak.list,DIRECT
 
@@ -147,8 +162,10 @@ RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ru
 # Advertise
 RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Guard/Advertising.list,Guard
 DOMAIN-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Guard/AdvertisingPlus.list,Guard
+
 # （anti-ad）
 # DOMAIN-SET,https://raw.githubusercontent.com/privacy- protection-tools/anti-AD/master/anti-ad-surge2.txt,Guard
+
 # 毒奶去广告
 RULE-SET,https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adblock4limbo_surge.list,Guard
 
@@ -165,9 +182,6 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 # > Wechat
 # RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/WeChat/WeChat.list,DIRECT
 # RULE-SET,https://raw.githubusercontent.com/NobyDa/Script/master/Surge/WeChat.list,DIRECT
-
-# > 局域网地址
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Lan/Lan.list,DIRECT
 
 # > Apple
 DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/apple.txt,DIRECT
@@ -205,7 +219,6 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 
 # > Global
 DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/proxy.txt,Proxy
-
 # 以下备选list方案
 # DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/proxy.txt,Proxy
 # DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/gfw.txt,Proxy
@@ -226,9 +239,9 @@ DOMAIN,apps.apple.com,Proxy
 DOMAIN-SUFFIX,ls.apple.com,DIRECT // Apple Maps
 DOMAIN-SUFFIX,store.apple.com,DIRECT // Apple Store Online
 
-
 # > GEOIP
 GEOIP,CN,DIRECT
+
 # > Final兜底策略
 FINAL,Final,dns-failed
 
