@@ -99,21 +99,22 @@ hide-udp = 0
 
 [Proxy Group]
 # 白名单模式 PROXY，黑名单模式 DIRECT
-Final = select, Punch, Proxy, DIRECT
+Final = select, Selection, DIRECT
 # 代理策略组
-Proxy = select, AutoTest, Fallback, Punch, DIRECT
+Proxy = select, Selection, AutoTest, DIRECT
 # 广告拦截
 Guard = select, REJECT, DIRECT
 # 国外媒体服务
-Stream = select, Punch, Fallback, DIRECT
+Stream = select, Selection, AutoTest, DIRECT
 # 聊天分组(大流量消耗)
-Chat = select, Fallback, Punch, AutoTest, DIRECT
+Chat = select, Selection, AutoTest, DIRECT
 # Spotify
-Music = select, DIRECT, Punch, Fallback
+Music = select, DIRECT, Punch
+
 # 测速组
 AutoTest = select, 𝐓𝐞𝐱𝐨𝐧, 𝐀𝐦𝐲𝐭𝐞𝐥𝐞𝐜𝐨𝐦
 # 手动选择组
-Punch = select, 𝑻𝒆𝒙𝒐𝒏, 𝑨𝒎𝒚𝒕𝒆𝒍𝒆𝒄𝒐𝒎
+Selection = select, 𝑻𝒆𝒙𝒐𝒏, 𝑨𝒎𝒚𝒕𝒆𝒍𝒆𝒄𝒐𝒎
 
 # > 订阅节点组-Select
 𝑻𝒆𝒙𝒐𝒏 = select, hidden=0, policy-path=https://sub.store/download/Texon
@@ -122,7 +123,7 @@ Punch = select, 𝑻𝒆𝒙𝒐𝒏, 𝑨𝒎𝒚𝒕𝒆𝒍𝒆𝒄𝒐𝒎
 # > 订阅节点组-Autotest
 𝐓𝐞𝐱𝐨𝐧 = url-test, hidden=0, policy-path=https://sub.store/download/Texon
 𝐀𝐦𝐲𝐭𝐞𝐥𝐞𝐜𝐨𝐦 = url-test, hidden=0, policy-path=https://sub.store/download/Amytelecom
-Fallback = url-test, hidden=0, policy-path=https://sub.store/download/1
+
 
 
 [Rule]
