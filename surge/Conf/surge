@@ -103,7 +103,7 @@ Final = select, Pick, DIRECT
 # 代理策略组
 Proxy = select, Pick, AutoTest, DIRECT
 # 节点选项
-IP = select, HK, TW, SG, JP, US
+IP = select, Pick, AutoTest, DIRECT
 # 广告拦截
 Guard = select, REJECT, DIRECT
 # 国外媒体服务
@@ -120,7 +120,7 @@ Pick = select, 𝑻𝒆𝒙𝒐𝒏, 𝑨𝒎𝒚𝒕𝒆𝒍𝒆𝒄𝒐𝒎
 
 # > 订阅节点组-Select
 𝑻𝒆𝒙𝒐𝒏 = select, hidden=0, policy-path=https://sub.store/download/Texon
-𝑨𝒎𝒚𝒕𝒆𝒍𝒆𝒄𝒐𝒎 = select, hidden=0, policy-path=https://sub.store/download/Amytelecom
+𝑨𝒎𝒚𝒕𝒆𝒍𝒆𝒄𝒐𝒎 = select, HK, TW, SG, JP, US, DIRECT
 
 # > 订阅节点组-Autotest
 𝐓𝐞𝐱𝐨𝐧 = url-test, hidden=0, policy-path=https://sub.store/download/Texon
@@ -243,6 +243,10 @@ DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/cn
 
 # > 防止应用循环请求
 IP-CIDR,0.0.0.0/32,REJECT,no-resolve
+
+# DEST-PORT 端口规则
+OR,((DEST-PORT,25), (DEST-PORT,110), (DEST-PORT,143), (DEST-PORT,465), (DEST-PORT,587)),DIRECT // 邮件服务默认端口
+AND,((OR,((DOMAIN,time-ios.apple.com), (DOMAIN,time.apple.com), (DOMAIN-SUFFIX,pool.ntp.org))), (DEST-PORT,123)),DIRECT // NTP服务默认端口
 
 # > Other
 DOMAIN-SUFFIX,cn,DIRECT
