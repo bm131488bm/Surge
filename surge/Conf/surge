@@ -102,6 +102,8 @@ hide-udp = 0
 Final = select, Pick, DIRECT
 # 代理策略组
 Proxy = select, Pick, AutoTest, DIRECT
+# 节点选项
+IP = select, 🇭🇰, 🇹🇼, 🇸🇬, 🇯🇵, 🇺🇸
 # 广告拦截
 Guard = select, REJECT, DIRECT
 # 国外媒体服务
@@ -123,6 +125,13 @@ Pick = select, 𝑻𝒆𝒙𝒐𝒏, 𝑨𝒎𝒚𝒕𝒆𝒍𝒆𝒄𝒐𝒎
 # > 订阅节点组-Autotest
 𝐓𝐞𝐱𝐨𝐧 = url-test, hidden=0, policy-path=https://sub.store/download/Texon
 𝐀𝐦𝐲𝐭𝐞𝐥𝐞𝐜𝐨𝐦 = url-test, hidden=0, policy-path=https://sub.store/download/Amytelecom
+
+# > 筛选节点组
+🇭🇰 = url-test, policy-path=https://sub.store/download/Amytelecom, url=http://cp.cloudflare.com/generate_204, interval=60, tolerance=30, hidden=0, policy-regex-filter=^(🇭🇰|香港|HKG).*, evaluate-before-use=true
+🇹🇼 = url-test, policy-path=https://sub.store/download/Amytelecom, url=http://cp.cloudflare.com/generate_204, interval=60, tolerance=30, hidden=0, policy-regex-filter=^(🇹🇼|🇨🇳|台湾|TWN).*, evaluate-before-use=true
+🇸🇬 = url-test, policy-path=https://sub.store/download/Amytelecom, url=http://cp.cloudflare.com/generate_204, interval=60, tolerance=30, hidden=0, policy-regex-filter=^(🇸🇬|新加坡|SGP).*, evaluate-before-use=true
+🇯🇵 = url-test, policy-path=https://sub.store/download/Amytelecom, url=http://cp.cloudflare.com/generate_204, interval=60, tolerance=30, hidden=0, policy-regex-filter=^(🇯🇵|日本|JPN).*, evaluate-before-use=true
+🇺🇸 = url-test, policy-path=https://sub.store/download/Amytelecom, url=http://cp.cloudflare.com/generate_204, interval=60, tolerance=30, hidden=0, policy-regex-filter=^(🇺🇸|美国|USA).*, evaluate-before-use=true
 
 
 
@@ -158,6 +167,9 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 
 # Unbreak 后续规则修正
 RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Unbreak.list,DIRECT
+
+# IP归属地更改
+RULE-SET,https://raw.githubusercontent.com/lwd-temp/anti-ip-attribution/main/generated/surge.list,IP // IP归属地更改
 
 # > 去广告
 # Advertise
@@ -253,54 +265,7 @@ FINAL,Final,dns-failed
 # * = server:syslib
 # 本地值
 # 特定 DNS 服务器
-*.tw = server:1.1.1.1
-testflight.apple.com = server:8.8.8.8
-router.asus.com = server:syslib
-*.tmall.com = server:223.5.5.5
-*.taobao.com = server:223.5.5.5
-*.alicdn.com = server:223.5.5.5
-*.aliyun.com = server:223.5.5.5
-*.alipay*.com = server:223.5.5.5
-*.alibaba*.com = server:223.5.5.5
-*.alimama*.com = server:223.5.5.5
-*.qq.com = server:119.29.29.29
-*.tencent.com = server:119.29.29.29
-*.weixin.com = server:119.29.29.29
-*.qpic.cn = server:119.29.29.29
-*.jd.com = server:119.29.29.29
-*.bilibili.com = server:119.29.29.29
-hdslb.com = server:119.29.29.29
-*.163.com = server:119.29.29.29
-*.126.com = server:119.29.29.29
-*.126.net = server:119.29.29.29
-*.127.net = server:119.29.29.29
-*.netease.com = server:119.29.29.29
-*.10010.com = server:119.29.29.29
-*.unicompayment.com = server:119.29.29.29
-*.vercel.app = server:119.29.29.29
-*.vercel.com = server:119.29.29.29
-*.ximalaya.com = server:119.29.29.29
-*.baidu.com = server:119.29.29.29
-*.bdstatic.com = server:119.29.29.29
-# > Firebase Cloud Messaging
-mtalk.google.com = 108.177.125.188
-# > Google Dl
-dl.google.com = server:119.29.29.29
-dl.l.google.com = server:119.29.29.29
-update.googleapis.com = server:119.29.29.29
-# > PlayStation
-*.dl.playstation.net = server:119.29.29.29
-# > Router Admin Panel
-www.miwifi.com = server:syslib // Xiaomi Mi WiFi Router
-miwifi.com = server:syslib // Xiaomi Mi WiFi Router
-mediarouter.home = server:syslib // Huawei Router
-tplogin.cn = server:syslib // TP-Link Router
-tplinklogin.net = server:syslib // TP-Link Router
-# Apple
-apple.com = server:223.5.5.5
-*icloud.com = server:223.5.5.5
-*icloud.com.cn = server:223.5.5.5
-*testflight.apple.com = server:8.8.4.4
+
 
 [SSID Setting]
 SSID:OFFICE_5G cellular-fallback=hybrid
