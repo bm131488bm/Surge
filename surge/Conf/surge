@@ -107,8 +107,6 @@ hide-udp = 0
 # keyword-filter = (null)
 
 [Proxy Group]
-# Final
-Final = select, Pick, Proxy, DIRECT
 # 代理策略组
 Proxy = select, Pick, AutoTest, DIRECT
 # 节点选项
@@ -262,7 +260,7 @@ DOMAIN-SUFFIX,store.apple.com,DIRECT // Apple Store Online
 GEOIP,CN,DIRECT
 
 # > Final兜底策略
-FINAL,Final,dns-failed
+FINAL,Pick,dns-failed
 
 [Host]
 
