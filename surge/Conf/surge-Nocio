@@ -1,5 +1,6 @@
 [General]
 # 通用设置
+
 # > 增强版 Wi-Fi 助理
 # (在 Wi-Fi 网络不佳时尝试使用数据网络建立连接，请仅当使用不限量的数据流量时开启)
 wifi-assist = true
@@ -13,9 +14,11 @@ test-timeout = 5
 # UDP 代理转发测试指定：默认向 8.8.8.8 查询 apple.com，可使用 proxy-test-udp 参数修改，如 proxy-test-udp = google.com@1.1.1.1
 proxy-test-udp = apple.com@1.1.1.1
 # proxy-test-udp = http://cp.cloudflare.com/generate_204
+
 # > 自定义 GeoIP 数据库（二选一）
-geoip-maxmind-url = https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb
-# geoip-maxmind-url = https://raw.githubusercontent.com/Hackl0us/GeoIP2-CN/release/Country.mmdb
+# geoip-maxmind-url = https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb
+geoip-maxmind-url = https://raw.githubusercontent.com/Hackl0us/GeoIP2-CN/release/Country.mmdb
+
 # 是否启动完整的 IPv6 支持 (默认值: false)参数：true：开启，false：关闭
 ipv6 = true
 # Surge VIF IPv6 Stack
@@ -26,6 +29,7 @@ ipv6-vif = auto
 # Surge VIF
 # tun-excluded-routes = 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12
 # tun-included-routes = 192.168.1.12/32
+
 # > 允许 Wi-Fi 访问 (仅 iOS，若允许远程访问将「false」改为「true」)
 # Surge 可以作为 HTTP/SOCKS5 代理服务器向 Wi-Fi 网络下的其他设备提供服务器
 allow-wifi-access = false
@@ -41,10 +45,13 @@ socks5-listen = 0.0.0.0:6153
 wifi-access-http-port = 6152
 # SOCKS5 服务端口 (默认值: 6153)
 wifi-access-socks5-port = 6153
+
 # > 提高处理 UDP 流量优先级
 udp-priority = true
+
 # > 切换网络后不再重新进行 VPN 配置
 fast-switch = true
+
 # FOR MAC
 # 当 Wi-Fi 不是首选网络时 SSID 组策略使用默认策略（仅 macOS 版可用）
 # use-default-policy-if-wifi-not-primary = false
@@ -52,17 +59,23 @@ fast-switch = true
 # enhanced-mode-by-rule = false
 # Network Framework
 # network-framework = false
+
 # > 兼容模式 (仅 iOS)
 # compatibility-mode = 0
+
 # > 跳过代理
 skip-proxy = 192.168.0.0/24, 10.0.0.0/8, 172.16.0.0/12, 127.0.0.1, localhost, *.local
+
 # > 排除简单主机名
 exclude-simple-hostnames = true
+
 # > Network framwork
 network-framework = false
+
 # > DNS 相关设置 (如无必要不建议使用 DNS over HTTPS)
 # 传统 DNS 服务器设置
-dns-server = 223.5.5.5, 119.29.29.29, 114.114.114.114, 2400:3200::1, 2402:4e00::, 240c::6666, system
+dns-server = 223.5.5.5, 119.29.29.29, 114.114.114.114, system
+
 # > Hijack DNS
 hijack-dns = 8.8.8.8:53, 8.8.4.4:53
 # > 从 /etc/hosts 读取 DNS 记录
@@ -125,6 +138,8 @@ Stream = select, Pick, AutoTest, DIRECT
 List = select, Pick, AutoTest, DIRECT
 # Spotify
 Spotify = select, DIRECT, Pick
+# 兜底策略
+Final = Pick, DIRECT
 # 测速组
 AutoTest = url-test, hidden=0, policy-path=https://sub.store/download/Amytelecom, update-interval=0, no-alert=0, include-all-proxies=0
 # 手动选择组
@@ -140,19 +155,33 @@ SG = url-test, update-interval=0, policy-regex-filter=(🇸🇬)|(坡)|(Singapor
 # 机场订阅直连
 DOMAIN-SUFFIX,uttjhu.xyz,DIRECT
 DOMAIN-SUFFIX,texon.io,DIRECT
+
 # 阻止电报频繁请求
 AND,((PROCESS-NAME,Telegram), (OR,((IP-CIDR,0.0.0.0/8), (IP-CIDR,224.0.0.0/4)))),REJECT
+
 # 屏蔽 YouTube 的 UDP
 AND,((PROTOCOL,UDP), (DOMAIN-SUFFIX,googlevideo.com)),REJECT-NO-DROP
+
+# > 防止应用循环请求
+IP-CIDR,0.0.0.0/32,REJECT,no-resolve
+
+# DEST-PORT 端口规则
+OR,((DEST-PORT,25), (DEST-PORT,110), (DEST-PORT,143), (DEST-PORT,465), (DEST-PORT,587)),DIRECT // 邮件服务默认端口
+AND,((OR,((DOMAIN,time-ios.apple.com), (DOMAIN,time.apple.com), (DOMAIN-SUFFIX,pool.ntp.org))), (DEST-PORT,123)),DIRECT // NTP服务默认端口
+
 # Safari 防跳转
 DOMAIN,app-site-association.cdn-apple.com,REJECT
+
 # Boxjs 代理
 DOMAIN-KEYWORD,jsdelivr.net,Proxy
+
 # Sub-Store 的 Web 页面
 DOMAIN-SUFFIX,vercel.app,Proxy
+
 # TestFlight 商店
 DOMAIN,beta.apple.com,Proxy
 DOMAIN,testflight.apple.com,Proxy
+
 # > 自定义分流
 DOMAIN-KEYWORD,ipip.net,Proxy
 
@@ -173,15 +202,14 @@ DOMAIN-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/
 # DOMAIN-SET,https://raw.githubusercontent.com/privacy- protection-tools/anti-AD/master/anti-ad-surge2.txt,Guard //Anti-AD去广告
 # 毒奶去广告
 RULE-SET,https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adblock4limbo_surge.list,Guard //毒奶去广告
+
 # Privacy 隐私
 RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Guard/Privacy.list,Guard
 # Hijacking 运营商劫持或恶意网站
 RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Guard/Hijacking.list,Guard
 
 # > Apple
-# DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/apple.txt,Apple
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple.list,Apple
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple_Domain.list,Apple
+DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/apple.txt,Apple
 
 # > 游戏平台
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Game/TencentLoLMobile/TencentLoLMobile.list,DIRECT //LOL手游
@@ -198,7 +226,8 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 # Instagram
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,List
 # Telegram
-RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,List //Telegram-ASN
+DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/telegramcidr.txt,List
+# RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,List //Telegram-ASN
 # RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,List
 # Discord
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,List
@@ -208,13 +237,6 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 # > muisc
 # Spotify
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify
-
-# > Media
-# China-Media
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMedia/ChinaMedia.list,StreamCN
-# GlobalMedia
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia.list,Stream
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_Domain.list,Stream
 
 # > Proxy
 # DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/proxy.txt,Proxy
@@ -227,10 +249,6 @@ DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master
 # > 下载
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Download/Download.list,DIRECT
 
-# > 开源CDN加速
-# DOMAIN-SET,https://ruleset.skk.moe/List/domainset/cdn.conf,Proxy
-# RULE-SET,https://ruleset.skk.moe/List/non_ip/cdn.conf,Proxy
-
 # > 注：开启ASN-China 的情况下、关闭GEOIP的相关分流--二者选其一
 # China-ASN（替代GEOIP）
 # RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,DIRECT
@@ -242,25 +260,15 @@ DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/WeChat/WeChat.list,DIRECT
 # RULE-SET,https://raw.githubusercontent.com/NobyDa/Script/master/Surge/WeChat.list,DIRECT
 
-# > 防止应用循环请求
-IP-CIDR,0.0.0.0/32,REJECT,no-resolve
-# DEST-PORT 端口规则
-OR,((DEST-PORT,25), (DEST-PORT,110), (DEST-PORT,143), (DEST-PORT,465), (DEST-PORT,587)),DIRECT // 邮件服务默认端口
-AND,((OR,((DOMAIN,time-ios.apple.com), (DOMAIN,time.apple.com), (DOMAIN-SUFFIX,pool.ntp.org))), (DEST-PORT,123)),DIRECT // NTP服务默认端口
-
 # > Other
 DOMAIN-SUFFIX,cn,DIRECT
-
-# >Apple Others
-DOMAIN,apps.apple.com,DIRECT // Apple Apps
-DOMAIN-SUFFIX,ls.apple.com,DIRECT // Apple Maps
-DOMAIN-SUFFIX,store.apple.com,DIRECT // Apple Store Online
+RULE-SET,LAN,DIRECT
 
 # > GEOIP
 GEOIP,CN,DIRECT
 
 # > Final兜底策略
-FINAL,Pick,dns-failed
+FINAL,Final,dns-failed
 
 [Host]
 
