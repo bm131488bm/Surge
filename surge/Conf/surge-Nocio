@@ -139,7 +139,7 @@ List = select, Pick, AutoTest, DIRECT
 # Spotify
 Spotify = select, DIRECT, Pick
 # 兜底策略
-Final = Pick, DIRECT
+Final = select, Pick, DIRECT
 # 测速组
 AutoTest = url-test, hidden=0, policy-path=https://sub.store/download/Amytelecom, update-interval=0, no-alert=0, include-all-proxies=0
 # 手动选择组
