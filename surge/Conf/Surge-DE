@@ -155,6 +155,10 @@ JP = url-test, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(
 SG = url-test, update-interval=0, policy-regex-filter=(🇸🇬)|(坡)|(Singapore)|(SG), no-alert=0, hidden=1, include-all-proxies=0, policy-path=https://sub.store/download/Amytelecom
 
 [Rule]
+# > Warp
+# OR,((IP-CIDR,1.1.1.1/32,no-resolve), (IP-CIDR6,2606:4700:4700::1111/128,no-resolve), (DOMAIN-SUFFIX,cloudflareclient.com)),WARP
+DOMAIN-SET,https://raw.githubusercontent.com/ExaAlice/Alice/main/Rule/WARP.list,WARP
+
 # 机场订阅直连
 DOMAIN-SUFFIX,uttjhu.xyz,DIRECT
 DOMAIN-SUFFIX,texon.io,DIRECT
