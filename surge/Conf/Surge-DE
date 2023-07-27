@@ -120,7 +120,7 @@ hide-udp = 0
 # keyword-filter = (null)
 
 [Proxy]
-WARP+ = wireguard, section-name=Cloudflare, underlying-proxy=Pick, test-url=http://cp.cloudflare.com/generate_204
+WARP+ = wireguard, section-name=Cloudflare, underlying-proxy=Texon, test-url=http://cp.cloudflare.com/generate_204
 
 [Proxy Group]
 # 代理策略组
@@ -142,11 +142,11 @@ ChatList = select, Pick, AutoTest, DIRECT
 # Spotify
 Spotify = select, DIRECT, Pick
 # 手动切换
-Pick = select, WARP+, Use, AutoTest
+Pick = select, WARP+, Texon, AutoTest
 # 测速组
 AutoTest = url-test, hidden=0, policy-path=https://sub.store/download/Amytelecom, update-interval=0, no-alert=0, include-all-proxies=0
 # 手动选择组
-Use = select, hidden=1, policy-path=https://sub.store/download/Texon, update-interval=0, no-alert=0, include-all-proxies=0
+Texon = select, hidden=1, policy-path=https://sub.store/download/Texon, update-interval=0, no-alert=0, include-all-proxies=0
 # > 筛选节点组
 HK = url-test, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), no-alert=0, hidden=1, include-all-proxies=0, policy-path=https://sub.store/download/Amytelecom
 TW = url-test, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), no-alert=0, hidden=1, include-all-proxies=0, policy-path=https://sub.store/download/Amytelecom
