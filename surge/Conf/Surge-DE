@@ -113,9 +113,9 @@ WARP+JP = wireguard, section-name=Cloudflare1, underlying-proxy=JP, test-url=htt
 
 [Proxy Group]
 # 代理策略组
-Proxy = select, Selection, AutoTest, DIRECT
-# 节点选项
-Optimal = select, Selection, WARP, AutoTest, DIRECT
+Proxy = select, AutoTest, Selection, DIRECT
+# 手动切换
+Selection = select, WARP+, WARP+JP, WARP
 # Apple
 Apple = select, DIRECT, HK, JP, SG, TW, US
 # 广告拦截
@@ -124,14 +124,10 @@ Guard = select, REJECT, DIRECT
 Stream = select, Selection, AutoTest, DIRECT
 # Spotify
 Spotify = select, DIRECT, Selection
-# 手动切换
-Selection = select, WARP+, WARP+JP, WARP
-# 聊天策略
-ChatList = select, WARP, WARP+, WARP+JP
 # 测速组
-AutoTest = url-test, hidden=1, policy-path=https://sub.store/download/Amytelecom, update-interval=0, no-alert=0, include-all-proxies=0
+AutoTest = url-test, hidden=0, policy-path=https://sub.store/download/Amytelecom, update-interval=0, no-alert=0, include-all-proxies=0
 # 手动选择组
-Texon = select, hidden=1, policy-path=https://sub.store/download/Texon, update-interval=0, no-alert=0, include-all-proxies=0
+Texon = select, hidden=0, policy-path=https://sub.store/download/Texon, update-interval=0, no-alert=0, include-all-proxies=0
 # > 筛选节点组
 HK = url-test, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), no-alert=0, hidden=1, include-all-proxies=0, policy-path=https://sub.store/download/Amytelecom
 TW = url-test, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), no-alert=0, hidden=1, include-all-proxies=0, policy-path=https://sub.store/download/Amytelecom
@@ -177,19 +173,19 @@ DOMAIN-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/
 # Hijacking 运营商劫持或恶意网站
 RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Guard/Hijacking.list,Guard
 # > IP归属地更改
-RULE-SET,https://raw.githubusercontent.com/lwd-temp/anti-ip-attribution/main/generated/surge.list,Optimal // IP归属地更改
+RULE-SET,https://raw.githubusercontent.com/lwd-temp/anti-ip-attribution/main/generated/surge.list,Selection // IP归属地更改
 # YouTube
 RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/StreamingMedia/Video/YouTube.list,Stream
 # Reddit
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,ChatList
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Selection
 # Twitter
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,ChatList
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Selection
 # Instagram
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,ChatList
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Selection
 # Telegram
-RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,ChatList // Telegram-ASN
+RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,Selection // Telegram-ASN
 # Discord
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,ChatList
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Selection
 # Spotify
 RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/StreamingMedia/Music/Spotify.list,Spotify
 # Streaming 国际流媒体服务
