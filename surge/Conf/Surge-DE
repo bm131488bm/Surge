@@ -165,7 +165,7 @@ DOMAIN,testflight.apple.com,Proxy
 # > 自定义分流
 DOMAIN-KEYWORD,ipip.net,Proxy
 # > Warp
-OR,((IP-CIDR,1.1.1.1/32,no-resolve), (IP-CIDR6,2606:4700:4700::1111/128,no-resolve), (DOMAIN-SUFFIX,cloudflareclient.com)),IP
+OR,((IP-CIDR,1.1.1.1/32,no-resolve), (IP-CIDR6,2606:4700:4700::1111/128,no-resolve), (DOMAIN-SUFFIX,cloudflareclient.com)),Selection
 # DOMAIN-SET,https://raw.githubusercontent.com/ExaAlice/Alice/main/Rule/WARP.list,Selection
 # Unbreak 后续规则修正
 RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Unbreak.list,DIRECT
