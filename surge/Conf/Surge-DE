@@ -126,7 +126,7 @@ Stream = select, Warp, Autotest, HK, TW, US, JP, SG
 # Spotify
 Spotify = select, DIRECT, HK, TW, US, JP, SG
 # Airport
-Autotest = select, Amytelecome, Warp
+Autotest = select, Amytelecom, Warp
 
 # 机场订阅
 Amytelecom = url-test, hidden=0, policy-path=https://sub.store/download/Amytelecom, update-interval=0, no-alert=0, include-all-proxies=0
