@@ -110,22 +110,29 @@ hide-udp = 0
 WARP = wireguard, section-name=Cloudflare, test-url=http://cp.cloudflare.com/generate_204
 WARP+ = wireguard, section-name=Cloudflare1, underlying-proxy=Texon, test-url=http://cp.cloudflare.com/generate_204
 WARP+JP = wireguard, section-name=Cloudflare1, underlying-proxy=JP, test-url=http://cp.cloudflare.com/generate_204
+WARP+HK = wireguard, section-name=Cloudflare1, underlying-proxy=JP, test-url=http://cp.cloudflare.com/generate_204
+WARP+SG = wireguard, section-name=Cloudflare1, underlying-proxy=JP, test-url=http://cp.cloudflare.com/generate_204
+WARP+TW = wireguard, section-name=Cloudflare1, underlying-proxy=JP, test-url=http://cp.cloudflare.com/generate_204
 
 [Proxy Group]
 # 代理策略组
-Proxy = select, AutoTest, Selection, DIRECT
-# 手动切换
-Selection = select, WARP+, WARP+JP, WARP
+Proxy = select, Agent, Warp, DIRECT
 # Apple
 Apple = select, DIRECT, HK, JP, SG, TW, US
 # 广告拦截
 Guard = select, REJECT, DIRECT
+# Warp
+Warp = select, WARP, WARP+JP, WARP+HK, WARP+SG, WARP+TW, WARP+
 # 国外媒体服务
-Stream = select, Selection, AutoTest, DIRECT
+Stream = select, Warp, Agent, HK, TW, US, JP, SG
 # Spotify
-Spotify = select, DIRECT, Selection
+Spotify = select, DIRECT, HK, TW, US, JP, SG
+# Airport
+Agent = select, Autotest, Texon
+# Final
+Final = select, Texon, Autotest, WARP, WARP+JP, WARP+HK, WARP+SG, WARP+TW, WARP+ 
 # 测速组
-AutoTest = url-test, hidden=0, policy-path=https://sub.store/download/Amytelecom, update-interval=0, no-alert=0, include-all-proxies=0
+Autotest = url-test, hidden=0, policy-path=https://sub.store/download/Amytelecom, update-interval=0, no-alert=0, include-all-proxies=0
 # 手动选择组
 Texon = select, hidden=0, policy-path=https://sub.store/download/Texon, update-interval=0, no-alert=0, include-all-proxies=0
 # > 筛选节点组
@@ -177,15 +184,15 @@ RULE-SET,https://raw.githubusercontent.com/lwd-temp/anti-ip-attribution/main/gen
 # YouTube
 RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/StreamingMedia/Video/YouTube.list,Stream
 # Reddit
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Selection
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Stream
 # Twitter
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Selection
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Stream
 # Instagram
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Selection
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Stream
 # Telegram
 RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,Selection // Telegram-ASN
 # Discord
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Selection
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Stream
 # Spotify
 RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/StreamingMedia/Music/Spotify.list,Spotify
 # Streaming 国际流媒体服务
@@ -202,13 +209,10 @@ RULE-SET,LAN,DIRECT
 # > GEOIP
 GEOIP,CN,DIRECT
 # > Final兜底策略
-FINAL,Selection,dns-failed
+FINAL,Final,dns-failed
 
 [SSID Setting]
-SSID:HUAWEI_3 tfo-behaviour=force-enabled, cellular-fallback=off, dns-server=192.168.3.254
-SSID:OFFICE_5G cellular-fallback=hybrid
-SSID:minghe cellular-fallback=hybrid
-SSID:MYUNGHWA cellular-fallback=hybrid
+
 
 [MITM]
 # > 跳过服务端证书验证
