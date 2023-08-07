@@ -197,7 +197,7 @@ RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ru
 # Apple 服务
 RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Extra/Apple/Apple.list,DIRECT
 # China 中国直连
-RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/China.list,DIRECT
+RULE-SET,https://github.com/blackmatrix7/ios_rule_script/blob/master/rule/Surge/ChinaASN/ChinaASN.list,DIRECT
 # > Other
 DOMAIN-SUFFIX,cn,DIRECT
 RULE-SET,LAN,DIRECT
