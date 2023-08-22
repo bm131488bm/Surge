@@ -1,5 +1,5 @@
-#!name=Proxy Rlues
-#!desc=走代理的部分域名
+#!name=Myself Rules & Others
+#!desc=走代理的部分域名、更换 User-Agent 以提升体验，使用手机百度 Quark 的 User-Agent。
 
 [Rule]
 AND,((PROTOCOL,UDP), (DEST-PORT,443)),REJECT-NO-DROP
@@ -27,6 +27,12 @@ DOMAIN,testflight.apple.com,Proxy
 # > 自定义分流
 DOMAIN-KEYWORD,ipip.net,Proxy
 
+[Header Rewrite]
+# 知乎（部分替换为手机百度 Quark 的 User-Agent）
+http-request ^https?:\/\/www\.zhihu\.com header-replace-regex User-Agent .+iPhone.+ "Mozilla/5.0 (iPhone; CPU iPhone OS 13_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.1 Mobile/15E148 Safari/16C50 Quark/604.1 T7/10.3 SearchCraft/2.6.3 (Baidu; P1 8.0.0)"
+# 百度（全站替换为手机百度 Quark 的 User-Agent）
+http-request ^https?:\/\/(?!d\.pcs).*(?<!map)\.baidu\.com header-replace-regex User-Agent .+iPhone.+ "Mozilla/5.0 (iPhone; CPU iPhone OS 13_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.1 Mobile/15E148 Safari/16C50 Quark/604.1 T7/10.3 SearchCraft/2.6.3 (Baidu; P1 8.0.0)"
+
 [URL Rewrite]
 # > Redirect Google Search Service
 ^https?:\/\/(www.)?(g|google)\.cn https://www.google.com 302
@@ -39,3 +45,11 @@ DOMAIN-KEYWORD,ipip.net,Proxy
 ^https?:\/\/you\.163\.com\/ https://you.163.com/ 302
 ^https?:\/\/(www.)?suning\.com\/ https://suning.com/ 302
 ^https?:\/\/(www.)?yhd\.com\/ https://yhd.com/ 302
+
+[Panel]
+天气=script-name=天气
+
+[Script]
+天气=type=generic,script-path=https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/tianqi.js,argument=icon=sun.max.fill&color=#ffc400&cityId=101190201
+嗨客源修复 = type=http-request,pattern=^https?:\/\/repo\.qqtlr\.com\/\.\/downloads\.php%3Frequest=\d+\.deb,requires-body=false,script-path= https://raw.githubusercontent.com/rartv/SurgeScript/main/Jailbreak/SileoHiKe.js,debug=false
+YJCRON=type=cron,cronexp=0 8 * * *,wake-system=1,timeout=120,script-path=https://raw.githubusercontent.com/bm131488bm/Surge/main/Module/YJpush.module
