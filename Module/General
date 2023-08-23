@@ -1,3 +1,6 @@
+#!name=General
+#!desc=配置文件General字段模块化
+
 [General]
 # 通用设置
 # > 增强版 Wi-Fi 助理
