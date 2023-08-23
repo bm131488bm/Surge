@@ -176,13 +176,5 @@ http-request ^https?:\/\/(?!d\.pcs).*(?<!map)\.baidu\.com header-replace-regex U
 ^https?:\/\/(www.)?suning\.com\/ https://suning.com/ 302
 ^https?:\/\/(www.)?yhd\.com\/ https://yhd.com/ 302
 
-[SSID Setting]
-TYPE:CELLULAR tfo-behaviour=force-disabled
 
-[Panel]
-天气=script-name=天气
 
-[Script]
-天气=type=generic,script-path=https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/tianqi.js,argument=icon=sun.max.fill&color=#ffc400&cityId=101190201
-嗨客源修复 = type=http-request,pattern=^https?:\/\/repo\.qqtlr\.com\/\.\/downloads\.php%3Frequest=\d+\.deb,requires-body=false,script-path= https://raw.githubusercontent.com/rartv/SurgeScript/main/Jailbreak/SileoHiKe.js,debug=false
-YJCRON=type=cron,cronexp=0 8 * * *,wake-system=1,timeout=120,script-path=https://raw.githubusercontent.com/bm131488bm/Surge/main/Module/YJpush.module
