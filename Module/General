@@ -78,3 +78,12 @@ udp-policy-not-supported-behaviour = reject
 include-all-networks = false
 allow-hotspot-access = false
 all-hybrid = true
+
+[Replica]
+# 抓取流量 => 过滤器 1为开启，0为关闭
+# 隐藏 Apple 请求
+hide-apple-request = 1
+# 隐藏 Crashlytics 请求
+hide-crash-reporter-request = 1
+# 隐藏 UDP 会话
+hide-udp = 1
