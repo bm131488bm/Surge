@@ -1,3 +1,6 @@
+#!name=Rules
+#!desc=配置文件Rules字段模块化
+
 [Rule]
 AND,((PROTOCOL,UDP), (DEST-PORT,443)),REJECT-NO-DROP
 # 机场订阅直连
