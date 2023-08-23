@@ -1,0 +1,42 @@
+#!name=Host & Rewrite
+#!desc=配置文件 Host & Rewrite 字段模块化
+
+[Host]
+# Firebase Cloud Messaging
+mtalk.google.com = 108.177.125.188
+
+# Google Dl
+dl.google.com = server:119.29.29.29
+dl.l.google.com = server:119.29.29.29
+update.googleapis.com = server:119.29.29.29
+
+# Router Admin Panel
+amplifi.lan = server:syslib // Ubiquiti Amplifi Router
+router.synology.com = server:syslib // Synology Router
+sila.razer.com = server:syslib // Razer Sila Router
+router.asus.com = server:syslib // Asus Router
+routerlogin.net = server:syslib // Netgear Router
+orbilogin.com = server:syslib // Netgear Obri Router
+www.LinksysSmartWiFi.com = server:syslib // Linksys Router
+LinksysSmartWiFi.com = server:syslib // Linksys Router
+myrouter.local = server:syslib // Linksys Router
+www.miwifi.com = server:syslib // Xiaomi Mi WiFi Router
+miwifi.com = server:syslib // Xiaomi Mi WiFi Router
+mediarouter.home = server:syslib // Huawei Router
+tplogin.cn = server:syslib // TP-Link Router
+tplinklogin.net = server:syslib // TP-Link Router
+melogin.cn = server:syslib // MERCURY Router
+falogin.cn = server:syslib // FAST Router
+
+[URL Rewrite]
+# > Redirect Google Search Service
+^https?:\/\/(www.)?(g|google)\.cn https://www.google.com 302
+# > Redirect Google Maps Service
+^https?:\/\/(ditu|maps).google\.cn https://maps.google.com 302
+# > Redirect HTTP to HTTPS
+^https?:\/\/(www.)?taobao\.com\/ https://taobao.com/ 302
+^https?:\/\/(www.)?jd\.com\/ https://www.jd.com/ 302
+^https?:\/\/(www.)?mi\.com\/ https://www.mi.com/ 302
+^https?:\/\/you\.163\.com\/ https://you.163.com/ 302
+^https?:\/\/(www.)?suning\.com\/ https://suning.com/ 302
+^https?:\/\/(www.)?yhd\.com\/ https://yhd.com/ 302
