@@ -1,0 +1,16 @@
+#!name=[bm131488bm]Rules+
+#!desc=配置文件Rules字段模块化
+
+[Rule]
+# 机场订阅直连
+DOMAIN-SUFFIX,uttjhu.xyz,DIRECT
+DOMAIN-SUFFIX,texon.io,DIRECT
+
+# Boxjs 代理
+DOMAIN-SUFFIX,jsdelivr.net,Proxy
+
+# Sub-Store 的 Web 页面
+DOMAIN-SUFFIX,vercel.app,Proxy
+
+# > 自定义分流
+DOMAIN-KEYWORD,ipip.net,Proxy
