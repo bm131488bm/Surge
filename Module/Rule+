@@ -3,14 +3,14 @@
 
 [Rule]
 # 机场订阅直连
-DOMAIN-SUFFIX,uttjhu.xyz,DIRECT
-DOMAIN-SUFFIX,texon.io,DIRECT
+DOMAIN-SUFFIX,uttjhu.xyz,DIRECT,notification-text="( ゜- ゜)つロ 按摩院-乾杯~"
+DOMAIN-SUFFIX,texon.io,DIRECT,notification-text="( ゜- ゜)つロ 菜市场-乾杯~"
 
 # Boxjs 代理
-DOMAIN-SUFFIX,jsdelivr.net,Proxy
+DOMAIN-SUFFIX,jsdelivr.net,Proxy,notification-text="( ゜- ゜)つロ Boxjs欢迎~"
 
 # Sub-Store 的 Web 页面
-DOMAIN-SUFFIX,vercel.app,Proxy
+DOMAIN-SUFFIX,vercel.app,Proxy,notification-text="( ゜- ゜)つロ 又来刷新订阅啦~"
 
 # > 自定义分流
 DOMAIN-KEYWORD,ipip.net,Proxy
