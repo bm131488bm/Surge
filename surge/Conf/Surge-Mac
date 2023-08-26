@@ -105,7 +105,7 @@ Choose = select, HK, JP, SG, TW, US
 # 广告拦截
 Guard = select, REJECT, REJECT-TINYGIF, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
 # Warp
-Warp = select, WARP, WARP+
+Warp = select, WARP, WARP+, WARP-
 # 国外媒体服务
 Stream = select, Warp, Autotest, HK, TW, US, JP, SG
 # 国内媒体服务
