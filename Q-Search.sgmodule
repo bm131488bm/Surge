@@ -1,12 +1,8 @@
-#!name=Q-Search、Surge自动策略
-#!desc=Safari Search Add-ons by Neurogram
+#!name=Q-Search
+#!desc=Safari Search 
 
-[Script]
-# Surge自动策略
-event network-changed script-path=https://raw.githubusercontent.com/Peng-YM/QuanX/master/Tools/AutoPolicy/auto-policy.js
 
 [URL Rewrite]
-# Q-Search
 ^https:\/\/duckduckgo.com\/\?q=bd\+([^&]+).+ https://www.baidu.com/s?wd=$1 302
 ^https:\/\/duckduckgo.com\/\?q=db\+([^&]+).+ https://m.douban.com/search/?query=$1 302
 ^https:\/\/duckduckgo.com\/\?q=gh\+([^&]+).+ https://github.com/search?q=$1 302
