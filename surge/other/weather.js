@@ -18,7 +18,7 @@ $httpClient.get(apiUrl, (error, response, data) => {
 
   const cityInfo = weatherData.cityInfo;
   const currentWeather = weatherData.data.forecast[0];
-    const message = `📍城市：${cityInfo.city}\n🕰︎更新时间：${cityInfo.updateTime} \n🌤︎天气：${currentWeather.type}\n🌡︎温度：${currentWeather.low}  ${currentWeather.high}\n💧湿度：${weatherData.data.shidu}\n💨空气质量：${weatherData.data.quality}\n☁️PM2.5：${weatherData.data.pm25}\n🪁风向：${currentWeather.fx}\n🌪️风力：${currentWeather.fl}\n🏷︎Tips：${currentWeather.notice}`;
+    const message = `📍城市：${cityInfo.city}   🕰︎更新时间：${cityInfo.updateTime} \n🌤︎天气：${currentWeather.type}   🌡︎温度：${currentWeather.low}  ${currentWeather.high}\n💧湿度：${weatherData.data.shidu}   💨空气质量：${weatherData.data.quality}\n☁️PM2.5：${weatherData.data.pm25}   🪁风向：${currentWeather.fx}   🌪️风力：${currentWeather.fl}\n🏷︎Tips：${currentWeather.notice}`;
 
   const body = {
     title: "今日天气",
