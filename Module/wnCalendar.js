@@ -8,4 +8,4 @@
 [Script]
 今日黄历播报 = type=cron,timeout=30,cronexp=0 8 * * *,wake-system=1,script-path=https://raw.githubusercontent.com/TributePaulWalker/Profiles/main/JavaScript/Surge/wnCalendar.js
 天气=type=generic,script-path=https://raw.githubusercontent.com/bm131488bm/Surge/main/surge/other/weather.js,argument=icon=sun.max.fill&color=#ffc400&cityId=101190201
-今日天气播报 = type=cron,timeout=30,cronexp=0 7 * * *,wake-system=1,script-path=https://raw.githubusercontent.com/bm131488bm/Surge/main/surge/other/weather.js,argument=icon=sun.max.fill&color=#ffc400&cityId=101190201
+
