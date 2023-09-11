@@ -2,7 +2,7 @@
 # 通用设置
 # > 增强版 Wi-Fi 助理
 # (在 Wi-Fi 网络不佳时尝试使用数据网络建立连接，请仅当使用不限量的数据流量时开启)
-wifi-assist = false
+wifi-assist = true
 # > Internet 测试 URL
 internet-test-url = http://wifi.vivo.com.cn/generate_204
 # > 代理测速 URL
@@ -15,7 +15,6 @@ proxy-test-udp = apple.com@1.1.1.1
 # proxy-test-udp = http://cp.cloudflare.com/generate_204
 # > 自定义 GeoIP 数据库（二选一）
 geoip-maxmind-url = https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb
-# geoip-maxmind-url = https://raw.githubusercontent.com/Hackl0us/GeoIP2-CN/release/Country.mmdb
 # 是否启动完整的 IPv6 支持 (默认值: false)参数：true：开启，false：关闭
 ipv6 = true
 # Surge VIF IPv6 Stack
@@ -54,48 +53,44 @@ show-error-page-for-reject = true
 # > Always Real IP Hosts
 always-real-ip = *.msftconnecttest.com, *.msftncsi.com, *.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com, *.logon.battlenet.com.cn, *.logon.battle.net, stun.l.google.com
 # > Http-api-用于Warp连接校验
-http-api = Novio@0.0.0.0:6166
+http-api = Novio@127.0.0.1:6166
 http-api-tls = false
-http-api-web-dashboard = true
+http-api-web-dashboard = false
 # > 如果没有代理服务器支持 UDP 转发，可修改为「 direct 」或注释下条，但需注意同一目标主机名 TCP 请求与 UDP 请求的源地址不同所
-all-hybrid = true
+all-hybrid = false
 allow-hotspot-access = true
-
-[Proxy]
-WARP+P = wireguard, section-name=Cloudflare, underlying-proxy=Choose, test-url=http://cp.cloudflare.com/generate_204
-WARP = wireguard, section-name=Cloudflare, test-url=http://cp.cloudflare.com/generate_204
+include-all-networks = false
 
 [Proxy Group]
 # 代理策略组
-Proxy = select, Autotest, Warp, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
+Proxy = select, Autotest, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
 # 手动选择
 Choose = select, HK, JP, SG, TW, US, DIRECT
 # 广告拦截
 Guard = select, REJECT, REJECT-TINYGIF, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
 # 国外流媒体服务
-Stream = select, Warp, Choose, DIRECT
+Stream = select, Proxy, Choose, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
 # 国内流媒体服务
 StreamCN = select, DIRECT, HK, TW
 # Spotify
-Spotify = select, Warp, Choose, DIRECT
+Spotify = select, Choose, DIRECT
 # Apple
-Apple = select, Warp, Choose, DIRECT
+Apple = select, Choose, DIRECT
 # 测速组
-Autotest = select, Amytelecom, Tex, no-alert=0, hidden=0, include-all-proxies=0
-# Warp
-Warp = select, WARP+P, no-alert=0, hidden=1, include-all-proxies=0
+Autotest = select, Tex, Amytelecom, no-alert=0, hidden=0, include-all-proxies=0
 # Airport
-Amytelecom = url-test, hidden=1, policy-path=https://gist.githubusercontent.com/bm131488bm/2beddadd060088d2f7285acdb9927f1b/raw/Amy, update-interval=0, no-alert=0, include-all-proxies=0
+Amytelecom = url-test, hidden=0, policy-path=https://gist.githubusercontent.com/bm131488bm/2beddadd060088d2f7285acdb9927f1b/raw/Amy, update-interval=0, no-alert=0, include-all-proxies=0
 # 机场订阅
-Tex = url-test, hidden=1, policy-path=https://gist.githubusercontent.com/bm131488bm/2beddadd060088d2f7285acdb9927f1b/raw/Tex, update-interval=0, no-alert=0, include-all-proxies=0
+Tex = url-test, hidden=0, policy-path=https://gist.githubusercontent.com/bm131488bm/2beddadd060088d2f7285acdb9927f1b/raw/Tex, update-interval=0, no-alert=0, include-all-proxies=0
 # > 筛选节点组
-HK = load-balance, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=Tex, persistent=1
-TW = load-balance, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=Tex, persistent=1
-US = load-balance, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=Tex, persistent=1
-JP = load-balance, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=Tex, persistent=1
-SG = load-balance, update-interval=0, policy-regex-filter=(🇸🇬)|(坡)|(Singapore)|(SG), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=Tex, persistent=1
+HK = load-balance, update-interval=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=Amytelecom, persistent=1
+TW = load-balance, update-interval=0, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=Amytelecom, persistent=1
+US = load-balance, update-interval=0, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=Amytelecom, persistent=1
+JP = load-balance, update-interval=0, policy-regex-filter=(🇯🇵)|(日)|(Japan)|(JP), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=Amytelecom, persistent=1
+SG = load-balance, update-interval=0, policy-regex-filter=(🇸🇬)|(坡)|(Singapore)|(SG), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=Amytelecom, persistent=1
 
 [Rule]
+
 DOMAIN-SUFFIX,thebigboss.org,Proxy
 DOMAIN-SUFFIX,lenglengyu-my.sharepoint.cn,DIRECT // Added for: lenglengyu-my.sharepoint.cn:443
 AND,((PROTOCOL,UDP), (DEST-PORT,443)),REJECT-NO-DROP
@@ -105,12 +100,12 @@ AND,((PROCESS-NAME,Telegram), (OR,((IP-CIDR,0.0.0.0/8), (IP-CIDR,224.0.0.0/4))))
 # Blocking UDP Packets by Youtube and ins
 AND,((DOMAIN-SUFFIX,googlevideo.com), (DOMAIN-SUFFIX,gvt1.com), (DOMAIN-SUFFIX,cdninstagram.com), (PROTOCOL,UDP)),REJECT
 # > 防止应用循环请求
-IP-CIDR,0.0.0.0/32,REJECT,notification-text="( ゜- ゜)つロ 差点干翻自己~",no-resolve
+IP-CIDR,0.0.0.0/32,REJECT,no-resolve
 # DEST-PORT 端口规则
 OR,((DEST-PORT,25), (DEST-PORT,110), (DEST-PORT,143), (DEST-PORT,465), (DEST-PORT,587)),DIRECT // 邮件服务默认端口
 AND,((OR,((DOMAIN,time-ios.apple.com), (DOMAIN,time.apple.com), (DOMAIN-SUFFIX,pool.ntp.org))), (DEST-PORT,123)),DIRECT // NTP服务默认端口
 # Safari 防跳转
-DOMAIN,app-site-association.cdn-apple.com,REJECT,notification-text="( ゜- ゜)つロ 跑、门已焊死~"
+DOMAIN,app-site-association.cdn-apple.com,REJECT
 # TestFlight 商店
 DOMAIN,beta.apple.com,Proxy
 DOMAIN,testflight.apple.com,Proxy
@@ -123,16 +118,13 @@ DOMAIN-SUFFIX,jsdelivr.net,Proxy,notification-text="( ゜- ゜)つロ Boxjs欢�
 DOMAIN-SUFFIX,vercel.app,Proxy,notification-text="( ゜- ゜)つロ 又来刷新订阅啦~"
 # > 自定义分流
 DOMAIN-KEYWORD,ipip.net,Proxy
-# > Warp
-OR,((IP-CIDR,1.1.1.1/32,no-resolve), (IP-CIDR6,2606:4700:4700::1111/128,no-resolve), (DOMAIN-SUFFIX,cloudflareclient.com)),Warp
-# DOMAIN-SET,https://raw.githubusercontent.com/ExaAlice/Alice/main/Rule/WARP.list,Warp
 # Advertising 广告
-DOMAIN-SET,https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge2.txt,Guard
+DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/private.txt,DIRECT
+DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/proxy.txt,REJECT
 # Apple 服务
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple.list,Apple
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple_Domain.list,Apple
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppStore/AppStore.list,Apple
-# Wechat 
+DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/apple.txt,DIRECT
+DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/icloud.txt,DIRECT
+# Wechat
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/WeChat/WeChat.list,DIRECT
 # YouTube & YouTubeMusic
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list,Stream
@@ -144,7 +136,7 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 # Instagram
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Proxy
 # Telegram
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Stream // Telegram-ASN
+RULE-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/telegramcidr.txt,PROXY // Telegram-ASN
 # Discord
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Proxy
 # Spotify
@@ -155,12 +147,13 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMedia/ChinaMedia.list,DIRECT
 # Streaming 国际流媒体服务
 RULE-SET,https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyMedia.list,Stream
+# Sileo 源列表
+# RULE-SET,https://raw.githubusercontent.com/bm131488bm/Surge/main/surge/Rules/Sileo-Rules,Proxy
 # Global 全球加速
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy.list,Proxy
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy_Domain.list,Proxy
+DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/proxy.txt,force-remote-dns
 # China 中国直连
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/China/China.list,DIRECT
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/China/China_Domain.list,DIRECT
+DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/direct.txt,DIRECT
+RULE-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/cncidr.txt,DIRECT
 # Local Area Network & GeoIP China
 # 以下规则将触发本地 DNS 解析
 OR,((RULE-SET,SYSTEM), (RULE-SET,LAN), (GEOIP,CN)),DIRECT
@@ -201,12 +194,4 @@ tcp-connection = true
 h2 = true
 ca-passphrase = 21641934
 ca-p12 = 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
-
-[WireGuard Cloudflare]
-private-key = wM5YXioyBm5yCbfhJmwQkgQTz47gXo83DTab8Bx5rXg=
-self-ip = 172.16.0.2
-self-ip-v6 = 2606:4700:110:8445:2b64:160e:e32c:1142
-dns-server = 1.1.1.1, 2606:4700:4700::1111
-mtu = 1320
-peer = (public-key = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=, allowed-ips = "0.0.0.0/0, ::0/0", endpoint = engage.nanocat.cloud:2408, keepalive = 45, client-id = 5/10/69)
 
