@@ -71,7 +71,7 @@ WARP+ = wireguard, section-name=Cloudflare, underlying-proxy=Choose, test-url=ht
 
 [Proxy Group]
 # 代理策略组
-Proxy = select, Chooese, HK, TW, JP, SG, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
+Proxy = select, Choose, HK, TW, JP, SG, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
 # 手动选择
 Choose = select, WARP+, Ytoo, Texon, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
 # 广告拦截
