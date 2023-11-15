@@ -66,8 +66,11 @@ include-cellular-services = false
 udp-policy-not-supported-behaviour = REJECT
 
 [Proxy]
-# WARP = wireguard, section-name=Cloudflare, test-url=http://cp.cloudflare.com/generate_204
-WARP+ = wireguard, section-name=Cloudflare, underlying-proxy=Warp, test-url=http://cp.cloudflare.com/generate_204
+WARP = wireguard, section-name=Cloudflare, test-url=http://cp.cloudflare.com/generate_204
+WARP+HK = wireguard, section-name=Cloudflare, underlying-proxy=HK, test-url=http://cp.cloudflare.com/generate_204
+WARP+JP = wireguard, section-name=Cloudflare, underlying-proxy=JP, test-url=http://cp.cloudflare.com/generate_204
+WARP+TW = wireguard, section-name=Cloudflare, underlying-proxy=TW, test-url=http://cp.cloudflare.com/generate_204
+WARP+SG = wireguard, section-name=Cloudflare, underlying-proxy=SG, test-url=http://cp.cloudflare.com/generate_204
 
 [Proxy Group]
 # 手动选择
@@ -75,7 +78,7 @@ Choose = select, Warp, DU, SA, AC, DIRECT, no-alert=0, hidden=0, include-all-pro
 # 代理策略组
 Proxy = select, Choose, Ytoo, Texon, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
 # Warp
-Warp = select, DIRECT, HK, TW, JP, SG, DIRECT
+Warp = select, WARP, WARP+HK, WARP+TW, WARP+JP, WARP+SG
 # 广告拦截
 Guard = select, REJECT, REJECT-TINYGIF, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
 # 国外流媒体服务
