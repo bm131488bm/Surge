@@ -85,7 +85,7 @@ Warp = select, WARP, WARP+HK, WARP+TW, WARP+JP, WARP+SG, WARP+US, WARP+KR
 # 广告拦截
 Guard = select, REJECT, REJECT-TINYGIF, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
 # 国外流媒体服务
-Stream = select, YTOO, NexiTally, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
+Stream = select, HK, TW, JP, SG, US, KR, Warp, DU, SA, AC, no-alert=0, hidden=0, include-all-proxies=0
 # Spotify
 Spotify = select, HK, TW, JP, SG, US, KR, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
 # Apple
