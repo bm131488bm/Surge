@@ -113,7 +113,7 @@ JP = url-test, update-interval=1, policy-regex-filter=(🇯🇵)|(日本)|(Japan
 SG = url-test, update-interval=1, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Nexitally, persistent=1
 US = url-test, update-interval=1, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Nexitally, persistent=1
 KR = url-test, update-interval=1, policy-regex-filter=(kr)|(韩)|(Korea)|(KR), no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Nexitally, persistent=1
-OT = url-test, update-interval=1, policy-regex-filter=^(?!.*?Hong)|^(?!.*?Tai)|^(?!.*?Japan)|^(?!.*?Singapore)|^(?!.*?States)|^(?!.*?Korea), no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Nexitally, persistent=1
+OT = url-test, update-interval=1, policy-regex-filter=^((?!(Hong|Tai|Japan|Singapore|States|Korea)).)*$, no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Nexitally, persistent=1
 
 DU = select, update-interval=0, policy-regex-filter=(日用), no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Ytoo, persistent=1
 AC = url-test, update-interval=1, policy-regex-filter=(高级), no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Ytoo, persistent=1
