@@ -113,7 +113,7 @@ JP = url-test, update-interval=1, policy-regex-filter=(🇯🇵)|(日本)|(Japan
 SG = url-test, update-interval=1, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Nexitally, persistent=1
 US = url-test, update-interval=1, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Nexitally, persistent=1
 KR = url-test, update-interval=1, policy-regex-filter=(kr)|(韩)|(Korea)|(KR), no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Nexitally, persistent=1
-OT = url-test, update-interval=1, policy-regex-filter=^((?!(Hong|Tai|Japan|Singapore|States|Korea)).)*$, no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Nexitally, persistent=1
+OT = url-test, update-interval=1, policy-regex-filter=^((?!(Hong|Tai|Japan|Singapore|States|Korea)).)*$, no-alert=0, hidden=0, include-all-proxies=0, include-other-group=Nexitally, persistent=1
 
 DU = select, update-interval=0, policy-regex-filter=^((?!(标准|高级|特殊|购物)).)*$, no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Ytoo, persistent=1
 AC = url-test, update-interval=1, policy-regex-filter=^((?!(日用|标准|特殊|购物)).)*$, no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Ytoo, persistent=1
@@ -168,25 +168,27 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Chat
 # Telegram、Youtube、Youtube music
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Telegram
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list,Youtube
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTubeMusic/YouTubeMusic.list,Youtube
 # Spotify
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify
 # Streaming 国际流媒体服务
-RULE-SET,https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyMedia.list,Youtube
+RULE-SET,ttps://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia.list,Youtube
+DOMAIN-SET,ttps://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_Domain.list,Youtube
 # iCloud 国内直连
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/iCloud/iCloud.list,Apple
 # Apple Music
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleMusic/AppleMusic.list,Apple
 # TestFlight
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TestFlight/TestFlight.list,Proxy
+# Apple ID
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleID/AppleID.list,Apple
+
 # Apple 国内直连
 DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/apple.txt,Apple
-# Apple Proxy
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleProxy/AppleProxy.list,Proxy
 # Global 全球加速
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Global/Global.list,Proxy
 DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Global/Global_Domain.list,Proxy
+# Apple Proxy
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleProxy/AppleProxy.list,Proxy
 # Apple 服务
 # RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple.list,Apple
 # DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple_Domain.list,Apple
