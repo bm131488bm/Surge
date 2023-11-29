@@ -57,7 +57,7 @@ always-real-ip = *.msftconnecttest.com, *.msftncsi.com, *.srv.nintendo.net, *.st
 http-api = Novio@0.0.0.0:6166
 http-api-tls = false
 http-api-web-dashboard = true
-# > 如果没有代理服务器支持 UDP 转发，可修改为「 direct 」或注释下条，但需注意同一目标主机名 TCP 请求与 UDP 请求的源地址不同所
+# > 如果没有代理服务器支持 UDP 转发，可修改为「 DIRECT 」或注释下条，但需注意同一目标主机名 TCP 请求与 UDP 请求的源地址不同所
 all-hybrid = false
 allow-hotspot-access = true
 include-all-networks = false
@@ -124,34 +124,34 @@ SC = url-test, update-interval=1, policy-regex-filter=^((?!(日用|高级|标准
 DOMAIN-SUFFIX,25mao.com,DIRECT // Added for: apt.25mao.com:443
 
 # > Google
-DOMAIN,mtalk.google.com,Direct
+DOMAIN,mtalk.google.com,DIRECT
 DOMAIN,mobile-gtalk.l.google.com,DIRECT
-DOMAIN,alt1-mtalk.google.com,Direct
-DOMAIN,alt2-mtalk.google.com,Direct
-DOMAIN,alt3-mtalk.google.com,Direct
-DOMAIN,alt4-mtalk.google.com,Direct
-DOMAIN,alt5-mtalk.google.com,Direct
-DOMAIN,alt6-mtalk.google.com,Direct
-DOMAIN,alt7-mtalk.google.com,Direct
-DOMAIN,alt8-mtalk.google.com,Direct
-DOMAIN,alt9-mtalk.google.com,Direct
-DOMAIN-SUFFIX,mobile-gtalk.l.google.com,Direct
+DOMAIN,alt1-mtalk.google.com,DIRECT
+DOMAIN,alt2-mtalk.google.com,DIRECT
+DOMAIN,alt3-mtalk.google.com,DIRECT
+DOMAIN,alt4-mtalk.google.com,DIRECT
+DOMAIN,alt5-mtalk.google.com,DIRECT
+DOMAIN,alt6-mtalk.google.com,DIRECT
+DOMAIN,alt7-mtalk.google.com,DIRECT
+DOMAIN,alt8-mtalk.google.com,DIRECT
+DOMAIN,alt9-mtalk.google.com,DIRECT
+DOMAIN-SUFFIX,mobile-gtalk.l.google.com,DIRECT
 
 # > Global
-PROCESS-NAME,v2ray,Direct
-PROCESS-NAME,ss-local,Direct
-PROCESS-NAME,UUBooster,Direct
+PROCESS-NAME,v2ray,DIRECT
+PROCESS-NAME,ss-local,DIRECT
+PROCESS-NAME,UUBooster,DIRECT
 
 # > Download
-PROCESS-NAME,aria2c,Direct
-PROCESS-NAME,fdm,Direct
-PROCESS-NAME,Folx,Direct
-PROCESS-NAME,NetTransport,Direct
-PROCESS-NAME,Thunder,Direct
-PROCESS-NAME,Transmission,Direct
-PROCESS-NAME,uTorrent,Direct
-PROCESS-NAME,WebTorrent,Direct
-PROCESS-NAME,WebTorrent Helper,Direct
+PROCESS-NAME,aria2c,DIRECT
+PROCESS-NAME,fdm,DIRECT
+PROCESS-NAME,Folx,DIRECT
+PROCESS-NAME,NetTransport,DIRECT
+PROCESS-NAME,Thunder,DIRECT
+PROCESS-NAME,Transmission,DIRECT
+PROCESS-NAME,uTorrent,DIRECT
+PROCESS-NAME,WebTorrent,DIRECT
+PROCESS-NAME,WebTorrent Helper,DIRECT
 
 # RULE-SET,https://raw.githubusercontent.com/bm131488bm/Surge/main/surge/Rules/Sileo-Rules,Global
 DOMAIN-SUFFIX,thebigboss.org,Global
