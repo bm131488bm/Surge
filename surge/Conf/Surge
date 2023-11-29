@@ -36,11 +36,12 @@ udp-priority = true
 # > 兼容模式 (仅 iOS)
 # compatibility-mode = 0
 # > 跳过代理
-skip-proxy = 192.168.0.0/24, 10.0.0.0/8, 172.16.0.0/12, 127.0.0.1, localhost, *.local
+skip-proxy = 127.0.0.1, 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12, 100.64.0.0/10, 17.0.0.0/8, localhost, *.local, www.baidu.com,yunbusiness.ccb.com,wxh.wo.cn,gate.lagou.com,www.abchina.com.cn,www.shanbay.com,login-service.mobile-bank.psbc.com,mobile-bank.psbc.com*.crashlytics.com, seed-sequoia.siri.apple.com, sequoia.apple.com
+
 # > 排除简单主机名
 exclude-simple-hostnames = true
 # > Network framwork
-network-framework = false
+network-framework = true
 # > DNS 相关设置 (如无必要不建议使用 DNS over HTTPS)
 # 传统 DNS 服务器设置
 dns-server = 223.5.5.5, 119.29.29.29
@@ -76,21 +77,20 @@ WARP+KR = wireguard, section-name=Cloudflare, underlying-proxy=KR, test-url=http
 
 [Proxy Group]
 # 代理策略组
-Proxy = select, Warp, YTOO, NexiTally, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
+Global = select, Warp, YTOO, NexiTally, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
 # Warp
-Warp = select, WARP, WARP+HK, WARP+TW, WARP+JP, WARP+SG, WARP+US, WARP+KR
+Warp = select, WARP, WARP+HK, WARP+JP, WARP+SG, WARP+US
 # 机场组
 YTOO = select, Warp, DU, SA, AC, Ytoo
 NexiTally = select, HK, TW, JP, SG, US, KR, Nexitally
-
+# 兜底策略
+Final = select, HK, TW, JP, SG, US, KR, Warp, DU, SA, AC, no-alert=0, hidden=0, include-all-proxies=0
 # 广告拦截
 Guard = select, REJECT, REJECT-TINYGIF, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
 # 国外流媒体服务
 Youtube = select, HK, TW, JP, SG, US, KR, Warp, DU, SA, AC, no-alert=0, hidden=0, include-all-proxies=0
 # Telegram
 Telegram = select, HK, TW, JP, SG, US, KR, Warp, DU, SA, AC, no-alert=0, hidden=0, include-all-proxies=0
-# Chat 
-Chat = select, HK, TW, JP, SG, US, KR, Warp, DU, SA, AC, no-alert=0, hidden=0, include-all-proxies=0 
 # Reddit 
 Reddit = select, HK, TW, JP, SG, US, KR, Warp, DU, SA, AC, no-alert=0, hidden=0, include-all-proxies=0 
 # 国外流媒体服务
@@ -121,14 +121,46 @@ SA = url-test, update-interval=1, policy-regex-filter=^((?!(日用|高级|特殊
 SC = url-test, update-interval=1, policy-regex-filter=^((?!(日用|高级|标准)).)*$, no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Ytoo, persistent=1
 
 [Rule]
-DOMAIN-SUFFIX,dler.cloud,DIRECT // 墙洞订阅
 DOMAIN-SUFFIX,25mao.com,DIRECT // Added for: apt.25mao.com:443
-# RULE-SET,https://raw.githubusercontent.com/bm131488bm/Surge/main/surge/Rules/Sileo-Rules,Proxy
-DOMAIN-SUFFIX,thebigboss.org,Proxy
+
+# > Google
+DOMAIN,mtalk.google.com,Direct
+DOMAIN,mobile-gtalk.l.google.com,DIRECT
+DOMAIN,alt1-mtalk.google.com,Direct
+DOMAIN,alt2-mtalk.google.com,Direct
+DOMAIN,alt3-mtalk.google.com,Direct
+DOMAIN,alt4-mtalk.google.com,Direct
+DOMAIN,alt5-mtalk.google.com,Direct
+DOMAIN,alt6-mtalk.google.com,Direct
+DOMAIN,alt7-mtalk.google.com,Direct
+DOMAIN,alt8-mtalk.google.com,Direct
+DOMAIN,alt9-mtalk.google.com,Direct
+DOMAIN-SUFFIX,mobile-gtalk.l.google.com,Direct
+
+# > Global
+PROCESS-NAME,v2ray,Direct
+PROCESS-NAME,ss-local,Direct
+PROCESS-NAME,UUBooster,Direct
+
+# > Download
+PROCESS-NAME,aria2c,Direct
+PROCESS-NAME,fdm,Direct
+PROCESS-NAME,Folx,Direct
+PROCESS-NAME,NetTransport,Direct
+PROCESS-NAME,Thunder,Direct
+PROCESS-NAME,Transmission,Direct
+PROCESS-NAME,uTorrent,Direct
+PROCESS-NAME,WebTorrent,Direct
+PROCESS-NAME,WebTorrent Helper,Direct
+
+# RULE-SET,https://raw.githubusercontent.com/bm131488bm/Surge/main/surge/Rules/Sileo-Rules,Global
+DOMAIN-SUFFIX,thebigboss.org,Global
 DOMAIN-SUFFIX,lenglengyu-my.sharepoint.cn,DIRECT // Added for: lenglengyu-my.sharepoint.cn:443
+
 # AND,((PROTOCOL,UDP), (DEST-PORT,443)),REJECT-NO-DROP
 # 阻止电报频繁请求
 AND,((PROCESS-NAME,Telegram), (OR,((IP-CIDR,0.0.0.0/8), (IP-CIDR,224.0.0.0/4)))),REJECT
+
 # External Resources Update
 # Blocking UDP Packets by Youtube and ins
 AND,((DOMAIN-SUFFIX,googlevideo.com), (DOMAIN-SUFFIX,gvt1.com), (DOMAIN-SUFFIX,cdninstagram.com), (PROTOCOL,UDP)),REJECT
@@ -136,75 +168,96 @@ AND,((DOMAIN-SUFFIX,googlevideo.com), (DOMAIN-SUFFIX,gvt1.com), (DOMAIN-SUFFIX,c
 # DEST-PORT 端口规则
 OR,((DEST-PORT,25), (DEST-PORT,110), (DEST-PORT,143), (DEST-PORT,465), (DEST-PORT,587)),DIRECT // 邮件服务默认端口
 AND,((OR,((DOMAIN,time-ios.apple.com), (DOMAIN,time.apple.com), (DOMAIN-SUFFIX,pool.ntp.org))), (DEST-PORT,123)),DIRECT // NTP服务默认端口
+
 # > Warp
 OR,((IP-CIDR,1.1.1.1/32,no-resolve), (IP-CIDR6,2606:4700:4700::1111/128,no-resolve), (DOMAIN-SUFFIX,cloudflareclient.com)),Warp
 # DOMAIN-SET,https://raw.githubusercontent.com/ExaAlice/Alice/main/Rule/WARP.list,Warp
+
 # Safari 防跳转
 DOMAIN,app-site-association.cdn-apple.com,REJECT
+
 # 机场订阅直连
-OR,((DOMAIN-SUFFIX,texon.io), (DOMAIN-SUFFIX,uttjhu.xyz), (DOMAIN-SUFFIX,oxycontin.cc)),DIRECT
+OR,((DOMAIN-SUFFIX,texon.io), (DOMAIN-SUFFIX,uttjhu.xyz), (DOMAIN-SUFFIX,oxycontin.cc), (DOMAIN-SUFFIX,dler.cloud), (DOMAIN-SUFFIX,skxqhd.xyz)),DIRECT
+
 # Boxjs 代理、Sub-Store、Testflight
-OR,((DOMAIN-SUFFIX,jsdelivr.net), (DOMAIN-SUFFIX,vercel.app)),Proxy
+OR,((DOMAIN-SUFFIX,jsdelivr.net), (DOMAIN-SUFFIX,vercel.app)),Global
+
 # > 自定义分流
-DOMAIN-KEYWORD,ipip.net,Proxy
+DOMAIN-KEYWORD,ipip.net,Global
+
 # 私有域名地址
 DOMAIN-SET,https://cdn.jsdelivr.net/gh/Loyalsoldier/surge-rules@release/private.txt,DIRECT
+
 # 反劫持
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Hijacking/Hijacking.list,Guard
+
 # 隐私保护
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy.list,Guard
 DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Privacy/Privacy_Domain.list,Guard
+
 # Advertising 广告
 # DOMAIN-SET,https://anti-ad.net/surge2.txt,Guard
 # DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/reject.txt,Guard
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AdvertisingLite/AdvertisingLite.list,Guard
 DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AdvertisingLite/AdvertisingLite_Domain.list,Guard
+
 # Wechat
 # RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Tencent/Tencent.list,DIRECT
+
 # Reddit、Twitter、Instagram、Telegram
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Reddit 
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Chat
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Chat
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Chat
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Global
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Global
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Global
+RULE-SET, https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list,Global
+
 # Telegram、Youtube、Youtube music
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Telegram
+
 # Spotify
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify
+
 # Streaming 国际流媒体服务
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia.list,Youtube
 DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_Domain.list,Youtube
+
 # iCloud 国内直连
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/iCloud/iCloud.list,Apple
 # Apple Music
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleMusic/AppleMusic.list,Apple
 # TestFlight
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TestFlight/TestFlight.list,Proxy
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TestFlight/TestFlight.list,Global
 # Apple ID
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleID/AppleID.list,Apple
 
 # Apple 国内直连
 DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/apple.txt,Apple
+
 # Global 全球加速
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Global/Global.list,Proxy
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Global/Global_Domain.list,Proxy
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Global/Global.list,Global
+DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Global/Global_Domain.list,Global
+
 # Apple Proxy
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleProxy/AppleProxy.list,Proxy
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleProxy/AppleProxy.list,Global
+
 # Apple 服务
 # RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple.list,Apple
 # DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple_Domain.list,Apple
 # RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppStore/AppStore.list,Apple
+
 # China 中国直连
 RULE-SET,https://raw.githubusercontent.com/missuo/ASN-China/main/ASN.China.list,DIRECT
-# RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax.list,DIRECT
-# DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax_Domain.list,DIRECT
+
 # > 防止应用循环请求
 IP-CIDR,0.0.0.0/32,REJECT,no-resolve
+
 # Local Area Network & GeoIP China
 # 以下规则将触发本地 DNS 解析
-GEOIP,CN,DIRECT // Geoip
+# GEOIP,CN,DIRECT // Geoip
 OR,((RULE-SET,SYSTEM), (RULE-SET,LAN)),DIRECT
+
 # > Final兜底策略
-FINAL,Proxy,dns-failed
+FINAL,Final,dns-failed
 
 [Host]
 # Firebase Cloud Messaging
