@@ -82,7 +82,7 @@ WARP+US = wireguard, section-name=Cloudflare, underlying-proxy=US, test-url=http
 
 [Proxy Group]
 # 代理策略组
-Global = select, Kuromis, YTOO, NexiTally, Warp, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
+Global = select, Kuromis, YTOO, Nexitally, Warp, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
 # Warp
 Warp = select, WARP, WARP+HK, WARP+JP, WARP+SG, WARP+TW, WARP+US, no-alert=0, hidden=0, include-all-proxies=0
 # 机场组
@@ -98,16 +98,19 @@ Reddit = select, HK, TW, JP, SG, US, Warp, DU, SA, AC, no-alert=0, hidden=0, inc
 Twitter = select, HK, TW, JP, SG, US, Warp, DU, SA, AC, no-alert=0, hidden=0, include-all-proxies=0
 # Reddit
 Discord = select, HK, TW, JP, SG, US, Warp, DU, SA, AC, no-alert=0, hidden=0, include-all-proxies=0
+# Tiktok
 TikTok = select, HK, TW, JP, SG, US, Warp, DU, SA, AC, no-alert=0, hidden=0, include-all-proxies=0
+# Ins
 Instagram = select, HK, TW, JP, SG, US, Warp, DU, SA, AC, no-alert=0, hidden=0, include-all-proxies=0
+# 国外流媒体服务
 Stream = select, HK, TW, JP, SG, US, Warp, DU, SA, AC, no-alert=0, hidden=0, include-all-proxies=0
 Spotify = select, HK, TW, JP, SG, US, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
-# 国外流媒体服务
-Apple = select, DIRECT, HK, TW, JP, SG, US, KR
-# Spotify
-YTOO = select, Warp, DU, SA, AC, Ytoo
+
 # Apple
-NexiTally = select, HK, TW, JP, SG, US, KR, Nexitally
+Apple = select, DIRECT, HK, TW, JP, SG, US
+# Spotify
+YTOO = select, DU, SA, AC, Ytoo
+Kuromis = select, HK, TW, JP, SG, US, kuromis
 
 # 测速组
 DU = select, update-interval=0, policy-regex-filter=^((?!(标准|高级|特殊|购物)).)*$, no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Ytoo, persistent=1
@@ -118,14 +121,14 @@ SC = url-test, update-interval=0, policy-regex-filter=^((?!(日用|高级|标准
 # 机场订阅
 Ytoo = url-test, hidden=0, policy-path=https://sub.store/download/Ytoo, update-interval=0, no-alert=1, include-all-proxies=0
 Nexitally = url-test, hidden=0, policy-path=https://sub.store/download/%E5%A5%B6%E6%98%94, update-interval=0, no-alert=1, include-all-proxies=0
-Kuromis = url-test, hidden=0, policy-path=https://sub.store/download/Kuromis, update-interval=0, no-alert=1, include-all-proxies=0
+kuromis = url-test, hidden=0, policy-path=https://sub.store/download/Kuromis, update-interval=0, no-alert=1, include-all-proxies=0
 
 # > 筛选节点组
-HK = url-test, update-interval=1, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=Kuromis, persistent=1
-TW = url-test, update-interval=1, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW)|(韩), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=Kuromis, persistent=1
-JP = url-test, update-interval=1, policy-regex-filter=(🇯🇵)|(日本)|(Japan)|(JP), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=Kuromis, persistent=1
-SG = url-test, update-interval=1, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=Kuromis, persistent=1
-US = url-test, update-interval=1, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=Kuromis, persistent=1
+HK = url-test, update-interval=1, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=kuromis, persistent=1
+TW = url-test, update-interval=1, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW)|(韩), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=kuromis, persistent=1
+JP = url-test, update-interval=1, policy-regex-filter=(🇯🇵)|(日本)|(Japan)|(JP), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=kuromis, persistent=1
+SG = url-test, update-interval=1, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=kuromis, persistent=1
+US = url-test, update-interval=1, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=kuromis, persistent=1
 
 
 [Rule]
