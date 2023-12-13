@@ -1,0 +1,285 @@
+[General]
+
+# --- GENERAL ---
+# Enhanced Wi-Fi Assist
+wifi-assist = true
+# Hybrid Network
+all-hybrid = false
+# Gaming Optimization
+//开启后将在系统负载非常高，数据包处理出现延迟时，优先处理 UDP 数据包。
+udp-priority = true
+
+# Latency Benchmark
+internet-test-url = http://www.bing.com
+proxy-test-url = http://cp.cloudflare.com/generate_204
+test-timeout = 5
+
+# GeoIP Database
+geoip-maxmind-url = https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb
+
+# IPv6 Support
+//开启 IPv6 会让 Surge 同时请求域名的 A 与 AAAA 记录，这可能略微的增加延迟。若 DNS 服务器无法正确响应 AAAA 查询，则可能导致严重的卡顿，仅在需要时开启。
+ipv6 = true
+
+# --- Wi-Fi ACCESS ---
+//Surge 可以作为一个标准的 HTTP/SOCKS5 代理服务器向 wi-Fi 网络下的其他设备提供服务器
+allow-wifi-access = false
+# Surge iOS - 默认 HTTP 端口号：6152，SOCKS5 端口号：6153
+wifi-access-http-port = 6152
+wifi-access-socks5-port = 6153
+
+# Surge Mac - 默认 HTTP 端口号：6152，SOCKS5 端口号：6153
+http-listen = 0.0.0.0:6152
+socks5-listen = 0.0.0.0:6153
+
+# 允许热点共享
+allow-hotspot-access = true
+
+# --- REMOTE CONTROLLER ---
+external-controller-access = Novio@127.0.0.1:6160
+
+# HTTP API & Web Dashboard
+http-api = Novio@127.0.0.1:6166
+http-api-tls = false
+http-api-web-dashboard = true
+
+# --- COMPATIBILITY ---
+compatibility-mode = 0
+skip-proxy = 192.168.0.0/24, 10.0.0.0/8, 172.16.0.0/12, 127.0.0.1, localhost, *.local
+exclude-simple-hostnames = true
+
+# --- DNS ---
+dns-server = 223.5.5.5, 114.114.114.114, 119.29.29.29
+read-etc-hosts = true
+doh-skip-cert-verification=true // 临时关闭 DOH 的服务端证书验证（解决 Surge 无法与 nextdns.io 完成 TLS 握手问题）
+use-local-host-item-for-proxy = true
+encrypted-dns-follow-outbound-mode = false
+
+# --- ROUTING ---
+include-all-networks = false
+include-local-networks = false
+
+# --- ADVANCED ---
+loglevel = notify
+show-error-page-for-reject = true
+always-real-ip = link-ip.nextdns.io, *.msftconnecttest.com, *.msftncsi.com, *.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com, *.logon.battlenet.com.cn, *.logon.battle.net, stun.l.google.com
+hijack-dns = 8.8.8.8:53, 8.8.4.4:53
+force-http-engine-hosts = *.ott.cibntv.net, 123.59.31.1,119.18.193.135, 122.14.246.33, 175.102.178.52, 116.253.24.*, 175.6.26.*, 220.169.153.*
+//tun-excluded-routes = 239.255.255.250/32
+//tun-included-routes = 192.168.1.12/32
+use-default-policy-if-wifi-not-primary = false
+udp-policy-not-supported-behaviour = REJECT
+
+
+[Proxy]
+WARP = wireguard, section-name=Cloudflare, test-url=http://cp.cloudflare.com/generate_204
+WARP+HK = wireguard, section-name=Cloudflare, underlying-proxy=HK, test-url=http://cp.cloudflare.com/generate_204
+WARP+JP = wireguard, section-name=Cloudflare, underlying-proxy=JP, test-url=http://cp.cloudflare.com/generate_204
+WARP+TW = wireguard, section-name=Cloudflare, underlying-proxy=TW, test-url=http://cp.cloudflare.com/generate_204
+WARP+SG = wireguard, section-name=Cloudflare, underlying-proxy=SG, test-url=http://cp.cloudflare.com/generate_204
+WARP+US = wireguard, section-name=Cloudflare, underlying-proxy=US, test-url=http://cp.cloudflare.com/generate_204
+WARP+GM = wireguard, section-name=Cloudflare, underlying-proxy=GM, test-url=http://cp.cloudflare.com/generate_204
+WARP+UK = wireguard, section-name=Cloudflare, underlying-proxy=UK, test-url=http://cp.cloudflare.com/generate_204
+
+
+[Proxy Group]
+# 代理策略组
+Global = select, YTOO, kuromis, Warp, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
+# Warp
+Warp = select, WARP, WARP+HK, WARP+JP, WARP+SG, WARP+TW, WARP+US, no-alert=0, hidden=0, include-all-proxies=0
+# 兜底策略
+Final = select, Global, WARP, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
+# 广告拦截
+Guard = select, REJECT, REJECT-TINYGIF, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
+# 国外媒体服务
+Stream = select, HK, TW, JP, SG, US, KR, Warp, no-alert=0, hidden=0, include-all-proxies=0
+# Telegram
+Telegram = select, HK, TW, JP, SG, US, KR, Warp, no-alert=0, hidden=0, include-all-proxies=0
+# Tiktok
+TikTok = select, HK, TW, JP, SG, US, KR, Warp, no-alert=0, hidden=0, include-all-proxies=0
+# Spotify
+Spotify = select, HK, TW, JP, SG, US, KR, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
+
+# Apple
+Apple = select, DIRECT, HK, TW, JP, SG, US, KR
+Kuromis = select, HK, TW, JP, SG, US, kuromis
+
+# 测速组
+DU = select, update-interval=0, policy-regex-filter=^((?!(标准|高级|特殊|购物)).)*$, no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Ytoo, persistent=1
+SA = fallback, update-interval=0, policy-regex-filter=^((?!(日用|高级|特殊|购物)).)*$, no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Ytoo, persistent=1
+AC = fallback, update-interval=0, policy-regex-filter=^((?!(日用|标准|特殊|购物)).)*$, no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Ytoo, persistent=1
+SC = fallback, update-interval=0, policy-regex-filter=^((?!(日用|高级|标准)).)*$, no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Ytoo, persistent=1
+
+# 机场订阅
+Ytoo = url-test, hidden=0, policy-path=https://sub.store/download/Ytoo, update-interval=0, no-alert=1, include-all-proxies=0
+kuromis = url-test, hidden=0, policy-path=https://sub.store/download/Kuromis, update-interval=0, no-alert=1, include-all-proxies=0
+
+# > 筛选节点组 - Kuromis
+HK = fallback, update-interval=1, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Ytoo, persistent=1
+TW = fallback, update-interval=1, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Ytoo, persistent=1
+JP = fallback, update-interval=1, policy-regex-filter=(🇯🇵)|(日本)|(Japan)|(JP), no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Ytoo, persistent=1
+SG = fallback, update-interval=1, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Ytoo, persistent=1
+US = fallback, update-interval=1, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Ytoo, persistent=1
+KR = fallback, update-interval=1, policy-regex-filter=(kr)|(韩)|(Korean)|(KR), no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Ytoo, persistent=1
+
+
+
+[Rule]
+# DOMAIN-SUFFIX,xina.vip,DIRECT // Added for: apt.xina.vip:443
+IP-ASN,4134,DIRECT,no-resolve // China Telecom
+# HTTP3/QUIC 协议基于 UDP，部分地区 ISP 或线路 UDP 容易受到干扰或限速，屏蔽掉以阻止 HTTP 3 流量的 UDP 流量，强制回退到 TCP。
+# REJECT-NO-DROP 表示不使用默认的自动丢包逻辑，这样 Surge 每次都会返回 ICMP Port Unreachable，应用会立刻回退而不是等超时。
+AND,((PROTOCOL,UDP), (DEST-PORT,443)),REJECT-NO-DROP
+# 阻止电报频繁请求
+AND,((PROCESS-NAME,Telegram), (OR,((IP-CIDR,0.0.0.0/8), (IP-CIDR,224.0.0.0/4)))),REJECT // stop frequent request For Telegram
+# External Resources Update
+AND,((DOMAIN,raw.githubusercontent.com), (DOMAIN-SUFFIX,github.io)),Global,notification-interval=3600
+# Blocking UDP Packets by Youtube and ins
+AND,((DOMAIN-SUFFIX,googlevideo.com), (DOMAIN-SUFFIX,gvt1.com), (DOMAIN-SUFFIX,cdninstagram.com), (PROTOCOL,UDP)),REJECT // Block Youtube UDP
+# DEST-PORT 端口规则
+OR,((DEST-PORT,25), (DEST-PORT,110), (DEST-PORT,143), (DEST-PORT,465), (DEST-PORT,587)),DIRECT // 邮件服务默认端口
+AND,((OR,((DOMAIN,time-ios.apple.com), (DOMAIN,time.apple.com), (DOMAIN-SUFFIX,pool.ntp.org))), (DEST-PORT,123)),DIRECT // NTP服务默认端口
+# > Google
+DOMAIN,mtalk.google.com,DIRECT
+DOMAIN,mobile-gtalk.l.google.com,DIRECT
+DOMAIN,alt1-mtalk.google.com,DIRECT
+DOMAIN,alt2-mtalk.google.com,DIRECT
+DOMAIN,alt3-mtalk.google.com,DIRECT
+DOMAIN,alt4-mtalk.google.com,DIRECT
+DOMAIN,alt5-mtalk.google.com,DIRECT
+DOMAIN,alt6-mtalk.google.com,DIRECT
+DOMAIN,alt7-mtalk.google.com,DIRECT
+DOMAIN,alt8-mtalk.google.com,DIRECT
+DOMAIN,alt9-mtalk.google.com,DIRECT
+DOMAIN-SUFFIX,mobile-gtalk.l.google.com,DIRECT
+# > Global
+PROCESS-NAME,v2ray,DIRECT
+PROCESS-NAME,ss-local,DIRECT
+PROCESS-NAME,UUBooster,DIRECT
+# RULE-SET,https://raw.githubusercontent.com/bm131488bm/Surge/main/surge/Rules/Sileo-Rules,Global
+DOMAIN-SUFFIX,thebigboss.org,Global
+# 部分源点策略
+OR,((DOMAIN-SUFFIX,lenglengyu-my.sharepoint.cn), (DOMAIN-SUFFIX,25mao.com)),DIRECT
+
+# > Warp
+OR,((IP-CIDR,1.1.1.1/32,no-resolve), (IP-CIDR6,2606:4700:4700::1111/128,no-resolve), (DOMAIN-SUFFIX,cloudflareclient.com)),Warp
+# DOMAIN-SET,https://raw.githubusercontent.com/ExaAlice/Alice/main/Rule/WARP.list,Warp
+# Safari 防跳转
+DOMAIN,app-site-association.cdn-apple.com,REJECT
+# 机场订阅直连
+OR,((DOMAIN-SUFFIX,texon.io), (DOMAIN-SUFFIX,uttjhu.xyz), (DOMAIN-SUFFIX,oxycontin.cc), (DOMAIN-SUFFIX,dler.cloud), (DOMAIN-SUFFIX,skxqhd.xyz), (DOMAIN-SUFFIX,kuromisubs.shop)),DIRECT
+# Boxjs 代理、Sub-Store、Testflight
+OR,((DOMAIN-SUFFIX,jsdelivr.net), (DOMAIN-SUFFIX,vercel.app)),Global
+# > 自定义分流
+DOMAIN-KEYWORD,ipip.net,Global
+# Advertising 广告
+DOMAIN-SET,https://anti-ad.net/surge2.txt,Guard
+# DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/reject.txt,Guard
+# RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AdvertisingLite/AdvertisingLite.list,Guard
+# DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AdvertisingLite/AdvertisingLite_Domain.list,Guard
+# Wechat
+# RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Tencent/Tencent.list,DIRECT
+# Reddit、Twitter、Instagram、Telegram
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Stream
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Stream
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Stream
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Stream
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list,TikTok
+# Telegram
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Telegram
+# Spotify
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify
+# Streaming 国际流媒体服务
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_All.list,Stream
+# Apple Proxy
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleProxy/AppleProxy.list,Global
+# iCloud 国内直连
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/iCloud/iCloud.list,Apple
+# Apple Music
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleMusic/AppleMusic.list,Apple
+# TestFlight
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TestFlight/TestFlight.list,Global
+# Apple ID
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleID/AppleID.list,Apple
+# Apple 国内直连
+DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/apple.txt,Apple
+# > Proxy
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy_All.list,Global
+# Apple 服务
+# RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple.list,Apple
+# DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple_Domain.list,Apple
+# RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppStore/AppStore.list,Apple
+# China 中国直连
+RULE-SET,https://raw.githubusercontent.com/missuo/ASN-China/main/ASN.China.list,DIRECT
+# China 补充
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/China/China_All.list,DIRECT
+# > 防止应用循环请求
+IP-CIDR,0.0.0.0/32,REJECT,no-resolve
+# Local Area Network & GeoIP China
+# 以下规则将触发本地 DNS 解析
+# GEOIP,CN,DIRECT // Geoip
+OR,((RULE-SET,SYSTEM), (RULE-SET,LAN)),DIRECT
+# > Final兜底策略
+FINAL,Final,dns-failed
+
+[Host]
+# Firebase Cloud Messaging
+mtalk.google.com = 108.177.125.188
+# Google Dl
+dl.google.com = server:119.29.29.29
+dl.l.google.com = server:119.29.29.29
+update.googleapis.com = server:119.29.29.29
+# Router Admin Panel
+www.miwifi.com = server:syslib // Xiaomi Mi WiFi Router
+miwifi.com = server:syslib // Xiaomi Mi WiFi Router
+mediarouter.home = server:syslib // Huawei Router
+
+[URL Rewrite]
+# Redirect Google Search Service
+^https?:\/\/(www.)?(g|google)\.cn https://www.google.com 302
+
+# Redirect Google Maps Service
+^https?:\/\/(ditu|maps).google\.cn https://maps.google.com 302
+
+# Redirect HTTP to HTTPS
+^https?:\/\/(www.)?taobao\.com\/ https://taobao.com/ 302
+^https?:\/\/(www.)?jd\.com\/ https://www.jd.com/ 302
+^https?:\/\/(www.)?mi\.com\/ https://www.mi.com/ 302
+^https?:\/\/you\.163\.com\/ https://you.163.com/ 302
+^https?:\/\/(www.)?suning\.com\/ https://suning.com/ 302
+^https?:\/\/(www.)?yhd\.com\/ https://yhd.com/ 302
+
+[Header Rewrite]
+^https?:\/\/.*\.zhihu\.com\/(question|topic) header-replace User-Agent "osee2unifiedRelease/4432 osee2unifiedReleaseVersion/7.8.0 Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mo    bile/15E148"
+
+[SSID Setting]
+
+
+[MITM]
+# > 跳过服务端证书验证
+skip-server-cert-verify = true
+# > 用于 TCP 连接
+tcp-connection = true
+# > MITM over HTTP/2
+h2 = true
+hostname = 5.28.195.80:443
+ca-passphrase = 40A6EC1E
+ca-p12 = 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
+
+[WireGuard Cloudflare]
+private-key = CE9vEDRSjI5KQKLStBrsfN2/98yDCkWsEap1R322/V0=
+self-ip = 172.16.0.2
+self-ip-v6 = 2606:4700:110:8a5f:5990:3f10:e40a:320a
+prefer-ipv6 = true
+dns-server = 1.1.1.1, 2606:4700:4700::1111
+mtu = 1350
+peer = (public-key = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=, allowed-ips = "0.0.0.0/0, ::0/0", endpoint = 188.114.99.95:945, keepalive = 45, client-id = 249/71/54)
+
+[WireGuard Cloudflare old]
+private-key = CE9vEDRSjI5KQKLStBrsfN2/98yDCkWsEap1R322/V0=
+self-ip = 172.16.0.2
+self-ip-v6 = 2606:4700:110:8a5f:5990:3f10:e40a:320a
+prefer-ipv6 = true
+dns-server = 1.1.1.1, 2606:4700:4700::1111
+mtu = 1350
+peer = (public-key = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=, allowed-ips = "0.0.0.0/0, ::0/0", endpoint = engage.cloudflareclient.com:2408, keepalive = 45, client-id = 249/71/54)
