@@ -78,6 +78,8 @@ WARP+JP = wireguard, section-name=Cloudflare, underlying-proxy=JP, test-url=http
 WARP+TW = wireguard, section-name=Cloudflare, underlying-proxy=TW, test-url=http://cp.cloudflare.com/generate_204
 WARP+SG = wireguard, section-name=Cloudflare, underlying-proxy=SG, test-url=http://cp.cloudflare.com/generate_204
 WARP+US = wireguard, section-name=Cloudflare, underlying-proxy=US, test-url=http://cp.cloudflare.com/generate_204
+WARP+GM = wireguard, section-name=Cloudflare, underlying-proxy=GM, test-url=http://cp.cloudflare.com/generate_204
+WARP+UK = wireguard, section-name=Cloudflare, underlying-proxy=UK, test-url=http://cp.cloudflare.com/generate_204
 
 
 [Proxy Group]
@@ -85,57 +87,49 @@ WARP+US = wireguard, section-name=Cloudflare, underlying-proxy=US, test-url=http
 Global = select, Kuromis, YTOO, Nexitally, Warp, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
 # Warp
 Warp = select, WARP, WARP+HK, WARP+JP, WARP+SG, WARP+TW, WARP+US, no-alert=0, hidden=0, include-all-proxies=0
-# 机场组
-Final = select, Global, WARP, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
-Guard = select, REJECT, REJECT-TINYGIF, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
 # 兜底策略
-Youtube = select, HK, TW, JP, SG, US, Warp, DU, SA, AC, no-alert=0, hidden=0, include-all-proxies=0
+Final = select, Global, WARP, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
 # 广告拦截
-Telegram = select, HK, TW, JP, SG, US, Warp, DU, SA, AC, no-alert=0, hidden=0, include-all-proxies=0
-# 国外流媒体服务
-Reddit = select, HK, TW, JP, SG, US, Warp, DU, SA, AC, no-alert=0, hidden=0, include-all-proxies=0
+Guard = select, REJECT, REJECT-TINYGIF, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
+# 国外媒体服务
+Stream = select, HK, TW, JP, SG, US, GM, UK, Warp, no-alert=0, hidden=0, include-all-proxies=0
 # Telegram
-Twitter = select, HK, TW, JP, SG, US, Warp, DU, SA, AC, no-alert=0, hidden=0, include-all-proxies=0
-# Reddit
-Discord = select, HK, TW, JP, SG, US, Warp, DU, SA, AC, no-alert=0, hidden=0, include-all-proxies=0
+Telegram = select, HK, TW, JP, SG, US, GM, UK, Warp, no-alert=0, hidden=0, include-all-proxies=0
 # Tiktok
-TikTok = select, HK, TW, JP, SG, US, Warp, DU, SA, AC, no-alert=0, hidden=0, include-all-proxies=0
-# Ins
-Instagram = select, HK, TW, JP, SG, US, Warp, DU, SA, AC, no-alert=0, hidden=0, include-all-proxies=0
-# 国外流媒体服务
-Stream = select, HK, TW, JP, SG, US, Warp, DU, SA, AC, no-alert=0, hidden=0, include-all-proxies=0
-Spotify = select, HK, TW, JP, SG, US, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
+TikTok = select, HK, TW, JP, SG, US, GM, UK, Warp, no-alert=0, hidden=0, include-all-proxies=0
 
-# Apple
-Apple = select, DIRECT, HK, TW, JP, SG, US
+
 # Spotify
-YTOO = select, DU, SA, AC, Ytoo
+Spotify = select, HK, TW, JP, SG, US, GM, UK, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
+# Apple
+Apple = select, DIRECT, HK, TW, JP, SG, US, GM, UK
+
 Kuromis = select, HK, TW, JP, SG, US, kuromis
 
 # 测速组
 DU = select, update-interval=0, policy-regex-filter=^((?!(标准|高级|特殊|购物)).)*$, no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Ytoo, persistent=1
-SA = url-test, update-interval=0, policy-regex-filter=^((?!(日用|高级|特殊|购物)).)*$, no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Ytoo, persistent=1
-AC = url-test, update-interval=0, policy-regex-filter=^((?!(日用|标准|特殊|购物)).)*$, no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Ytoo, persistent=1
-SC = url-test, update-interval=0, policy-regex-filter=^((?!(日用|高级|标准)).)*$, no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Ytoo, persistent=1
+SA = fallback, update-interval=0, policy-regex-filter=^((?!(日用|高级|特殊|购物)).)*$, no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Ytoo, persistent=1
+AC = fallback, update-interval=0, policy-regex-filter=^((?!(日用|标准|特殊|购物)).)*$, no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Ytoo, persistent=1
+SC = fallback, update-interval=0, policy-regex-filter=^((?!(日用|高级|标准)).)*$, no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Ytoo, persistent=1
 
 # 机场订阅
 Ytoo = url-test, hidden=0, policy-path=https://sub.store/download/Ytoo, update-interval=0, no-alert=1, include-all-proxies=0
 Nexitally = url-test, hidden=0, policy-path=https://sub.store/download/%E5%A5%B6%E6%98%94, update-interval=0, no-alert=1, include-all-proxies=0
 kuromis = url-test, hidden=0, policy-path=https://sub.store/download/Kuromis, update-interval=0, no-alert=1, include-all-proxies=0
 
-# > 筛选节点组
-HK = url-test, update-interval=1, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=kuromis, persistent=1
-TW = url-test, update-interval=1, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW)|(韩), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=kuromis, persistent=1
-JP = url-test, update-interval=1, policy-regex-filter=(🇯🇵)|(日本)|(Japan)|(JP), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=kuromis, persistent=1
-SG = url-test, update-interval=1, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=kuromis, persistent=1
-US = url-test, update-interval=1, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=kuromis, persistent=1
+# > 筛选节点组 - Kuromis
+HK = fallback, update-interval=1, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), no-alert=1, hidden=0, include-all-proxies=0, include-other-group=kuromis, persistent=1
+TW = fallback, update-interval=1, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW)|(韩), no-alert=1, hidden=0, include-all-proxies=0, include-other-group=kuromis, persistent=1
+JP = fallback, update-interval=1, policy-regex-filter=(🇯🇵)|(日本)|(Japan)|(JP), no-alert=1, hidden=0, include-all-proxies=0, include-other-group=kuromis, persistent=1
+SG = fallback, update-interval=1, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), no-alert=1, hidden=0, include-all-proxies=0, include-other-group=kuromis, persistent=1
+US = fallback, update-interval=1, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), no-alert=1, hidden=0, include-all-proxies=0, include-other-group=kuromis, persistent=1
+GM = fallback, update-interval=1, policy-regex-filter=(gm)|(德)|(Germany)|(GM), no-alert=1, hidden=0, include-all-proxies=0, include-other-group=kuromis, persistent=1
+UK = fallback, update-interval=1, policy-regex-filter=(uk)|(英)|(Kingdom)|(UK), no-alert=1, hidden=0, include-all-proxies=0, include-other-group=kuromis, persistent=1
 
 
 [Rule]
-DOMAIN-SUFFIX,kuromisubs.shop,DIRECT // kuromis订阅
 # DOMAIN-SUFFIX,xina.vip,DIRECT // Added for: apt.xina.vip:443
 IP-ASN,4134,DIRECT,no-resolve // China Telecom
-DOMAIN-SUFFIX,25mao.com,DIRECT // Added for: apt.25mao.com:443
 # HTTP3/QUIC 协议基于 UDP，部分地区 ISP 或线路 UDP 容易受到干扰或限速，屏蔽掉以阻止 HTTP 3 流量的 UDP 流量，强制回退到 TCP。
 # REJECT-NO-DROP 表示不使用默认的自动丢包逻辑，这样 Surge 每次都会返回 ICMP Port Unreachable，应用会立刻回退而不是等超时。
 AND,((PROTOCOL,UDP), (DEST-PORT,443)),REJECT-NO-DROP
@@ -167,14 +161,16 @@ PROCESS-NAME,ss-local,DIRECT
 PROCESS-NAME,UUBooster,DIRECT
 # RULE-SET,https://raw.githubusercontent.com/bm131488bm/Surge/main/surge/Rules/Sileo-Rules,Global
 DOMAIN-SUFFIX,thebigboss.org,Global
-DOMAIN-SUFFIX,lenglengyu-my.sharepoint.cn,DIRECT // lenglengyu-Supervip 下载
+# 部分源点策略
+OR,((DOMAIN-SUFFIX,lenglengyu-my.sharepoint.cn), (DOMAIN-SUFFIX,25mao.com)),DIRECT
+
 # > Warp
 OR,((IP-CIDR,1.1.1.1/32,no-resolve), (IP-CIDR6,2606:4700:4700::1111/128,no-resolve), (DOMAIN-SUFFIX,cloudflareclient.com)),Warp
 # DOMAIN-SET,https://raw.githubusercontent.com/ExaAlice/Alice/main/Rule/WARP.list,Warp
 # Safari 防跳转
 DOMAIN,app-site-association.cdn-apple.com,REJECT
 # 机场订阅直连
-OR,((DOMAIN-SUFFIX,texon.io), (DOMAIN-SUFFIX,uttjhu.xyz), (DOMAIN-SUFFIX,oxycontin.cc), (DOMAIN-SUFFIX,dler.cloud), (DOMAIN-SUFFIX,skxqhd.xyz)),DIRECT
+OR,((DOMAIN-SUFFIX,texon.io), (DOMAIN-SUFFIX,uttjhu.xyz), (DOMAIN-SUFFIX,oxycontin.cc), (DOMAIN-SUFFIX,dler.cloud), (DOMAIN-SUFFIX,skxqhd.xyz), (DOMAIN-SUFFIX,kuromisubs.shop)),DIRECT
 # Boxjs 代理、Sub-Store、Testflight
 OR,((DOMAIN-SUFFIX,jsdelivr.net), (DOMAIN-SUFFIX,vercel.app)),Global
 # > 自定义分流
@@ -187,18 +183,19 @@ DOMAIN-SET,https://anti-ad.net/surge2.txt,Guard
 # Wechat
 # RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Tencent/Tencent.list,DIRECT
 # Reddit、Twitter、Instagram、Telegram
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Reddit
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Twitter
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Discord
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Instagram
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Stream
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Stream
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Stream
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Stream
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list,TikTok
 # Telegram
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Telegram
 # Spotify
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify
 # Streaming 国际流媒体服务
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia.list,Youtube
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_Domain.list,Youtube
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_All.list,Stream
+# Apple Proxy
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleProxy/AppleProxy.list,Global
 # iCloud 国内直连
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/iCloud/iCloud.list,Apple
 # Apple Music
@@ -210,16 +207,15 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 # Apple 国内直连
 DOMAIN-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/apple.txt,Apple
 # > Proxy
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy.list,Global
-DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy_Domain.list,Global
-# Apple Proxy
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleProxy/AppleProxy.list,Global
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy_All.list,Global
 # Apple 服务
 # RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple.list,Apple
 # DOMAIN-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple_Domain.list,Apple
 # RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppStore/AppStore.list,Apple
 # China 中国直连
-RULE-SET,https://raw.githubusercontent.com/missuo/ASN-China/main/ASN.China.list,DIRECT,extended-matching
+RULE-SET,https://raw.githubusercontent.com/missuo/ASN-China/main/ASN.China.list,DIRECT
+# China 补充
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/China/China_All.list，DIRECT
 # > 防止应用循环请求
 IP-CIDR,0.0.0.0/32,REJECT,no-resolve
 # Local Area Network & GeoIP China
@@ -260,11 +256,7 @@ mediarouter.home = server:syslib // Huawei Router
 ^https?:\/\/.*\.zhihu\.com\/(question|topic) header-replace User-Agent "osee2unifiedRelease/4432 osee2unifiedReleaseVersion/7.8.0 Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mo    bile/15E148"
 
 [SSID Setting]
-# Temporarily Suspend
-"HUAWEI_3" suspend=true
-# TCP Fast Open
-"HUAWEI_3" tfo-behaviour=force-enabled
-TYPE:CELLULAR tfo-behaviour=force-disabled
+
 
 [MITM]
 # > 跳过服务端证书验证
