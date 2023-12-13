@@ -78,7 +78,7 @@ WARP+JP = wireguard, section-name=Cloudflare, underlying-proxy=JP, test-url=http
 WARP+TW = wireguard, section-name=Cloudflare, underlying-proxy=TW, test-url=http://cp.cloudflare.com/generate_204
 WARP+SG = wireguard, section-name=Cloudflare, underlying-proxy=SG, test-url=http://cp.cloudflare.com/generate_204
 WARP+US = wireguard, section-name=Cloudflare, underlying-proxy=US, test-url=http://cp.cloudflare.com/generate_204
-WARP+KR = wireguard, section-name=Cloudflare, underlying-proxy=GM, test-url=http://cp.cloudflare.com/generate_204
+WARP+KR = wireguard, section-name=Cloudflare, underlying-proxy=KR, test-url=http://cp.cloudflare.com/generate_204
 
 
 
