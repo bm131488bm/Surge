@@ -92,17 +92,17 @@ Final = select, Global, WARP, DIRECT, no-alert=0, hidden=0, include-all-proxies=
 # 广告拦截
 Guard = select, REJECT, REJECT-TINYGIF, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
 # 国外媒体服务
-Stream = select, HK, TW, JP, SG, US, KR, Warp, no-alert=0, hidden=0, include-all-proxies=0
+Stream = select, HK, TW, JP, SG, US, KR, DU, AC, SC, Warp, no-alert=0, hidden=0, include-all-proxies=0
 # Telegram
-Telegram = select, HK, TW, JP, SG, US, KR, Warp, no-alert=0, hidden=0, include-all-proxies=0
+Telegram = select, HK, TW, JP, SG, US, KR, DU, AC, SC, Warp, no-alert=0, hidden=0, include-all-proxies=0
 # Tiktok
-TikTok = select, HK, TW, JP, SG, US, KR, Warp, no-alert=0, hidden=0, include-all-proxies=0
+TikTok = select, HK, TW, JP, SG, US, KR, DU, AC, SC, Warp, no-alert=0, hidden=0, include-all-proxies=0
 # Spotify
-Spotify = select, HK, TW, JP, SG, US, KR, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
+Spotify = select, HK, TW, JP, SG, US, KR, DU, AC, SC, DIRECT, no-alert=0, hidden=0, include-all-proxies=0
 
 # Apple
 Apple = select, DIRECT, HK, TW, JP, SG, US, KR
-Kuromis = select, HK, TW, JP, SG, US, kuromis
+YTOO = select, HK, TW, JP, SG, US, KR, DU, AC, SC
 
 # 测速组
 DU = select, update-interval=0, policy-regex-filter=^((?!(标准|高级|特殊|购物)).)*$, no-alert=1, hidden=0, include-all-proxies=0, include-other-group=Ytoo, persistent=1
