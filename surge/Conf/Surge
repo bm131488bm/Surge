@@ -100,7 +100,7 @@ Spotify = select, HK, WARP+HK, TW, WARP+TW, JP, WARP+JP, SG, WARP+SG, DIRECT
 # Apple
 Apple = select, DIRECT, HK, WARP+HK, TW, WARP+TW, JP, WARP+JP, SG, WARP+SG
 # Warp
-Warp = WARP, WARP+HK, WARP+TW, WARP+JP, WARP+SG, WARP+US, WARP+GM, WARP+UK 
+Warp = select, WARP, WARP+HK, WARP+JP, WARP+SG, WARP+TW, WARP+US, WARP+UK, WARP+GM
 
 # 机场订阅
 Kuromis = url-test, hidden=1, policy-path=https://sub.store/download/Kuromis, update-interval=0, no-alert=1, include-all-proxies=0
