@@ -94,12 +94,13 @@ Stream = select, HK, WARP+HK, TW, WARP+TW, JP, WARP+JP, SG, WARP+SG, US, WARP+US
 # Telegram
 Telegram = select, HK, WARP+HK, TW, WARP+TW, JP, WARP+JP, SG, WARP+SG, US, WARP+US
 # magical
-Magical = select, HK, TW, JP, SG, US, GM, UK
-
+Magical = select, HK, WARP+HK, TW, WARP+TW, JP, WARP+JP, SG, WARP+SG, US, WARP+US
 # Spotify
 Spotify = select, HK, WARP+HK, TW, WARP+TW, JP, WARP+JP, SG, WARP+SG, DIRECT
 # Apple
 Apple = select, DIRECT, HK, WARP+HK, TW, WARP+TW, JP, WARP+JP, SG, WARP+SG
+# Warp
+Warp = HK, WARP+HK, TW, WARP+TW, JP, WARP+JP, SG, WARP+SG, US, WARP+US, GM, WARP+GM, UK, WARP+UK 
 
 # 机场订阅
 Kuromis = url-test, hidden=1, policy-path=https://sub.store/download/Kuromis, update-interval=0, no-alert=1, include-all-proxies=0
