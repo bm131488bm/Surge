@@ -89,7 +89,7 @@ Apple = select, DIRECT, HK, TW, JP, SG, US
 # > Warp
 Warp = select, WARP, WARP+HK, WARP+JP, WARP+SG, WARP+TW, WARP+US
 # > Autotest
-Autotest = select, Kuromis, Ytoo
+Autotest = select, kuromis, ytoo
 
 # > location
 Kuromis = select, HK, TW, JP, SG, US
