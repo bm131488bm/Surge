@@ -67,33 +67,30 @@ WARP+JP = wireguard, section-name=Cloudflare, underlying-proxy=JP, test-url=http
 WARP+TW = wireguard, section-name=Cloudflare, underlying-proxy=TW, test-url=http://cp.cloudflare.com/generate_204
 WARP+SG = wireguard, section-name=Cloudflare, underlying-proxy=SG, test-url=http://cp.cloudflare.com/generate_204
 WARP+US = wireguard, section-name=Cloudflare, underlying-proxy=US, test-url=http://cp.cloudflare.com/generate_204
-WARP+hk = wireguard, section-name=Cloudflare, underlying-proxy=hk, test-url=http://cp.cloudflare.com/generate_204
-WARP+jp = wireguard, section-name=Cloudflare, underlying-proxy=jp, test-url=http://cp.cloudflare.com/generate_204
-WARP+tw = wireguard, section-name=Cloudflare, underlying-proxy=tw, test-url=http://cp.cloudflare.com/generate_204
-WARP+sg = wireguard, section-name=Cloudflare, underlying-proxy=sg, test-url=http://cp.cloudflare.com/generate_204
-WARP+us = wireguard, section-name=Cloudflare, underlying-proxy=us, test-url=http://cp.cloudflare.com/generate_204
+
 
 [Proxy Group]
 # > 代理策略组
-Proxy = select, Kuromis, Ytoo, Warp, DIRECT
+Proxy = select, Kuromis, Ytoo, Autotest, Warp, DIRECT
 # > 兜底策略
 Final = select, Proxy, Warp, DIRECT
 # > 广告拦截
 Guard = select, REJECT, REJECT-TINYGIF, DIRECT
 # > 国外媒体服务
-Stream = select, Kuromis, Ytoo, Warp, DIRECT
+Stream = select, Kuromis, Ytoo, Autotest, Warp, DIRECT
 # > Telegram
 Telegram = select, JP, HK, SG, WARP+HK, WARP+SG, DIRECT
 # >  magical
-Magical = select, Kuromis, Ytoo, Warp, DIRECT
+Magical = select, Kuromis, Ytoo, Autotest, Warp, DIRECT
 # > Spotify
 Spotify = select, WARP+HK, WARP+TW, DIRECT
 # > Apple
 Apple = select, DIRECT, HK, TW, JP, SG, US
 # > Warp
-Warp = select, warp+, warp-
-warp+ = select, WARP, WARP+HK, WARP+JP, WARP+SG, WARP+TW, WARP+US
-warp- = select, WARP, WARP+hk, WARP+jp, WARP+sg, WARP+tw, WARP+us
+Warp = select, WARP, WARP+HK, WARP+JP, WARP+SG, WARP+TW, WARP+US
+# > Autotest
+Autotest = select, Kuromis, Ytoo
+
 # > location
 Kuromis = select, HK, TW, JP, SG, US
 Ytoo = select, HK, TW, JP, SG, US
