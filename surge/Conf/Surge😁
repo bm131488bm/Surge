@@ -71,19 +71,21 @@ WARP+US = wireguard, section-name=Cloudflare, underlying-proxy=US, test-url=http
 
 [Proxy Group]
 # > 代理策略组
-Proxy = select, Kuromis, Ytoo, Autotest, Warp, DIRECT
+Proxy = select, Autotest, Warp, DIRECT
+# > 手动策略组
+Select = select, Kuromis, DIRECT
 # > 兜底策略
 Final = select, Proxy, Warp, DIRECT
 # > 广告拦截
 Guard = select, REJECT, REJECT-TINYGIF, DIRECT
 # > 国外媒体服务
-Stream = select, Kuromis, Ytoo, Autotest, Warp, DIRECT
+Stream = select, JP, WARP+JP, HK, WARP+HK, SG, WARP+SG, DIRECT
 # > Telegram
-Telegram = select, JP, HK, SG, WARP+HK, WARP+SG, DIRECT
+Telegram = select, JP, WARP+JP, HK, WARP+HK, SG, WARP+SG, DIRECT
 # >  magical
-Magical = select, Kuromis, Ytoo, Autotest, Warp, DIRECT
+Magical = select, JP, WARP+JP, HK, WARP+HK, SG, WARP+SG, DIRECT
 # > Spotify
-Spotify = select, WARP+HK, WARP+TW, DIRECT
+Spotify = select, HK, WARP+HK, TW, WARP+TW, DIRECT
 # > Apple
 Apple = select, DIRECT, HK, TW, JP, SG, US
 # > Warp
@@ -93,7 +95,6 @@ Autotest = select, kuromis, ytoo
 
 # > location
 Kuromis = select, HK, TW, JP, SG, US
-Ytoo = select, HK, TW, JP, SG, US
 
 # > 机场订阅
 kuromis = url-test, hidden=0, policy-path=https://sub.store/download/Kuromis, update-interval=0, no-alert=1, include-all-proxies=0
@@ -102,17 +103,11 @@ ytoo = url-test, hidden=0, policy-path=https://sub.store/download/Ytoo, update-i
 
 # > 筛选节点组 - Kuromis
 HK = load-balance, update-interval=1, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=kuromis, persistent=1
-TW = load-balance, update-interval=1, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW)|(韩), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=kuromis, persistent=1
+TW = load-balance, update-interval=1, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=kuromis, persistent=1
 JP = load-balance, update-interval=1, policy-regex-filter=(🇯🇵)|(日本)|(Japan)|(JP), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=kuromis, persistent=1
 SG = load-balance, update-interval=1, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=kuromis, persistent=1
 US = load-balance, update-interval=1, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=kuromis, persistent=1
 
-# > 筛选节点组 - Ytoo
-hk = load-balance, update-interval=1, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=ytoo, persistent=1
-tw = load-balance, update-interval=1, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW)|(韩), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=ytoo, persistent=1
-jp = load-balance, update-interval=1, policy-regex-filter=(🇯🇵)|(日本)|(Japan)|(JP), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=ytoo, persistent=1
-sg = load-balance, update-interval=1, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG)|(狮), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=ytoo, persistent=1
-us = load-balance, update-interval=1, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=ytoo, persistent=1
 
 [Rule]
 DOMAIN-SUFFIX,iosign.tk,Proxy // Added for: iosign.tk:443
