@@ -61,42 +61,33 @@ disable-geoip-db-auto-update = true
 ipv6-vif = auto
 
 [Proxy]
-WARP = wireguard, section-name=Cloudflare, test-url=http://cp.cloudflare.com/generate_204
-WARP+HK = wireguard, section-name=Cloudflare, underlying-proxy=HK, test-url=http://cp.cloudflare.com/generate_204
-WARP+JP = wireguard, section-name=Cloudflare, underlying-proxy=JP, test-url=http://cp.cloudflare.com/generate_204
-WARP+TW = wireguard, section-name=Cloudflare, underlying-proxy=TW, test-url=http://cp.cloudflare.com/generate_204
-WARP+SG = wireguard, section-name=Cloudflare, underlying-proxy=SG, test-url=http://cp.cloudflare.com/generate_204
-WARP+US = wireguard, section-name=Cloudflare, underlying-proxy=US, test-url=http://cp.cloudflare.com/generate_204
+
 
 
 [Proxy Group]
 # > 代理策略组
-Proxy = select, Autotest, Warp, DIRECT
+Proxy = select, Select, Kuromis, DIRECT
 # > 手动策略组
 Select = select, Kuromis, DIRECT
 # > 兜底策略
-Final = select, Proxy, Warp, DIRECT
+Final = select, Proxy, DIRECT
 # > 广告拦截
 Guard = select, REJECT, REJECT-TINYGIF, DIRECT
 # > 国外媒体服务
-Stream = select, JP, WARP+JP, HK, WARP+HK, SG, WARP+SG, DIRECT
+Stream = select, HK, TW, JP, SG, US, DIRECT
 # > Telegram
-Telegram = select, JP, WARP+JP, HK, WARP+HK, SG, WARP+SG, DIRECT
-# >  magical
-Magical = select, JP, WARP+JP, HK, WARP+HK, SG, WARP+SG, DIRECT
+Telegram = select, HK, TW, JP, SG, US, DIRECT
 # >  Tiktok
-Tiktok = select, JP, WARP+JP, HK, WARP+HK, SG, WARP+SG, DIRECT
+Tiktok = select, HK, TW, JP, SG, US, DIRECT
 # > Spotify
-Spotify = select, HK, WARP+HK, TW, WARP+TW, DIRECT
+Spotify = select, HK, TW, JP, SG, US, DIRECT
 # > Apple
 Apple = select, DIRECT, HK, TW, JP, SG, US
-# > Warp
-Warp = select, WARP, WARP+HK, WARP+JP, WARP+SG, WARP+TW, WARP+US
 # > Autotest
 Autotest = select, kuromis, ytoo
 
 # > location
-Kuromis = select, HK, TW, JP, SG, US
+Kuromis = select, kuromis, HK, TW, JP, SG, US
 
 # > 机场订阅
 kuromis = url-test, hidden=0, policy-path=https://sub.store/download/Kuromis, update-interval=0, no-alert=1, include-all-proxies=0
@@ -129,7 +120,7 @@ AND,((OR,((DOMAIN,time-ios.apple.com), (DOMAIN,time.apple.com), (DOMAIN-SUFFIX,p
 DOMAIN-SUFFIX,thebigboss.org,Proxy // Big boss 分流
 # > Warp
 # OR,((IP-CIDR,1.1.1.1/32,no-resolve), (IP-CIDR6,2606:4700:4700::1111/128,no-resolve), (DOMAIN-SUFFIX,cloudflareclient.com)),Warp // Warp 测试
-RULE-SET,https://raw.githubusercontent.com/ExaAlice/Alice/main/Rule/WARP.list,Warp
+# RULE-SET,https://raw.githubusercontent.com/ExaAlice/Alice/main/Rule/WARP.list,Warp
 # >  部分源点策略
 OR,((DOMAIN-SUFFIX,lenglengyu-my.sharepoint.cn), (DOMAIN-SUFFIX,25mao.com)),DIRECT
 # >  机场订阅直连
@@ -142,10 +133,6 @@ OR,((DOMAIN-SUFFIX,jsdelivr.net), (DOMAIN-SUFFIX,vercel.app), (DOMAIN-KEYWORD,ip
 # >  Advertising 广告
 DOMAIN-SET,https://anti-ad.net/surge2.txt,Guard
 # >  Reddit、Twitter、Instagram、Telegram
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Magical
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Magical
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Magical
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Magical
 # > Tiktok
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list,Tiktok
 # >  Telegram
@@ -223,22 +210,3 @@ prefer-ipv6 = true
 dns-server = 1.1.1.1, 2606:4700:4700::1111
 mtu = 1280
 peer = (public-key = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=, allowed-ips = "0.0.0.0/0, ::0/0", endpoint = 188.114.99.95:945, keepalive = 45, client-id = 142/81/202)
-
-[WireGuard Cloudflare B]
-private-key = aKfRbdh/XmhRzChd0MOnHQ++gIz2YMkOJJmMnjumdE0=
-self-ip = 172.16.0.2
-self-ip-v6 = 2606:4700:110:852f:2d15:5f9a:546f:53c0
-prefer-ipv6 = true
-dns-server = 1.1.1.1, 2606:4700:4700::1111
-mtu = 1280
-peer = (public-key = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=, allowed-ips = "0.0.0.0/0, ::0/0", endpoint = 162.159.204.19:1701, keepalive = 45, client-id = 142/81/202)
-
-[WireGuard Cloudflare A]
-private-key = aKfRbdh/XmhRzChd0MOnHQ++gIz2YMkOJJmMnjumdE0=
-self-ip = 172.16.0.2
-self-ip-v6 = 2606:4700:110:852f:2d15:5f9a:546f:53c0
-prefer-ipv6 = true
-dns-server = 1.1.1.1, 2606:4700:4700::1111
-mtu = 1280
-peer = (public-key = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=, allowed-ips = "0.0.0.0/0, ::0/0", endpoint = engage.cloudflareclient:2408, keepalive = 45, client-id = 142/81/202)
-
