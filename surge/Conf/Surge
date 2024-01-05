@@ -13,7 +13,7 @@ internet-test-url = http://www.bing.com
 proxy-test-url = http://cp.cloudflare.com/generate_204
 test-timeout = 5
 # >  GeoIP Database
-geoip-maxmind-url = https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb
+# geoip-maxmind-url = https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb
 # >  IPv6 Support
 ipv6 = true
 # --- Wi-Fi ACCESS ---
@@ -38,7 +38,7 @@ compatibility-mode = 1
 skip-proxy = 192.168.0.0/24, 10.0.0.0/8, 172.16.0.0/12, 127.0.0.1, localhost, *.local
 exclude-simple-hostnames = true
 # --- DNS ---
-dns-server = 223.5.5.5, 119.29.29.29
+dns-server = 223.5.5.5, 119.29.29.29, 114.114.114.114
 read-etc-hosts = true
 doh-skip-cert-verification = true
 use-local-host-item-for-proxy = true
@@ -84,6 +84,8 @@ Stream = select, JP, WARP+JP, HK, WARP+HK, SG, WARP+SG, DIRECT
 Telegram = select, JP, WARP+JP, HK, WARP+HK, SG, WARP+SG, DIRECT
 # >  magical
 Magical = select, JP, WARP+JP, HK, WARP+HK, SG, WARP+SG, DIRECT
+# >  Tiktok
+Tiktok = select, JP, WARP+JP, HK, WARP+HK, SG, WARP+SG, DIRECT
 # > Spotify
 Spotify = select, HK, WARP+HK, TW, WARP+TW, DIRECT
 # > Apple
@@ -144,7 +146,8 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Magical
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Magical
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Magical
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list,Magical
+# > Tiktok
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list,Tiktok
 # >  Telegram
 RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list,Telegram
 # >  Spotify
