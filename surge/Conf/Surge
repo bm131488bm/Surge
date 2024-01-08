@@ -132,8 +132,6 @@ OR,((DOMAIN-SUFFIX,texon.io), (DOMAIN-SUFFIX,uttjhu.xyz), (DOMAIN-SUFFIX,oxycont
 DOMAIN,app-site-association.cdn-apple.com,REJECT
 # >  Boxjs 代理、Sub-Store、Testflight
 OR,((DOMAIN-SUFFIX,jsdelivr.net), (DOMAIN-SUFFIX,vercel.app), (DOMAIN-KEYWORD,ipip.net)),Proxy
-# >  私有域名
-RULE-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/private.txt,DIRECT
 # >  Advertising 广告
 DOMAIN-SET,https://anti-ad.net/surge2.txt,Guard
 # > Tiktok
@@ -149,9 +147,9 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 # >  Stream
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_All.list,Stream
 # >  Apple Direct
-RULE-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/apple.txt,Apple
+RULE-SET,https://github.com/blackmatrix7/ios_rule_script/blob/master/rule/Surge/Apple/Apple_All.list,Apple
 # >  Proxy
-RULE-SET,https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/proxy.txt,Proxy,force-remote-dns
+RULE-SET,https://github.com/blackmatrix7/ios_rule_script/blob/master/rule/Surge/Proxy/Proxy_All.list,Proxy
 # >  China 中国直连 & China 补充
 RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,DIRECT
 # > 防止应用循环请求
