@@ -1,7 +1,7 @@
 # NAME: Sileo-Rules
 # UPDATED: 2024-01-22 09:53:30
-# DOMAIN-SUFFIX: 24
-# TOTAL: 24
+# DOMAIN-SUFFIX: 29
+# TOTAL: 29
 
 DOMAIN-SUFFIX,thuthuatjb.com
 DOMAIN-SUFFIX,getsileo.app
@@ -31,3 +31,4 @@ DOMAIN-SUFFIX,xina.vip
 DOMAIN-SUFFIX,rob311.com
 DOMAIN-SUFFIX,limneos.net
 DOMAIN-SUFFIX,thebigboss.org
+DOMAIN-SUFFIX,iosign.tk
