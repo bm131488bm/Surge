@@ -108,7 +108,7 @@ SP = load-balance, update-interval=1, policy-regex-filter=^(?!.*Hong|Tai|Japan|S
 # >  对于一些对战游戏因为都是基于UDP，开启此选项后可避免一些延迟。默认关闭
 PROTOCOL,UDP,DIRECT
 # 腾讯 WeChat ASN
-IP-ASN,132203,Direct
+IP-ASN,132203,DIRECT
 IP-ASN,4134,DIRECT,no-resolve // China Telecom
 AND,((PROTOCOL,UDP), (DEST-PORT,443)),REJECT-NO-DROP
 # >  阻止电报频繁请求
