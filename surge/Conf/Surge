@@ -123,7 +123,7 @@ OR,((DOMAIN-SUFFIX,texon.io), (DOMAIN-SUFFIX,uttjhu.xyz), (DOMAIN-SUFFIX,oxycont
 # >  Boxjs 代理、Sub-Store、Testflight
 OR,((DOMAIN-SUFFIX,jsdelivr.net), (DOMAIN-SUFFIX,vercel.app), (DOMAIN-KEYWORD,ipip.net)),Proxy,notification-text="订阅信息更新",notification-interval=3600
 # >  Advertising 广告
-DOMAIN-SET,https://anti-ad.net/surge2.txt,Guard
+RULE-SET,https://anti-ad.net/surge2.txt,Guard
 # >  Apple Direct
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple_All.list,Apple
 # >  Tiktok
@@ -133,13 +133,13 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 # >  Spotify
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify
 # >  Discord
-RULE-SER,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Stream
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Stream
 # >  Twitter
-RULE-SER,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Stream
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Stream
 # >  Instagram
-RULE-SER,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Stream
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Stream
 # >  Reddit
-RULE-SER,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Stream
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Stream
 # >  Stream
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_All.list,Stream
 
