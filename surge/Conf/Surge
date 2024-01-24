@@ -50,10 +50,8 @@ include-local-networks = false
 loglevel = notify
 show-error-page-for-reject = true
 always-real-ip = link-ip.nextdns.io, *.msftconnecttest.com, *.msftncsi.com, *.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com, *.logon.battlenet.com.cn, *.logon.battle.net, stun.l.google.com
-hijack-dns = 8.8.8.8:53, 8.8.4.4:53
+hijack-dns = *:53
 force-http-engine-hosts = *.ott.cibntv.net, 123.59.31.1,119.18.193.135, 122.14.246.33, 175.102.178.52, 116.253.24.*, 175.6.26.*, 220.169.153.*
-# tun-excluded-routes = 239.255.255.250/32
-# tun-included-routes = 192.168.1.12/32
 use-default-policy-if-wifi-not-primary = false
 udp-policy-not-supported-behaviour = REJECT
 # >  禁用 GEOIP 自动更新
