@@ -90,8 +90,6 @@ Telegram = select, HK, TW, JP, SG, US, SP, DIRECT
 Tiktok = select, HK, TW, JP, SG, US, SP
 # >  Spotify
 Spotify = select, US, DIRECT
-# >  Youtube
-Youtube = select, HK, TW, JP, SG, US, SP, DIRECT
 # >  Apple
 Apple = select, DIRECT, HK, TW, JP, SG, US, SP
 
@@ -111,6 +109,8 @@ SP = load-balance, update-interval=1, policy-regex-filter=^(?!.*Hong|Tai|Japan|S
 
 # >  对于一些对战游戏因为都是基于UDP，开启此选项后可避免一些延迟。默认关闭
 PROTOCOL,UDP,DIRECT
+# 腾讯 WeChat ASN
+IP-ASN,132203,Direct
 IP-ASN,4134,DIRECT,no-resolve // China Telecom
 AND,((PROTOCOL,UDP), (DEST-PORT,443)),REJECT-NO-DROP
 # >  阻止电报频繁请求
@@ -126,25 +126,30 @@ OR,((DOMAIN-SUFFIX,texon.io), (DOMAIN-SUFFIX,uttjhu.xyz), (DOMAIN-SUFFIX,oxycont
 OR,((DOMAIN-SUFFIX,jsdelivr.net), (DOMAIN-SUFFIX,vercel.app), (DOMAIN-KEYWORD,ipip.net)),Proxy,notification-text="订阅信息更新",notification-interval=3600
 # >  Advertising 广告
 DOMAIN-SET,https://anti-ad.net/surge2.txt,Guard
+# >  Apple Direct
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple_All.list,Apple
 # >  Tiktok
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list,Tiktok
 # >  Telegram
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Telegram
 # >  Spotify
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify
-# >  Youtube
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list,Youtube
-# >  Youtube Music
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTubeMusic/YouTubeMusic.list,Youtube
+# >  Discord
+RULE-SER,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Stream
+# >  Twitter
+RULE-SER,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Stream
+# >  Instagram
+RULE-SER,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Stream
+# >  Reddit
+RULE-SER,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Stream
 # >  Stream
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_All.list,Stream
-# >  Apple Direct
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple_All.list,Apple
+
 # >  other Rules
 RULE-SET,https://raw.githubusercontent.com/getsomecat/GetSomeCats/Surge/rule/substore.list,Proxy
 RULE-SET,https://raw.githubusercontent.com/bm131488bm/Surge/main/surge/Rules/Sileo-Rules,Proxy
 # >  Proxy
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy_All.list,Proxy
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Global/Global_All.list,Proxy
 # >  China 中国直连 & China 补充
 RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,DIRECT
 # >  Surge 的自动 REJECT 保护丢包，防止应用循环请求
