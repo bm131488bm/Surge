@@ -72,7 +72,7 @@ Proxy = select, Automatic, Area, Warp, DIRECT
 # >  兜底策略
 Final = select, Automatic, Area, Warp, DIRECT
 # >  自动策略组
-Automatic = url-test, include-other-group="Kuromis", hidden=1
+Automatic = url-test, policy-path=https://sub.store/download/Kuromis, hidden=1
 # >  location
 Area = select, HK, TW, JP, SG, US, SP
 # >  Warp
@@ -91,16 +91,15 @@ Spotify = select, US, DIRECT
 # >  Apple
 Apple = select, DIRECT, HK, TW, JP, SG, US, SP
 
-# >  Airpot
-Kuromis = select, policy-path=https://sub.store/download/Kuromis, hidden=1
+
 
 # >  筛选节点组 - Kuromis
-HK = load-balance, update-interval=1, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=Kuromis, persistent=1
-TW = load-balance, update-interval=1, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=Kuromis, persistent=1
-JP = load-balance, update-interval=1, policy-regex-filter=(🇯🇵)|(日本)|(Japan)|(JP), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=Kuromis, persistent=1
-SG = load-balance, update-interval=1, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=Kuromis, persistent=1
-US = load-balance, update-interval=1, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=Kuromis, persistent=1
-SP = load-balance, update-interval=1, policy-regex-filter=^(?!.*Hong|Tai|Japan|Singapore|States), no-alert=1, hidden=1, include-all-proxies=0, include-other-group=Kuromis, persistent=1
+HK = load-balance, update-interval=1, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), no-alert=1, hidden=1, policy-path=https://sub.store/download/Kuromis, persistent=1
+TW = load-balance, update-interval=1, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), no-alert=1, hidden=1, policy-path=https://sub.store/download/Kuromis, persistent=1
+JP = load-balance, update-interval=1, policy-regex-filter=(🇯🇵)|(日本)|(Japan)|(JP), no-alert=1, hidden=1, policy-path=https://sub.store/download/Kuromis, persistent=1
+SG = load-balance, update-interval=1, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), no-alert=1, hidden=1, policy-path=https://sub.store/download/Kuromis, persistent=1
+US = load-balance, update-interval=1, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), no-alert=1, hidden=1, policy-path=https://sub.store/download/Kuromis, persistent=1
+SP = load-balance, update-interval=1, policy-regex-filter=^(?!.*Hong|Tai|Japan|Singapore|States), no-alert=1, hidden=1, policy-path=https://sub.store/download/Kuromis, persistent=1
 
 [Rule]
 
