@@ -70,7 +70,7 @@ WARP+US = wireguard, section-name=Cloudflare, underlying-proxy=US, test-url=http
 # >  代理策略组
 Proxy = select, Automatic, Area, Warp, DIRECT
 # >  兜底策略
-Final = url-test, include-other-group="Ytoo,Kuromis"
+Final = url-test, include-other-group="Kuromis"
 # >  自动策略组
 Automatic = url-test, include-other-group="Kuromis"
 # >  location
@@ -92,7 +92,6 @@ Spotify = select, US, DIRECT
 Apple = select, DIRECT, HK, TW, JP, SG, US, SP
 
 # >  Airpot
-Ytoo = select, policy-path=https://sub.store/download/Ytoo, policy-regex-filter=日用, hidden=1
 Kuromis = select, policy-path=https://sub.store/download/Kuromis, hidden=1
 
 # >  筛选节点组 - Kuromis
@@ -123,7 +122,7 @@ OR,((DOMAIN-SUFFIX,texon.io), (DOMAIN-SUFFIX,uttjhu.xyz), (DOMAIN-SUFFIX,oxycont
 # >  Boxjs 代理、Sub-Store、Testflight
 OR,((DOMAIN-SUFFIX,jsdelivr.net), (DOMAIN-SUFFIX,vercel.app), (DOMAIN-KEYWORD,ipip.net)),Proxy,notification-text="订阅信息更新",notification-interval=3600
 # >  Advertising 广告
-RULE-SET,https://anti-ad.net/surge2.txt,Guard
+DOMAIN-SET,https://anti-ad.net/surge2.txt,Guard
 # >  Apple Direct
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple_All.list,Apple
 # >  Tiktok
