@@ -70,9 +70,9 @@ WARP+US = wireguard, section-name=Cloudflare, underlying-proxy=US, test-url=http
 # >  代理策略组
 Proxy = select, Automatic, Area, Warp, DIRECT
 # >  兜底策略
-Final = url-test, include-other-group="Kuromis"
+Final = select, Automatic, Area, Warp, DIRECT
 # >  自动策略组
-Automatic = url-test, include-other-group="Kuromis"
+Automatic = url-test, include-other-group="Kuromis", hidden=1
 # >  location
 Area = select, HK, TW, JP, SG, US, SP
 # >  Warp
