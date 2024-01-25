@@ -70,9 +70,11 @@ WARP+US = wireguard, section-name=Cloudflare, underlying-proxy=US, test-url=http
 # >  代理策略组
 Proxy = select, Automatic, Area, Warp, DIRECT
 # >  兜底策略
-Final = select, Automatic, Area, Warp, DIRECT
+Final = select, Area, Warp, DIRECT
 # >  自动策略组
-Automatic = url-test, policy-path=https://sub.store/download/Kuromis, hidden=1
+Automatic = url-test, policy-path=https://sub.store/download/Kuromis
+# >  手动策略组
+Manual = select, policy-path=https://sub.store/download/Kuromis
 # >  location
 Area = select, HK, TW, JP, SG, US, SP
 # >  Warp
@@ -81,13 +83,13 @@ Warp = select, WARP+HK, WARP+JP, WARP+SG, WARP+TW, WARP+US
 # >  广告拦截
 Guard = select, REJECT, REJECT-TINYGIF, DIRECT
 # >  国外媒体服务
-Stream = select, HK, TW, JP, SG, US, DIRECT
+Stream = select, HK, TW, JP, SG, US, Manual
 # >  Telegram
-Telegram = select, HK, TW, JP, SG, US, SP, DIRECT
+Telegram = select, HK, TW, JP, SG, US, SP, Manual
 # >  Tiktok
-Tiktok = select, HK, TW, JP, SG, US, SP
+Tiktok = select, HK, TW, JP, SG, US, SP, Manual
 # >  Spotify
-Spotify = select, US, DIRECT
+Spotify = select, US, Manual , DIRECT
 # >  Apple
 Apple = select, DIRECT, HK, TW, JP, SG, US, SP
 
@@ -120,12 +122,12 @@ OR,((DOMAIN-SUFFIX,lenglengyu-my.sharepoint.cn), (DOMAIN-SUFFIX,25mao.com)),DIRE
 OR,((DOMAIN-SUFFIX,texon.io), (DOMAIN-SUFFIX,uttjhu.xyz), (DOMAIN-SUFFIX,oxycontin.cc), (DOMAIN-SUFFIX,dler.cloud), (DOMAIN-SUFFIX,skxqhd.xyz), (DOMAIN-SUFFIX,kuromisubs.shop)),DIRECT
 # >  Boxjs 代理、Sub-Store、Testflight
 OR,((DOMAIN-SUFFIX,jsdelivr.net), (DOMAIN-SUFFIX,vercel.app), (DOMAIN-KEYWORD,ipip.net)),Proxy,notification-text="订阅信息更新",notification-interval=3600
+
 # >  Advertising 广告
-DOMAIN-SET,https://anti-ad.net/surge2.txt,Guard
-# >  Apple Direct
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple_All.list,Apple
+RULE-SET,https://anti-ad.net/surge.txt,Guard
+
 # >  Tiktok
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list,Tiktok
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list,Tiktok 
 # >  Telegram
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Telegram
 # >  Spotify
@@ -141,11 +143,18 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 # >  Stream
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_All.list,Stream
 
+# >  Apple proxy
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleProxy/AppleProxy.list,Proxy  // Apple 需要走代理的域名
+# >  Apple Direct
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple_All.list,Apple 
+
 # >  other Rules
 RULE-SET,https://raw.githubusercontent.com/getsomecat/GetSomeCats/Surge/rule/substore.list,Proxy
 RULE-SET,https://raw.githubusercontent.com/bm131488bm/Surge/main/surge/Rules/Sileo-Rules,Proxy
+
 # >  Proxy
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Global/Global_All.list,Proxy
+
 # >  China 中国直连 & China 补充
 RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,DIRECT
 # >  Surge 的自动 REJECT 保护丢包，防止应用循环请求
