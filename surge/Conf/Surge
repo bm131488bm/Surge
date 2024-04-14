@@ -1,5 +1,4 @@
 [General]
-
 # --- GENERAL ---
 # Enhanced Wi-Fi Assist
 wifi-assist = true
@@ -11,14 +10,14 @@ udp-priority = true
 # >  Latency Benchmark
 internet-test-url = http://captive.apple.com/generate_204
 proxy-test-url = http://cp.cloudflare.com/generate_204
-test-timeout = 5
+test-timeout = 3
 # >  GeoIP Database
 # geoip-maxmind-url = https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb
 # >  IPv6 Support
 ipv6 = true
 # --- Wi-Fi ACCESS ---
 // Surge 可以作为一个标准的 HTTP/SOCKS5 代理服务器向 wi-Fi 网络下的其他设备提供服务器
-allow-wifi-access = false
+allow-wifi-access = true
 # >  Surge iOS - 默认 HTTP 端口号：6152，SOCKS5 端口号：6153
 wifi-access-http-port = 6152
 wifi-access-socks5-port = 6153
@@ -38,7 +37,7 @@ compatibility-mode = 1
 skip-proxy = 192.168.0.0/24, 10.0.0.0/8, 172.16.0.0/12, 127.0.0.1, localhost, *.local
 exclude-simple-hostnames = true
 # --- DNS ---
-dns-server = 223.5.5.5, 119.29.29.29
+dns-server = 223.5.5.5, 119.29.29.29, 114.114.114.114
 read-etc-hosts = true
 doh-skip-cert-verification = true
 use-local-host-item-for-proxy = true
@@ -55,114 +54,90 @@ force-http-engine-hosts = *.ott.cibntv.net, 123.59.31.1,119.18.193.135, 122.14.2
 use-default-policy-if-wifi-not-primary = false
 udp-policy-not-supported-behaviour = REJECT
 # >  禁用 GEOIP 自动更新
-disable-geoip-db-auto-update = true
+disable-geoip-db-auto-update = false
 ipv6-vif = auto
+geoip-maxmind-url = https://raw.githubusercontent.com/NobyDa/geoip/release/Private-GeoIP.mmdb
 
 [Proxy]
-WARP = wireguard, section-name=Cloudflare, test-url=http://cp.cloudflare.com/generate_204
-WARP+HK = wireguard, section-name=Cloudflare, underlying-proxy=HK, test-url=http://cp.cloudflare.com/generate_204
-WARP+JP = wireguard, section-name=Cloudflare, underlying-proxy=JP, test-url=http://cp.cloudflare.com/generate_204
-WARP+TW = wireguard, section-name=Cloudflare, underlying-proxy=TW, test-url=http://cp.cloudflare.com/generate_204
-WARP+SG = wireguard, section-name=Cloudflare, underlying-proxy=SG, test-url=http://cp.cloudflare.com/generate_204
-WARP+US = wireguard, section-name=Cloudflare, underlying-proxy=US, test-url=http://cp.cloudflare.com/generate_204
+
 
 [Proxy Group]
 # >  代理策略组
-Proxy = select, Automatic, Area, Warp, DIRECT
+Proxy = select, Automatic, Area, DIRECT
 # >  兜底策略
-Final = select, Area, Warp, DIRECT
+Final = select, Area, Ytoo, DIRECT
 # >  自动策略组
-Automatic = url-test, policy-path=https://sub.store/download/Kuromis
-# >  手动策略组
-Manual = select, policy-path=https://sub.store/download/Kuromis
+Automatic = select, Kuromis
 # >  location
-Area = select, HK, TW, JP, SG, US, SP
-# >  Warp
-Warp = select, WARP+HK, WARP+JP, WARP+SG, WARP+TW, WARP+US
-
+Area = select, HK, TW, JP, SG, US
+# >  Direct
+Domestic = select, DIRECT
+# >  国外媒体服务
+Stream = select, HK, TW, JP, SG, US
+# >  Telegram
+Telegram = select, HK, JP, SG
+# >  Tiktok
+Tiktok = select, JP, SP, HK, SG
 # >  广告拦截
 Guard = select, REJECT, REJECT-TINYGIF, DIRECT
-# >  国外媒体服务
-Stream = select, HK, TW, JP, SG, US, Manual
-# >  Telegram
-Telegram = select, HK, TW, JP, SG, US, SP, Manual
-# >  Tiktok
-Tiktok = select, HK, TW, JP, SG, US, SP, Manual
 # >  Spotify
-Spotify = select, US, Manual , DIRECT
+Spotify = select, SG
 # >  Apple
 Apple = select, DIRECT, HK, TW, JP, SG, US, SP
-
-
-
+# >  订阅节点组 - Kuromis
+Kuromis = Smart, policy-path=https://sub.store/download/Kuromis, update-interval=0, no-alert=1, hidden=0, include-all-proxies=0, policy-regex-filter=(Hong)|(Japan)
+Ytoo = select, policy-path=https://sub.store/download/Ytoo, update-interval=0, no-alert=1, hidden=0, include-all-proxies=0, policy-regex-filter=0.2
 # >  筛选节点组 - Kuromis
-HK = load-balance, update-interval=1, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), no-alert=1, hidden=1, policy-path=https://sub.store/download/Kuromis, persistent=1
-TW = load-balance, update-interval=1, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), no-alert=1, hidden=1, policy-path=https://sub.store/download/Kuromis, persistent=1
-JP = load-balance, update-interval=1, policy-regex-filter=(🇯🇵)|(日本)|(Japan)|(JP), no-alert=1, hidden=1, policy-path=https://sub.store/download/Kuromis, persistent=1
-SG = load-balance, update-interval=1, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), no-alert=1, hidden=1, policy-path=https://sub.store/download/Kuromis, persistent=1
-US = load-balance, update-interval=1, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), no-alert=1, hidden=1, policy-path=https://sub.store/download/Kuromis, persistent=1
-SP = load-balance, update-interval=1, policy-regex-filter=^(?!.*Hong|Tai|Japan|Singapore|States), no-alert=1, hidden=1, policy-path=https://sub.store/download/Kuromis, persistent=1
+HK = smart, update-interval=1, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK), no-alert=1, hidden=0, persistent=1, include-all-proxies=0, policy-path=https://sub.store/download/Kuromis
+TW = smart, update-interval=1, policy-regex-filter=(🇨🇳)|(台)|(Tai)|(TW), no-alert=1, hidden=0, persistent=1, include-all-proxies=0, policy-path=https://sub.store/download/Kuromis
+JP = smart, update-interval=1, policy-regex-filter=(🇯🇵)|(日本)|(Japan)|(JP), no-alert=1, hidden=0, persistent=1, include-all-proxies=0, policy-path=https://sub.store/download/Kuromis
+SG = smart, update-interval=1, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), no-alert=1, hidden=0, persistent=1, include-all-proxies=0, policy-path=https://sub.store/download/Kuromis
+US = smart, update-interval=1, policy-regex-filter=(🇺🇸)|(美)|(States)|(US), no-alert=1, hidden=0, persistent=1, include-all-proxies=0, policy-path=https://sub.store/download/Kuromis
+SP = smart, update-interval=1, policy-regex-filter=^(?!.*Hong|Tai|Japan|Singapore|United States), no-alert=1, hidden=0, persistent=1, include-all-proxies=0, policy-path=https://sub.store/download/Kuromis
 
 [Rule]
-
-# >  对于一些对战游戏因为都是基于UDP，开启此选项后可避免一些延迟。默认关闭
-PROTOCOL,UDP,DIRECT
 # 腾讯 WeChat ASN
-IP-ASN,132203,DIRECT
-IP-ASN,4134,DIRECT,no-resolve // China Telecom
+IP-ASN,132203,Domestic
+IP-ASN,4134,Domestic,no-resolve // China Telecom
 AND,((PROTOCOL,UDP), (DEST-PORT,443)),REJECT-NO-DROP
 # >  阻止电报频繁请求
 AND,((PROCESS-NAME,Telegram), (OR,((IP-CIDR,0.0.0.0/8), (IP-CIDR,224.0.0.0/4)))),REJECT // stop frequent request For Telegram
-# >  Warp
-# OR,((IP-CIDR,1.1.1.1/32,no-resolve), (IP-CIDR6,2606:4700:4700::1111/128,no-resolve), (DOMAIN-SUFFIX,cloudflareclient.com)),Warp // Warp 测试
-RULE-SET,https://raw.githubusercontent.com/ExaAlice/Alice/main/Rule/WARP.list,Warp
-# >  部分源点策略
-OR,((DOMAIN-SUFFIX,lenglengyu-my.sharepoint.cn), (DOMAIN-SUFFIX,25mao.com)),DIRECT
 # >  机场订阅直连
-OR,((DOMAIN-SUFFIX,texon.io), (DOMAIN-SUFFIX,uttjhu.xyz), (DOMAIN-SUFFIX,oxycontin.cc), (DOMAIN-SUFFIX,dler.cloud), (DOMAIN-SUFFIX,skxqhd.xyz), (DOMAIN-SUFFIX,kuromisubs.shop)),DIRECT
+OR,((DOMAIN-SUFFIX,lenglengyu-my.sharepoint.cn), (DOMAIN-SUFFIX,25mao.com), (DOMAIN-SUFFIX,texon.io,extended-matching), (DOMAIN-SUFFIX,uttjhu.xyz,extended-matching), (DOMAIN-SUFFIX,oxycontin.cc,extended-matching), (DOMAIN-SUFFIX,skxqhd.xyz), (DOMAIN-SUFFIX,kuromisubs.shop,extended-matching), (DOMAIN-SUFFIX,stentvessel.top)),Domestic
 # >  Boxjs 代理、Sub-Store、Testflight
-OR,((DOMAIN-SUFFIX,jsdelivr.net), (DOMAIN-SUFFIX,vercel.app), (DOMAIN-KEYWORD,ipip.net)),Proxy,notification-text="订阅信息更新",notification-interval=3600
-
+OR,((DOMAIN-SUFFIX,jsdelivr.net), (DOMAIN-SUFFIX,vercel.app), (DOMAIN-KEYWORD,ipip.net), (DOMAIN-SUFFIX,clbug.com), (DOMAIN-SUFFIX,ip-api.com)),Proxy
 # >  Advertising 广告
 RULE-SET,https://anti-ad.net/surge.txt,Guard
 
 # >  Tiktok
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list,Tiktok 
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list,Tiktok
 # >  Telegram
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Telegram
 # >  Spotify
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify
-# >  Discord
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Stream
-# >  Twitter
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Stream
-# >  Instagram
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Stream
 # >  Reddit
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Stream
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,JP
 # >  Stream
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_All.list,Stream
-
+OR,((RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list), (RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list), (RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list), (RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_All.list)),Stream
 # >  Apple proxy
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleProxy/AppleProxy.list,Proxy  // Apple 需要走代理的域名
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleProxy/AppleProxy.list,Proxy // Apple 需要走代理的域名
 # >  Apple Direct
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple_All.list,Apple 
-
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple_All.list,Apple
 # >  other Rules
-RULE-SET,https://raw.githubusercontent.com/getsomecat/GetSomeCats/Surge/rule/substore.list,Proxy
-RULE-SET,https://raw.githubusercontent.com/bm131488bm/Surge/main/surge/Rules/Sileo-Rules,Proxy
-
+# RULE-SET,https://raw.githubusercontent.com/getsomecat/GetSomeCats/Surge/rule/substore.list,Proxy
 # >  Proxy
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Global/Global_All.list,Proxy
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Global/Global_All.list,Proxy,extended-matching
+# >  Direct 
+DOMAIN-SET,cloudflare-radar-domains-top-1000000-cn.txt,Domestic,extended-matching
 
 # >  China 中国直连 & China 补充
-RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,DIRECT
+# RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,Domestic
+# RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax_All.list,DIRECT
 # >  Surge 的自动 REJECT 保护丢包，防止应用循环请求
 IP-CIDR,0.0.0.0/32,REJECT,no-resolve
 # >  Local Area Network & GeoIP China
-#    以下规则将触发本地 DNS 解析
-#    GEOIP,CN,DIRECT // Geoip
-OR,((RULE-SET,SYSTEM), (RULE-SET,LAN)),DIRECT
+# 以下规则将触发本地 DNS 解析
+OR,((RULE-SET,SYSTEM), (RULE-SET,LAN), (GEOIP,CN), (DOMAIN-SUFFIX,cn)),Domestic
 # >  Final兜底策略
 FINAL,Final,dns-failed
 
@@ -212,10 +187,8 @@ hdslb.com = server:119.29.29.29
 [URL Rewrite]
 # >  Redirect Google Search Service
 ^https?:\/\/(www.)?(g|google)\.cn https://www.google.com 302
-
 # >  Redirect Google Maps Service
 ^https?:\/\/(ditu|maps).google\.cn https://maps.google.com 302
-
 # >  Redirect HTTP to HTTPS
 ^https?:\/\/(www.)?taobao\.com\/ https://taobao.com/ 302
 ^https?:\/\/(www.)?jd\.com\/ https://www.jd.com/ 302
@@ -231,11 +204,19 @@ hdslb.com = server:119.29.29.29
 # > 跳过服务端证书验证
 skip-server-cert-verify = true
 # > 用于 TCP 连接
-tcp-connection = false
-# > MITM over HTTP/2
 h2 = true
-ca-passphrase = 40A6EC1E
-ca-p12 = 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
+# > MITM over HTTP/2
+ca-passphrase = D0CDC616
+ca-p12 = MIIKPAIBAzCCCgYGCSqGSIb3DQEHAaCCCfcEggnzMIIJ7zCCBF8GCSqGSIb3DQEHBqCCBFAwggRMAgEAMIIERQYJKoZIhvcNAQcBMBwGCiqGSIb3DQEMAQYwDgQI1IqDWgTJcIkCAggAgIIEGL+Zn3SkzJetCE8L/kECXU8jqCpnwyfyZDNXkFQ8+q6y3VOTk7skSxna14IwUV17ge+t/ac2qpBTM/SO8Bn0M7hy0LXDd0l7xVNRFZ2gsrDTCVDWwGy+Cnae7xMXce9N8mcVpdM3obSzr7U/FKU4/HqA11set3tZ4yPDReJX1iAQy3TVUlHPwTt/yh8Od0q/x1VorOgmLNqN5QRrqEVxTONLMCCi3LUQzGCSJ9+sGJVYntBVqM9cKSj17qwH//iT7w+cxaSOyXWk4cpa8p2n8Z0YBKnbJf78hf+PIRdE/Nt9xceWeQz+NAezq+Rm0aC0kD+j53iF2l9jpay99kiovyTeDCEneHHigpJXE4A+yEJg+m0i6szk12jbMk1fmCLJ041tPVDAbur1gaOBwJKp6cK75SEv913oh5oAi0yWSBzhA9sneWig3rzHUuFKl9qBMrFbGajzIynQSQm0S52WshrsDZaezuLfpdPbCF+ryMCGDBlK3Rocb6iJlj2JIaZ6n6b1LLIMtMCvHgDj6ZF6b1BjNrgrpmZqLBQy65a3XUTUduL2/kogtnErKmDuLl56PtPzthyWChcOP/ZD92fgdmvD7MNnaP7mZtPBIHmGZ274YXbSPwqoLeJiUos8brkdch6H1WT1XwP6wKwzIazFrS10f5nqRBjx7C3HtLJnLBPyoT/EZohdRdAFnGrNuIxhVd5x99QTVOWou8xbVQJKoJfZ3WpnShK3b/vqAtu3lEUu9lwy601ciWodL/GppW7TO0yzZt8nYPnPN8hgrEDVwcTUrp6x1ppxj7L/R6UaxvBxwAjVvsFGASn0orXrPI5Nrlh4e3677DgLMbcLef7+NfTnf4vyzjn0YS33idfuZtyi/WOaOklOUQNNqMaUvTTDCHrhvZn5lOE1txOtvnDcX5xYeF+0P3K+ZCWew91bKvOYMYgHDvk7R54CulHrZXIfNmBnOysIDb8YSvzO2pfkXLd8HuyyQUICdtNtt5LrmHFzURZ6s7gWkj1hs0svtPvGwhF+UB+6ghVanEEVovigK25qHA4oXC7rnRZJjJkpuzZJwYZaCXhlVhEQB6XlD7aqyg7zJEJkvyjMv/yBP+nacBixAPx1BH0mRXzbN51Iy03+r1dft8ZrkRPhRF3c6q+JBtYIGgjyWn/LHQAlBxVlDx8r7WYKRmlQhVHk0ullPses3QrIqbWRrR0BRtwsul57ThThp1FotrJ2W25KluIPtbxh5dc57+CnGqe/fOxz5MW86hJlG878OHbo0eDu/NT+rpSjl8eR98X9jC5khm6GGHEWL7/05aw6u3GfgLP9mlMB/oGwwvII3G2UqN7DsDD2aI924iUzb8vZTyuFr6fzcnfjlW2qjoVJa7YH3t+iL65hAfS/V/7FpDYwggWIBgkqhkiG9w0BBwGgggV5BIIFdTCCBXEwggVtBgsqhkiG9w0BDAoBAqCCBO4wggTqMBwGCiqGSIb3DQEMAQMwDgQIgbEL4WyuT2ECAggABIIEyNM+4n6KolqttBxKsciIYMSVGNeAu6yZZ6wv75g6U1ARfcEu09+tOtyFaOzxszc03lis0LoGX9TZ/PzWjUFjG6ILTHJVlx+jI83Jo7YxrMVsqG+2VjUo4m84a7jS1WCosp4gEuj+i9jM+Zne1dCyUhORUmUcy4prvJioYPdcpkwBAAh4qC3nUzqXVTV9PGYvXNQc/ZcnDaJ40u58E4ighn3ONdq9K6JcqkV/8fX9yLy+p7rFMyGh0Taxo9ye8LS4TS4WDxfRNHxrGAmH1w0Uq1AMrayAXcpESvN1Jvl9V65Zr1jZS5/60REZZaxZMD/J2eZ3PbxW4Fwv3suCDBhFFCZjFPMQFZolcw/XGFiI7jd8luwgnp+3yHIqouljcu/gVxPBV7kSYjWDM/45AayxCp7H1f3v25tjfd0jyyiIa3zZbQ4ykVgrOQVrSq97PifUTJ3DDgCG8YhcUgne9kPB/Hj26iWEV1725r3NVgY7dLZL1wnsN5OyPAdlm/OSre/UGSv0je+zLmtwMiKsyQpCEG7G4if3AXVUBPdXpHGnXlBdYYzyi9vm1QGZkJWRo4E6N8hEZo/sMqwS5H8DzXb0/uX5PGD3o1uJ6Z/4xqbjhPFDRMVxi7hTucGj4m5UIbCCWGQ2/wPy/tZW2prnaJlNfQ3RAk3+x5zh4OJk/NpL68/G62dT5FawsL0rIm2I/GC4JjH7SC2EnJZieZQ4hcBeBhynrtIpOS2JTLExJcvj6XfmuIWFVObPZPIuB/TSlxa7mUyiOAIBx+3u5NmnRbmw15CoXb+E2lXhIgQ5xbTOG0hXjLEgbUrzohCQkuIWTM0wpbXYwynfRpXe30QASof862nDTGnE4F5ZC3qfxQ/9Ib6uU0JdlzIH8rxip4tj+KlMIItW4Zj65eTAAx2xc38IvKGvrZqZ5lIt9HZa5pmIgbHBzgA0vbsDDn0uywV0nHigHE0rlMqEINIRrNPL3YZ1h0uulQLNwXrja+hifEjcxslNNH1OIytiHTBkXw2+rWHSD+9udB4G9h9ElA0KYygPLyN3GU9W9iVQHp1clDG37ITYH2lQtI/YI8Qe7HTFeUy8AHEV3W2KpnzHwyXKfuHRKMoR8FXiUJ80TwLFLKk0fkeiHpp2lUvCZqdAI2XjV/kxNIYXGmQqP/NIni8N+EIieUS3tGSaeyHKJa0m02qsF6SYbE4IfqqLbfOWCsZRiYrkT3PZkTagqw4SBJcD/84wr1kfsZXOUbaPTmjDQrsa2FBZpYZR9DmD3hpRUfm4ftAy8nYfMarvKltWbItYptLprhiIYNYkFzh9IcqCl6Ay1rK2oixR/ac0thJ2ssvqst+fZWySCtUB74lak5SEyAUZCP43iKLe2a+WanKsSuQf6rNKXXb8Z2MiDA4DU5MauSNNezvw/3a2INnR2eHR2tHBDBMAqkNHrzcdptLjQypht2+o3ZLiDTXR5m5+oTA/dsEbudkUNkAYpj6ioXSZveaZOtf47fdUS1oiQbgoeGV7Z3NeYB3Iuzs/7C7WrQuw1pJk5T0oE/59SmrLlV+Naqlq7oDXp1iR7+r7rcXhJAzZVHxeeGz67GC1sarixTGkpXo0aOJy5SvvzbDOcdiVPGORiZD7I4e95+x3ITFsMCMGCSqGSIb3DQEJFTEWBBSv1yizUBUB0dLbVI6cfM42Tm3JEzBFBgkqhkiG9w0BCRQxOB42AFMAdQByAGcAZQAgAEcAZQBuAGUAcgBhAHQAZQBkACAAQwBBACAARAAwAEMARABDADYAMQA2MC0wITAJBgUrDgMCGgUABBT1aHO8L0YQlQ22QfiO6kBkBeNO+AQIM1ps5KFy2lM=
+
+[Script]
+𝐉𝐀𝐕𝐃𝐚𝐲每日推荐 = type=cron,cronexp=0 22 * * *,wake-system=1,script-path=https://raw.githubusercontent.com/Yuheng0101/X/main/Tasks/javday.js,timeout=60
+
+最新技術推送 = type=cron,cronexp=0 8,wake-system=1,script-path=https://raw.githubusercontent.com/Yuheng0101/X/main/Tasks/1024.js,timeout=60
+
+黑料不打烊 = type=cron,cronexp=0 9,wake-system=1,script-path=https://raw.githubusercontent.com/Yuheng0101/X/main/Tasks/hlbdy.js,timeout=60
+
+每天60秒读懂世界 = type=cron,cronexp=0 30 9 * * *,wake-system=1,script-path=https://raw.githubusercontent.com/Yuheng0101/X/main/Tasks/60s.js,timeout=60
 
 [WireGuard Cloudflare]
 private-key = aKfRbdh/XmhRzChd0MOnHQ++gIz2YMkOJJmMnjumdE0=
