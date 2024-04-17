@@ -83,7 +83,7 @@ SP = smart, update-interval=1, policy-regex-filter=^(?!.*Hong|Tai|Japan|Singapor
 
 [Rule]
 # 腾讯 WeChat ASN
-IP-ASN,132203,Domestic
+IP-ASN,132203,Domestic // Tencent ASN
 IP-ASN,4134,Domestic,no-resolve // China Telecom
 AND,((PROTOCOL,UDP), (DEST-PORT,443)),REJECT-NO-DROP
 # >  阻止电报频繁请求
@@ -91,35 +91,35 @@ AND,((PROCESS-NAME,Telegram), (OR,((IP-CIDR,0.0.0.0/8), (IP-CIDR,224.0.0.0/4))))
 # >  机场订阅直连
 OR,((DOMAIN-SUFFIX,lenglengyu-my.sharepoint.cn), (DOMAIN-SUFFIX,25mao.com), (DOMAIN-SUFFIX,texon.io,extended-matching), (DOMAIN-SUFFIX,uttjhu.xyz,extended-matching), (DOMAIN-SUFFIX,oxycontin.cc,extended-matching), (DOMAIN-SUFFIX,skxqhd.xyz), (DOMAIN-SUFFIX,kuromisubs.shop,extended-matching), (DOMAIN-SUFFIX,stentvessel.top)),Domestic
 # >  Boxjs 代理、Sub-Store、Testflight
-OR,((DOMAIN-SUFFIX,jsdelivr.net), (DOMAIN-SUFFIX,vercel.app), (DOMAIN-KEYWORD,ipip.net), (DOMAIN-SUFFIX,clbug.com), (DOMAIN-SUFFIX,ip-api.com)),Proxy
-# >  Advertising 广告
-RULE-SET,https://anti-ad.net/surge2.txt,Guard
+OR,((DOMAIN-SUFFIX,jsdelivr.net), (DOMAIN-SUFFIX,vercel.app), (DOMAIN-KEYWORD,ipip.net), (DOMAIN-SUFFIX,clbug.com), (DOMAIN-SUFFIX,ip-api.com)),Proxy // Special Rules
+# >  Advertising 广告 // 
+RULE-SET,https://anti-ad.net/surge2.txt,Guard // Block Ads
 
 # >  Spotify
-RULE-SET,http://bm7/Spotify,Spotify
+RULE-SET,http://bm7/Spotify,Spotify // Spotify-Rules
 # >  Chat-list
-OR,((RULE-SET,http://bm7/Reddit),  (RULE-SET,http://bm7/TikTok), (RULE-SET,http://bm7/Telegram), (RULE-SET,http://bm7/Discord), (RULE-SET,http://bm7/Twitter), (RULE-SET,http://bm7/Instagram)),Area
+OR,((RULE-SET,http://bm7/Reddit),  (RULE-SET,http://bm7/TikTok), (RULE-SET,http://bm7/Telegram), (RULE-SET,http://bm7/Discord), (RULE-SET,http://bm7/Twitter), (RULE-SET,http://bm7/Instagram)),Area // Chat-Rules
 # >  Stream-list
-RULE-SET,http://bm7/GlobalMedia_All,Proxy
+RULE-SET,http://bm7/GlobalMedia_All,Proxy // Globalmedia-Rules
 # >  Apple proxy
 RULE-SET,http://bm7/AppleProxy,Proxy // Apple 需要走代理的域名
 # >  Apple Direct
-RULE-SET,http://bm7/Apple_All,Apple
+RULE-SET,http://bm7/Apple_All,Apple // Apple Direct Rules
 # >  other Rules
-# RULE-SET,https://raw.githubusercontent.com/getsomecat/GetSomeCats/Surge/rule/substore.list,Proxy
+# RULE-SET,https://raw.githubusercontent.com/getsomecat/GetSomeCats/Surge/rule/substore.list,Proxy // Sub-Store Rules
 # >  Proxy
-RULE-SET,http://bm7/Global_All,Proxy,extended-matching
+RULE-SET,http://bm7/Global_All,Proxy,extended-matching // Global Rules
 # >  China 中国直连 & China 补充
-DOMAIN-SET,cloudflare-radar-domains-top-1000000-cn.txt,Domestic,extended-matching
-RULE-SET,http://bm7/ChinaMax_All,Domestic
+DOMAIN-SET,cloudflare-radar-domains-top-1000000-cn.txt,Domestic,extended-matching // 本地cloudflare 域名合集
+RULE-SET,http://bm7/ChinaMax_All,Domestic // Chaine Rules
 # RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,Domestic
 # >  Surge 的自动 REJECT 保护丢包，防止应用循环请求
-IP-CIDR,0.0.0.0/32,REJECT,no-resolve
+IP-CIDR,0.0.0.0/32,REJECT,no-resolve // Preventing Application Loop Requests
 # >  Local Area Network & GeoIP China
 # 以下规则将触发本地 DNS 解析
-OR,((RULE-SET,SYSTEM), (RULE-SET,LAN), (GEOIP,CN), (DOMAIN-SUFFIX,cn)),Domestic
+OR,((RULE-SET,SYSTEM), (RULE-SET,LAN), (GEOIP,CN), (DOMAIN-SUFFIX,cn)),Domestic // run direct rules
 # >  Final兜底策略
-FINAL,Final,dns-failed
+FINAL,Final,dns-failed // 兜底策略
 
 [Host]
 # >  Firebase Cloud Messaging
