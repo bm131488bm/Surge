@@ -96,22 +96,27 @@ OR,((DOMAIN-SUFFIX,jsdelivr.net), (DOMAIN-SUFFIX,vercel.app), (DOMAIN-KEYWORD,ip
 RULE-SET,https://anti-ad.net/surge2.txt,Guard // Block Ads
 
 # >  Spotify
-RULE-SET,http://bm7/Spotify,Spotify // Spotify-Rules
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify // Spotify-Rules
 # >  Chat-list
-OR,((RULE-SET,http://bm7/Reddit),  (RULE-SET,http://bm7/TikTok), (RULE-SET,http://bm7/Telegram), (RULE-SET,http://bm7/Discord), (RULE-SET,http://bm7/Twitter), (RULE-SET,http://bm7/Instagram)),Area // Chat-Rules
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Area // Chat-Rules
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list,Area // Chat-Rules
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Area // Chat-Rules
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Area // Chat-Rules
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Area // Chat-Rules
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Area // Chat-Rules
 # >  Stream-list
-RULE-SET,http://bm7/GlobalMedia_All,Proxy // Globalmedia-Rules
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_All.list,Proxy // Globalmedia-Rules
 # >  Apple proxy
-RULE-SET,http://bm7/AppleProxy,Proxy // Apple 需要走代理的域名
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleProxy/AppleProxy.list,Proxy // Apple 需要走代理的域名
 # >  Apple Direct
-RULE-SET,http://bm7/Apple_All,Apple // Apple Direct Rules
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple_All.list,Apple // Apple Direct Rules
 # >  other Rules
 # RULE-SET,https://raw.githubusercontent.com/getsomecat/GetSomeCats/Surge/rule/substore.list,Proxy // Sub-Store Rules
 # >  Proxy
-RULE-SET,http://bm7/Global_All,Proxy,extended-matching // Global Rules
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Global/Global_All.list,Proxy,extended-matching // Global Rules
 # >  China 中国直连 & China 补充
-DOMAIN-SET,cloudflare-radar-domains-top-1000000-cn.txt,Domestic,extended-matching // 本地cloudflare 域名合集
-RULE-SET,http://bm7/ChinaMax_All,Domestic // Chaine Rules
+DOMAIN-SET,cloudflare-radar-domains-top-1000000-cn.txt,Domestic,extended-matching // 本地 cloudflare 域名合集
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax_All.list,Domestic // Chaine Rules
 # RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,Domestic
 # >  Surge 的自动 REJECT 保护丢包，防止应用循环请求
 IP-CIDR,0.0.0.0/32,REJECT,no-resolve // Preventing Application Loop Requests
