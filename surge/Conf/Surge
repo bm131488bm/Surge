@@ -97,10 +97,10 @@ RULE-SET,https://anti-ad.net/surge2.txt,Guard
 
 # >  Spotify
 http://bm7/Spotify,Spotify
-# >  Reddit
-OR,((http://bm7/Reddit),  
-# >  Stream
-OR,((http://bm7/TikTok), (http://bm7/Telegram), (http://bm7/Discord), (http://bm7/Twitter), (http://bm7/Instagram), (http://bm7/GlobalMedia_All)),Area
+# >  Chat-list
+OR,((http://bm7/Reddit),  (http://bm7/TikTok), (http://bm7/Telegram), (http://bm7/Discord), (http://bm7/Twitter), (http://bm7/Instagram)),Area
+# >  Stream-list
+http://bm7/GlobalMedia_All,Proxy
 # >  Apple proxy
 http://bm7/AppleProxy,Proxy // Apple 需要走代理的域名
 # >  Apple Direct
