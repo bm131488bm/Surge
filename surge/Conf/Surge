@@ -96,24 +96,23 @@ OR,((DOMAIN-SUFFIX,jsdelivr.net), (DOMAIN-SUFFIX,vercel.app), (DOMAIN-KEYWORD,ip
 RULE-SET,https://anti-ad.net/surge2.txt,Guard
 
 # >  Spotify
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,Spotify
+http://bm7/Spotify,Spotify
 # >  Reddit
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,JP
+OR,((http://bm7/Reddit),  
 # >  Stream
-OR,((RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list), (RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list), (RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list), (RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list), (RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list), (RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_All.list)),Area
+OR,((http://bm7/TikTok), (http://bm7/Telegram), (http://bm7/Discord), (http://bm7/Twitter), (http://bm7/Instagram), (http://bm7/GlobalMedia_All)),Area
 # >  Apple proxy
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleProxy/AppleProxy.list,Proxy // Apple 需要走代理的域名
+http://bm7/AppleProxy,Proxy // Apple 需要走代理的域名
 # >  Apple Direct
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple_All.list,Apple
+http://bm7/Apple_All,Apple
 # >  other Rules
 # RULE-SET,https://raw.githubusercontent.com/getsomecat/GetSomeCats/Surge/rule/substore.list,Proxy
 # >  Proxy
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Global/Global_All.list,Proxy,extended-matching
-# >  Direct
-DOMAIN-SET,cloudflare-radar-domains-top-1000000-cn.txt,Domestic,extended-matching
+http://bm7/Global_All,Proxy,extended-matching
 # >  China 中国直连 & China 补充
+DOMAIN-SET,cloudflare-radar-domains-top-1000000-cn.txt,Domestic,extended-matching
+http://bm7/ChinaMax_All,Domestic
 # RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/auto-update/ruleset/ASN.China.list,Domestic
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax_All.list,Domestic
 # >  Surge 的自动 REJECT 保护丢包，防止应用循环请求
 IP-CIDR,0.0.0.0/32,REJECT,no-resolve
 # >  Local Area Network & GeoIP China
@@ -166,6 +165,8 @@ hdslb.com = server:119.29.29.29
 *.bdstatic.com = server:119.29.29.29
 
 [URL Rewrite]
+# > Blackmatric 7 Rewrte
+^http:\/\/bm7\/(.*?)(_.*)?$ https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/$1/$1$2.list 302
 # >  Redirect Google Search Service
 ^https?:\/\/(www.)?(g|google)\.cn https://www.google.com 302
 # >  Redirect Google Maps Service
