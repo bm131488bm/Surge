@@ -56,20 +56,23 @@ ipv6-vif = auto
 
 [Proxy]
 Domestic = DIRECT
+RN = snell, 74.48.31.73, 2345, psk=sEstBbsMKQIvAYWa, obfs=http, obfs-host=www.bing.com, version=4, tfo=true, ip-version=v4-only
 
 [Proxy Group]
 # >  代理策略组
 Proxy = smart, policy-path=https://sub.store/download/Kuromis, update-interval=0, no-alert=1, hidden=1, include-all-proxies=0, policy-regex-filter=(🇭🇰)|(港)|(Hong)|(HK)|(🇯🇵)|(日本)|(Japan)|(JP)
 # >  兜底策略
-Final = select, Area, Ytoo, Domestic
+Final = select, Area, Ytoo, RN, Domestic
 # >  location
-Area = select, HK, TW, JP, SG, US
+Area = fallback, JP, TW, HK, RN
+# >  Chat-Rules
+Chat = select, Domestic, HK, TW, JP, SG, US, RN
 # >  广告拦截
 Guard = select, REJECT, REJECT-TINYGIF, Domestic
 # >  Spotify
-Spotify = smart, update-interval=1, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), include-other-group=Kuromis
+Spotify = fallback, update-interval=1, policy-regex-filter=(🇸🇬)|(新)|(Singapore)|(SG), include-other-group=Kuromis
 # >  Apple
-Apple = select, Domestic, HK, TW, JP, SG, US
+Apple = select, Domestic, HK, TW, JP, SG, US, RN
 # >  订阅节点组 - Kuromis
 Kuromis = select, policy-path=https://sub.store/download/Kuromis, update-interval=0, no-alert=1, hidden=0, include-all-proxies=0
 Ytoo = select, policy-path=https://sub.store/download/Ytoo, update-interval=0, no-alert=1, hidden=0, include-all-proxies=0, policy-regex-filter=0.2
@@ -100,20 +103,24 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 # >  Chat-list
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list,Area // Chat-Rules
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list,Area // Chat-Rules
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Area // Chat-Rules
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Area // Chat-Rules
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Area // Chat-Rules
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Area // Chat-Rules
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list,Chat // Chat-Rules
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,Chat // Chat-Rules
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list,Chat // Chat-Rules
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list,Chat // Chat-Rules
 # >  Stream-list
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GlobalMedia/GlobalMedia_All.list,Proxy // Globalmedia-Rules
+
 # >  Apple proxy
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleProxy/AppleProxy.list,Proxy // Apple 需要走代理的域名
 # >  Apple Direct
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple_All.list,Apple // Apple Direct Rules
+
 # >  other Rules
 # RULE-SET,https://raw.githubusercontent.com/getsomecat/GetSomeCats/Surge/rule/substore.list,Proxy // Sub-Store Rules
+
 # >  Proxy
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Global/Global_All.list,Proxy,extended-matching // Global Rules
+
 # >  China 中国直连 & China 补充
 DOMAIN-SET,cloudflare-radar-domains-top-1000000-cn.txt,Domestic,extended-matching // 本地 cloudflare 域名合集
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax_All.list,Domestic // Chaine Rules
