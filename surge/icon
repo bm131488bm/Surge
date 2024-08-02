@@ -1,0 +1,42 @@
+{
+  "name": "GIF",
+  "description": "GIF图标订阅",
+  "icons": [
+    {
+      "name": "afghanistan",
+      "url": "https://raw.githubusercontent.com/Toperlock/Quantumult/blob/main/icon/FlagGif/afghanistan.gif"
+    },
+    {
+      "name": "albania",
+      "url": "https://github.com/Toperlock/Quantumult/blob/main/icon/FlagGif/albania.gif"
+    },
+    {
+      "name": "hong-kong",
+      "url": "https://github.com/Toperlock/Quantumult/blob/main/icon/FlagGif/hong-kong.gif"
+    },
+    {
+      "name": "new-zealand",
+      "url": "https://github.com/Toperlock/Quantumult/blob/main/icon/FlagGif/new-zealand.gif"
+    },
+    {
+      "name": "south-korea",
+      "url": "https://github.com/Toperlock/Quantumult/blob/main/icon/FlagGif/south-korea.gif"
+    },
+    {
+      "name": "japan",
+      "url": "https://github.com/Toperlock/Quantumult/blob/main/icon/FlagGif/japan.gif"
+    },
+    {
+      "name": "taiwan",
+      "url": "https://github.com/Toperlock/Quantumult/blob/main/icon/FlagGif/taiwan.gif"
+    },
+    {
+      "name": "singapore",
+      "url": "https://github.com/Toperlock/Quantumult/blob/main/icon/FlagGif/singapore.gif"
+    },
+    {
+      "name": "united-states",
+      "url": "https://github.com/Toperlock/Quantumult/blob/main/icon/FlagGif/united-states.gif"
+    },
+  ]
+}
